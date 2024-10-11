@@ -1,0 +1,109 @@
+@startuml
+autonumber
+
+
+participant ":FloorComponent" as FC
+participant ":UpdateFLoorMapComponent" as UFM
+participant ":Route" as FL
+participant ":FloorController" as CTRL
+participant ":FloorService" as SERV
+participant "FloorToUpdate: Floor" as FLOOR
+participant ":FloorRepository" as REPO
+participant "FloorMap : FloorDto" as DTOMAP
+participant ":FloorDTO" as DTO
+participant ":FloorMApaDTO" as DTOMAPA
+
+
+database Database
+
+activate FC
+FC -> UFM :showUpdateMapForm  = true
+deactivate FC
+
+activate UFM
+UFM -> UFM : loadBuildings()
+
+UFM --> FL : GET building
+activate FL
+    note right: US-170 SD \n to obtain buildings \n from the router
+FL --> UFM : buildingsList
+deactivate FL
+UFM -> UFM : loadFloors()
+
+UFM --> FL : GET floors
+activate FL
+    note right: US-210SD \n to obtain floors \n from the router
+FL --> UFM : buildingsList
+deactivate FL
+
+UFM -> UFM : onFileSelected()
+
+UFM -> UFM : onSubmitForm()
+
+UFM -> FL : PATCH Mapa
+activate FL
+FL -> CTRL : uploadMap(req , res, next)
+activate CTRL
+CTRL -> DTO : floorDTO=create()
+CTRL -> DTOMAP : :floorMapaDTO=create()
+CTRL -> SERV : uploadMap(FloorDTO,floorMapDTO)
+activate SERV
+alt
+SERV -> REPO : findByDomainId(floorDTO.id)
+
+activate REPO
+REPO -> Database : read(floor)
+activate Database
+return
+return(null)
+deactivate REPO
+SERV -->  CTRL: error ("floor not found")
+
+return error ("floor not found")
+deactivate Database
+FL --> UFM  : error ("floor not found")
+deactivate CTRL
+
+deactivate SERV
+
+
+
+
+else
+
+activate REPO
+REPO -> SERV :  floorToupdate = floor
+deactivate REPO
+activate SERV
+end alt
+
+
+SERV -> FLOOR: uploadMap(map)
+
+activate FLOOR
+return floorUpd
+deactivate FLOOR
+SERV -> REPO : Save(floorUpd)
+activate REPO
+
+REPO -> Database : write(floorUpd)
+activate Database
+return floorSaved
+deactivate Database
+REPO --> SERV : floorSaved
+deactivate REPO
+SERV --> DTOMAP : toDTO(floorSaved)
+activate DTOMAP
+DTOMAP -> DTO : floorDTO=create()
+activate DTO
+return
+deactivate DTO
+DTOMAP --> SERV : floorDTO
+deactivate DTOMAP
+SERV --> CTRL : floorDTO
+deactivate SERV
+CTRL --> FL : floorDTO
+FL --> UFM : floorDTO
+deactivate UFM
+
+@enduml

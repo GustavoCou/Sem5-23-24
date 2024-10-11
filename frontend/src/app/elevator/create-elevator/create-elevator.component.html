@@ -1,0 +1,82 @@
+<p-toast></p-toast>
+<div class="my-2">
+
+    <div class="form-container">
+        <!--  <div *ngIf="floors.length > 1">-->
+        <h2>Informações do Novo Elevador</h2>
+        <form [formGroup]="elevatorForm">
+            <div>
+                <div class="d-flex gap-2">
+
+                    <input type="text" class="form-control" placeholder="Elevator Id*" aria-describedby="basic-addon1"
+                        formControlName="elevatorId" type="text" />
+
+
+                    <select class="form-control" formControlName="buildingId" (change)="onBuildingChange()">
+                        <option value="" disabled selected>Building ID*</option>
+                        <option *ngFor="let building of buildings" [value]="building.id">{{ building.id }}</option>
+                    </select>
+
+                </div>
+            </div>
+            <div class="my-2">
+                <div class="d-flex gap-2">
+                    <input type="text" class="form-control" placeholder="Elevator Brand" aria-describedby="basic-addon1"
+                        formControlName="elevatorBrand" type="text" />
+
+                    <input type="text" class="form-control" placeholder="Elevator Model" aria-describedby="basic-addon1"
+                        formControlName="elevatorModel" type="text" />
+                </div>
+            </div>
+            <div class="my-2">
+                <div class="d-flex gap-2">
+                    <input type="text" class="form-control" placeholder="Elevator Description"
+                        aria-describedby="basic-addon1" formControlName="elevatorDescription" />
+
+                    <input type="number" class="form-control" placeholder="Elevator Serial No"
+                        aria-describedby="basic-addon1" formControlName="elevatorSerialNumber" />
+                </div>
+            </div>
+            <div class="my-2">
+                <div class="d-flex gap-2">
+                    <input type="text" class="form-control" placeholder="Elevator Position X*"
+                        aria-describedby="basic-addon1" formControlName="elevatorPosX" type="number" />
+
+                    <input type="text" class="form-control" placeholder="Elevator Position Y*"
+                        aria-describedby="basic-addon1" formControlName="elevatorPosY" type="number" />
+                </div>
+            </div>
+            <div class="my-2">
+                <div class="d-flex gap-2">
+                    <div *ngFor="let el of floorIds; let i = index">
+                        <select class="form-control" [(ngModel)]="el.id" [ngModelOptions]="{ standalone: true }">
+                            <option value="" disabled selected>Select Floor ID*</option>
+                            <option *ngFor="let floor of floors" [value]="floor.id">{{ floor.id }}</option>
+                        </select>
+                        <button (click)="onRemoveFloorId(i)" class="btn btn-danger">X</button>
+                    </div>
+                </div>
+                <button (click)="onAddFloorId()" class="btn btn-info">Add Floor Id</button>
+            </div>
+
+
+            <span class="text-danger text-center d-flex justify-content-center" *ngIf="!isFormValid">Por favor preencha
+                os campos obrigatórios</span>
+            <div class="d-flex justify-content-center my-3">
+                <button (click)="onSubmitForm()" class="w-25 btn btn-success">
+                    CriarElevador
+
+                </button>
+                <button class="back-button" (click)="goBack()">Voltar</button>
+            </div>
+        </form>
+        <!--  </div>-->
+
+        <!-- Mensagem quando não houver edificios disponíveis 
+        <div *ngIf="floors.length <= 1" class="no-floors-message">
+            Não há edificios com pisos disponíveis para adicionar um elevador. -->
+
+    </div>
+</div>
+
+<!--</div>-->

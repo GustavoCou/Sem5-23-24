@@ -1,0 +1,27 @@
+<div class="elevator-list">
+    <h2>Listar Elevadores</h2>
+    <div class="white-box">
+
+        <div class="inputbox">
+            <label for="building-select">Edificio</label>
+            <select id="building-select" [(ngModel)]="selectedBuildingId" (change)="fetchElevatorList()">
+                <option value="" selected>Selecionar</option>
+                <option *ngFor="let b of buildingList" [value]="b.id">{{ b.name }}</option>
+            </select>
+        </div>
+
+        <ul>
+            <li *ngFor="let elevator of elevatorList">
+                <h2>{{ elevator.elevatorId }}</h2>
+                <h3>Descrição: {{ elevator.elevatorDescription }}</h3>
+                <p>Marca: {{ elevator.elevatorBrand }}</p>
+                <p>Modelo: {{ elevator.elevatorModel }}</p>
+                <p>Número de Série: {{ elevator.elevatorSerialNumber }}</p>
+            </li>
+        </ul>
+
+        <div class="button-container">
+            <!-- Back button to hide the form -->
+            <button id="BackButton" type="button" (click)="goBack()" style="background-color: #333; color: white; margin-right: 10px;">Voltar</button>
+        </div>
+    </div>

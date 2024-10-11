@@ -1,0 +1,110 @@
+/* Estilo geral da lista */
+ul {
+    list-style-type: none;
+    padding: 10px;
+    margin-top: 500px;
+    max-height: 90vh;
+    overflow-y: auto;
+    width: 100%;
+    box-sizing: border-box;
+
+}
+
+li {
+    border: 1px solid #ddd;
+    margin-top: -1px;
+    background-color: #f6f6f6;
+    padding: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Estilo dos botões */
+button {
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+}
+
+/* Botão de Aprovar */
+button.approve {
+    background-color: #f1e8e8;
+    color: black;
+    border: 2px solid #4caf50;
+    /* Verde */
+}
+
+button.approve:hover {
+    background-color: #4CAF50;
+    color: white;
+}
+
+/* Botão de Rejeitar */
+button.reject {
+    background-color: #f1e8e8;
+    color: black;
+    border: 2px solid #f44336;
+    /* Vermelho */
+}
+
+button.reject:hover {
+    background-color: #f44336;
+    color: white;
+}
+
+/* Estilização adicional para responsividade ou temas pode ser adicionada aqui */
+
+.user-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* Alinha verticalmente os itens no centro */
+    padding: 10px;
+    border: 1px solid #ddd;
+    /* Apenas para visualização */
+    margin-bottom: 10px;
+    /* Espaço entre os itens da lista */
+}
+
+.user-details {
+    flex-grow: 1;
+    padding-top: 10px;
+    color: black;
+    /* Permite que o conteúdo cresça para ocupar o espaço disponível */
+}
+
+.user-actions {
+    display: flex;
+    gap: 10px;
+    margin-left: 30px;
+}
+
+.approve,
+.reject {
+    width: auto;
+    /* Define a largura dos botões para o conteúdo */
+}
+
+
+.user-item div {
+    margin-bottom: 5px;
+    /* Espaçamento entre os 'divs' dentro do 'li' */
+}
+
+.user-item:first-child {
+    margin-top: 20px;
+    /* Ajuste o valor conforme necessário */
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+
+    /* Isso empilha os filhos verticalmente */
+}

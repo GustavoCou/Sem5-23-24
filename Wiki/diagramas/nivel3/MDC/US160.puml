@@ -1,0 +1,81 @@
+@startuml
+autonumber
+participant ":BuildingComponent" as BC
+participant ":EditBuildingComponent" as EB
+participant ":Route" as BLDG
+participant ":BuildingController" as CTRL
+participant ":BuildingDTO" as DTO
+participant ":BuildingService" as SERV
+participant ":buildingToUpdate: Building " as BUILDING
+participant ":BuildingRepository" as REPO
+participant "BuildingMap" as DTOMAP
+database Database
+
+activate BC
+ BC -> BC : resetShow()
+
+ BC -> EB : showEditBuilding= true
+ deactivate BC
+activate EB
+EB -> EB:  onSubmitForm()
+EB -> EB:  prepareData()
+
+EB -> BLDG : PUT/PACH Building (id,name description,size)
+activate BLDG
+
+BLDG -> CTRL : updateBuilding(req, res, next)
+activate CTRL
+CTRL -> DTO: buildingDTO=create()
+activate DTO
+return
+deactivate DTO
+CTRL -> SERV : updateBuilding(buildingDTO)
+activate SERV
+alt
+SERV -> REPO : findById(buildingDTO.id)
+activate REPO
+REPO -> Database: read(building)
+return return(null)
+return error ("building not found")
+ CTRL --> BLDG : error ("building not found")
+return  error ("building not found")
+else
+
+activate REPO
+REPO -> Database: read(building)
+REPO -> SERV :  buildingToUpdate = building
+
+deactivate REPO
+activate SERV
+end alt
+
+
+SERV --> BUILDING : setName(buildingDTO.name)
+activate BUILDING
+deactivate BUILDING
+SERV --> BUILDING : setDescription(buildingDTO.description)
+activate BUILDING
+deactivate BUILDING
+SERV --> BUILDING : setSize(buildingDTO.size)
+activate BUILDING
+deactivate BUILDING
+
+SERV --> REPO :save(buildingToUpdate)
+
+activate REPO
+REPO -> Database: writeData(building)
+return buildingSaved
+deactivate REPO
+
+SERV -->  DTOMAP : toDTO(buildingSaved)
+activate DTOMAP
+
+return buildingSavedDTO :
+deactivate DTOMAP
+SERV --> CTRL :
+deactivate SERV
+CTRL --> BLDG :
+BLDG --> EB : Success
+deactivate EB
+
+@enduml

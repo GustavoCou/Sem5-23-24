@@ -1,0 +1,15 @@
+<p-toast></p-toast>
+<div class="export-data-form">
+    <form (ngSubmit)="downloadUserData()" #userDataForm="ngForm">
+        <div class="form-group">
+            <label for="userId">Email para verificação:</label>
+            <input type="text" id="userId" [(ngModel)]="userId" name="userId" required #userIdInput="ngModel">
+        </div>
+        <button type="submit" class="btn btn-primary">Download cópia dos dados</button>
+
+
+        <div *ngIf="submitted && userIdInput.invalid" class="error-message">
+            confirme o seu email para obter uma cópia dos seus dados pessoais
+        </div>
+    </form>
+</div>

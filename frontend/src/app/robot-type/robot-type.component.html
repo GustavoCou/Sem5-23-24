@@ -1,0 +1,57 @@
+<!-- floor.component.html -->
+
+<body class="body">
+    <!-- Toolbar -->
+    <div class="toolbar" role="banner">
+      <img width="185" alt="RobDroneGo Logo" src="/assets/Logo.png" />
+      <span>Bem-vindo ao RobDroneGo</span>
+      <img class="logoIsep" alt="ISEP Logo" src="/assets/LogoIsep_SFundo.png">
+      <img class="logoDei" alt="DEI Logo" src="/assets/DeiLogo_SFundo.png">
+    </div>
+
+    <div class="content">
+      <div>
+        <button id="CreateRobotTypeButton" type="button" (click)="showCreateRobotType = true;" *ngIf="!showCreateRobotType" class="option-button">
+          Criar Tipo de Robo
+        </button>
+      </div>
+      
+      <div *ngIf="showCreateRobotType" class="form-container">
+        <div class="white-box">
+          <div class="inputbox">
+            <label for="new-robotType">Tipo de Robô</label>
+            <input type="text" required="required" id="new-robotType" #id />
+          </div>
+          <div class="inputbox">
+            <label for="new-robotModel">Modelo do Robo</label>
+            <input type="text" required="required" id="new-robotModel" #robotModel />
+          </div>
+          <div class="inputbox">
+            <label for="new-brand">Marca do Robo</label>
+            <input type="text" required="required" id="new-brand" #brand />
+          </div>
+          <label for="new-tasks">Tarefas disponíveis do Robo</label>
+          <select id="new-tasks" required="required" #tasks>
+            <option value="Vigilância">Vigilância</option>
+            <option value="Pickup & Delivery">Pickup & Delivery</option>
+          </select>
+          <div class="button-container">
+            <!-- Back button to hide the form -->
+            <button id="BackCreateButton" type="button" (click)="showCreateRobotType = false" style="background-color: #333; color: white; margin-right: 10px;">
+              Retroceder
+            </button>
+
+            <!-- Create Floor button -->
+            <button id="CreateRobotTypeSubmitButton" type="button" (click)="createRobotType(id.value, robotModel.value, brand.value, tasks.value);" style="background-color: rgba(255, 38, 0, 0.832); color: white;">
+              Criar Tipo de Robo
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  <div class="content bottom-right" *ngIf="!showCreateRobotType">
+    <button id="BackToMenu" type="button" (click)="backToMenu()">
+      Voltar Menu Principal</button>
+  </div>
+</body>

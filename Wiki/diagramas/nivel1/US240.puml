@@ -1,0 +1,18 @@
+
+
+@startuml
+autonumber
+actor "Gestor de Campus"
+
+
+
+"Gestor de Campus" -> "<<System (C4)>>\n RobDroneGo" : faz pedido para criar passagem
+
+"<<System (C4)>>\n RobDroneGo"  --> "Gestor de Campus"  : solicita os dados para criar a passagem
+
+"Gestor de Campus" -> "<<System (C4)>>\n RobDroneGo" : envia os dados para criar a passagem
+
+"<<System (C4)>>\n RobDroneGo"  --> "Gestor de Campus"   : mostra o sucesso na criacao da passagem
+
+
+@enduml

@@ -1,0 +1,15 @@
+<ul>
+  <li *ngFor="let task of taskAprove" class="task-item">
+      <div class="task-details">
+          <div><strong>Requerente:</strong>{{ task.requesterUser}}</div>
+          <div><strong>Id requisição:</strong>{{ task.id }}</div>
+          <div><strong>Robot requisitado:</strong>{{ task.robot }}</div>
+          <div><strong>Id task a executar:</strong>{{ task.task }}</div>
+          <div><strong>Data da requisição:</strong>{{ task.date }}</div>
+      </div>
+  </li>
+</ul>
+
+<div class="content bottom-right">
+  <button id="BackToMenu" type="button" (click)="goBack()">Voltar ao Menu da Tarefa</button>
+</div>

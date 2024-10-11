@@ -1,0 +1,296 @@
+<!-- app.component.html -->
+
+<body class="body">
+  <!-- Toolbar -->
+  <div class="toolbar" role="banner">
+    <img width="185" alt="RobDroneGo Logo" src="/assets/Logo.png" />
+    <span>Bem-vindo ao RobDroneGo</span>
+    <img class="logoIsep" alt="ISEP Logo" src="/assets/LogoIsep_SFundo.png">
+    <img class="logoDei" alt="DEI Logo" src="/assets/DeiLogo_SFundo.png">
+  </div>
+
+  <div class="content">
+    <div class="form-container" style="color: black; max-width: 800px; width: 80%; margin-top: 50px; padding: 20px;">
+      <h1>Política de Privacidade de Dados - RobDroneGo, S.A.</h1>
+
+      <div style="text-align: right;">
+        <p>Em vigor a partir de Dezembro de 2023</p>
+        <p>Última atualização em Dezembro de 2023</p>
+      </div>
+
+      <h3>Enquadramento</h3>
+      <p>A presente Política de Privacidade estabelece o compormisso da RobDroneGo, S.A. com os seus utilizadores, em matéria de proteção de
+        dados pessoais, visando reforçar e consolidar a sua relação de confiança e proximidade. Assim, de maneira a perceber que informações
+        são recolhidas e como são utilizadas a RobDroneGo, S.A., entidade privada com sede no Porto,
+        aconselha a leitura desta Política de Privacidade que visa explicar as nossas práticas no que diz respeito à privacidade dos seus dados.
+        Para além disso a RobDroneGo compromete-se a proteger a privacidade dos seus utilizadores durante a interação com os serviços oferecidos
+        pelo projeto. Esta Política de Privacidade visa informar como as informações, incluindo imagens captadas para fins de vigilância,
+        são recolhidas, utilizadas e protegidas. Criamos este serviço de forma a cumprir a legislação de proteção de dados pessoais
+        em vigor no Regulamento da União Europeia 2016/679 (Regulamento Geral sobre a Proteção de Dados - RGPD) e da legislação de
+        proteção de dados aplicadas em Portugal.</p>
+      <p>A RobDroneGo é uma aplicação que pretende permitir a gestão de uma frota de <i>robots</i> que podem executar tarefas de vigilância ou
+        limpeza do corredor, bem como ter acesso a uma sala/gabinete para buscar/entregar um item.</p>
+      <p>Para além disso, auxilia os diferentes utilizadores a realizarem de maneira simples e rápida o seu trabalho, como gestores de frota,
+        gestores de <i>campus</i>, administrador de sistemas, gestores de tarefas e gestores de utilizadores tendo em conta as funcionalidades específicas
+        relacionadas com o cargo de cada um.
+      </p>
+      <br>
+
+      <h3 (click)="toggleContent('recollection')" class="clickable-title">
+        Que dados recolhemos?
+        <span class="arrow-icon">&#9660;</span>
+      </h3>
+      <div id="recollection" [ngStyle]="{'display': contentVisible === 'recollection' ? 'block' : 'none'}">
+        <p>Durante a interação com a plataforma e as demais operações da RobDroneGo, podem ser recolhidos dados pessoais,
+          incluindo imagens captadas pelos <i>robots</i> para fins de vigilância e evitamento de colisões. Estas imagens podem conter informações
+          sobre os utilizadores e o ambiente circundadente. Para além disso, é necessário ter uma conta de utilizador. Para essa conta
+          é necessário a recolha de dados como, nome, endereço de <i>email</i>, contacto telefónico, número mecanográfico,
+          endereço de IP, localização, número de contribuinte, nome de utilizador e palavra-passe. Informações cruciais para o correto funcionamento do sistema.</p>
+        <p>Para o registo do utilizador, o mesmo terá de consentir a recolha de dados pessoais necessários para o sistema. O consetimento do
+          titular dos dados passa a ser dado mediante um ato positivo claro que indique uma manifestação de vontade livre,
+          específica, informada e inequívoca. O consetimento deverá ser dado para todas as finalidades do tratamento de dados pessoais.</p>
+        <p>A RobDroneGo, S.A. compromete-se a manter a segurança e privacidade dos dados fornecidos.</p>
+      </div>
+
+      <h3 (click)="toggleContent('categoria')" class="clickable-title">
+        Categoria dos dados pessoais que tratamos
+        <span class="arrow-icon">&#9660;</span>
+      </h3>
+      <div id="categoria" [ngStyle]="{'display': contentVisible === 'categoria' ? 'block' : 'none'}">
+        O novo Regulamento Geral de Proteção de Dados estabelece uma definição mais abrangete do conceito de dados pessoais.
+        Um dado pessoal é qualquer informação capaz de identificar uma pessoa, de forma inequívoca e independente da sua natureza e suporte em que se apresente.
+        São exemplos de categorias de dados pessoais tratados pela RobDroneGo, S.A.
+        <table class="data-table">
+          <thead>
+            <th>Categorias de dados pessoais</th>
+            <th>Exemplos</th>
+          </thead>
+          <tbody>
+            <tr>
+              <td><b>Dados de identificação</b></td>
+              <td>Nome, NIF (Número de Contribuinte), Número Mecanográfico, localização, endereço de IP</td>
+            </tr>
+            <tr>
+              <td><b>Dados de contacto</b></td>
+              <td>Número de telefone e telemóvel, endereço de correio eletrónico e morada (localidade, código postal, país, distrito, concelho, freguesia).</td>
+            </tr>
+            <tr>
+              <td><b>Videovigilância</b></td>
+              <td>Captação de imagens através de sistema de videovigilância dos <i>robots</i></td>
+            </tr>
+            <tr>
+              <td><b>Relação com a RobDroneGo, S.A.</b></td>
+              <td>Histórico de serviços que requisitou e pesquisou</td>
+            </tr>
+            <tr>
+              <td><b>Perfil</b></td>
+              <td>Interesses e preferências, na sua relação com a RobDroneGo</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 (click)="toggleContent('tratamento')" class="clickable-title">
+        Identificação e Tratamento de Dados Pessoais
+        <span class="arrow-icon">&#9660;</span>
+      </h3>
+      <div id="tratamento" [ngStyle]="{'display': contentVisible === 'tratamento' ? 'block' : 'none'}">
+        <p>Conforme previsto nos artigos 4°, 5° e 6° do RGPD e na lei n.⁰58/2019, de 8 de agosto, o
+          objetivo é garantir a conformidade com os princípios fundamentais estabelecidos pelo RGPD.</p>
+        <p><strong>1.	Princípio da licitude</strong> - Comprometemo-nos a realizar o tratamento dos
+          dados de forma a respeitar a Lei Geral e o RGPD, assegurando que todas as práticas estão em
+          conformidade com as normas legais aplicáveis.</p>
+        <p><strong>2.	Princípio da lealdade</strong> - A recolha de dados será conduzida de forma
+          lícita, leal e transparente, especialmente durante a criação de utilizadores no sistema RobDroneGo,
+          utilização do modo de vigilância e evitar colisões.</p>
+        <p><strong>3.	Princípio da transparência</strong> - Procuramos garantir uma comunicação clara
+          sobre como os dados serão tratados, oferecendo aos utilizadores uma compreensão transparente
+          das práticas adotadas.</p>
+        <p><strong>4.	Princípio da finalidade</strong> - Os dados serão recolhidos para atender às
+          finalidades específicas de cada user story, assegurando que a recolha seja determinada,
+          explícita e legítima.</p>
+        <p><strong>5.	Princípio da minimização dos dados</strong> - Comprometemo-nos a recolher
+          apenas os dados essenciais para a criação de utilizadores da plataforma RobDroneGo e
+          para o sistema de videovigilência.</p>
+        <p><strong>6.	Princípio da exatidão</strong> - Atualizaremos os dados dos utilizadores
+          conforme necessário, mantendo a exatidão das informações e garantindo o correto acesso ao
+          sistema.</p>
+        <p><strong>7.	Princípio da limitação da conservação</strong> - Conservamos os dados
+          apenas pelo tempo necessário ao funcionamento da aplicação e para as finalidades
+          específicas para os quais foram recolhidos.</p>
+        <p><strong>8.	Princípio da integridade e confidencialidade</strong> - Serão implementadas
+          medidas para garantir que os dados sejam tratados com segurança, protegendo-os contra
+          tratamento não autorizado ou perda acidental.</p>
+        <p><strong>9.	Princípio da responsabilidade</strong> - A RobDroneGo compromete-se a ser
+          responsável pelo cumprimento de todos os princípios mencionados anteriormente,
+          garantindo a segurança e integridade dos dados dos utilizadores.</p>
+        <p>Destacamos que o tratamento dos dados será realizado exclusivamente para as áreas
+          específicas de gestão de dispositivos, requisição de tarefas e planeamento de execução
+          de tarefas, em conformidade com os requisitos das <i>user stories</i> e necessidades do cliente
+          e utilizadores.</p>
+        <p>O tratamento legal para o tratamento dos dados, artigo 6⁰, baseia-se no consentimento
+          dos utilizadores ao se registarem no sistema RobDroneGo. Além disso, o interesse do titular
+          dos dados está associado ao acesso às funcionalidades específicas do sistema, tornando o tratamento
+          uma condição essencial para a utilização do serviço.</p>
+        <p>Para garantir o cumprimento do tratamento baseado no consentimento, artigo 7⁰e 8⁰, durante o
+          registo dos utilizadores, apresentaremos explicitamente um pedido de consentimento. Isso incluirá
+          a aceitação da política de privacidade do projeto e dos termos de utilização dos serviços oferecidos.</p>
+        <p>Até à presente data, não ocorreu qualquer tratamento dos dados pessoais. No caso de futuras alterações
+          neste cenário, os titulares dos dados serão informados para que possam exercer os seus direitos. Se ocorrerem
+          alterações e não existir resposta por parte dos titulares, no prazo de um mês após a comunicação da alteração,
+          será considerado como indeferido. Isto resultará na anonimização dos dados do utilizador para garantir que não
+          são utilizados sem o devido consentimento.</p>
+      </div>
+
+      <h3 (click)="toggleContent('purpose')" class="clickable-title">
+        Para que finalidade são tratados os seus dados pessoais?
+        <span class="arrow-icon">&#9660;</span>
+      </h3>
+      <div id="purpose" [ngStyle]="{'display': contentVisible === 'purpose' ? 'block' : 'none'}">
+      <p>A RobDroneGo assume o compromisso e a responsabilidade de apenas tratar os seus dados pessoais estritamente
+        necessários para cada funcionalidade do sistema, referente às operações do RobDroneGo, a saber:</p>
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Finalidade</th>
+            <th>Dados Utilizados</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>Imagens captadas pelos <i>robots</i> para vigilância e colisões -</b> Assegurar a segurança e a eficácia das
+                operações dos utilizadores nos corredores e espaço onde circulam os <i>robots</i>, de forma a evitar e prevenir
+                acidentes e também com o objetivo de monitorar as tarefas desempenhadas pelos <i>robots</i> (tarefas de
+                vigilância e de <i>pick-up and delivery</i>). As imagens capturadas são usadas para identificar obstáculos aos
+                <i>robots</i> na execução das suas tarefas e garantir a navegação segura dos <i>robots</i>. As imagens irão conter
+                visualizações do ambiente circundante onde circula o <i>robot</i>, ou seja, captura de imagens de pessoas
+                singulares e objetos, mas são estritamente utilizadas para fins de segurança e execução das referidas
+                tarefas</td>
+            <td>Imagens do ambiente que contêm objetos e imagens de pessoas singulares que se cruzem com os <i>robots</i> ao
+                longo da execução das suas tarefas.</td>
+          </tr>
+          <tr>
+            <td><b>Criação de Contas de Utilizador -</b> palavra-passe e <i>email</i> são utilizados para assegurar e garantir uma
+                conta segura, permitindo o acesso e autenticação no sistema.
+                Nome e contacto telefónico são utilizados em caso de ser necessário estabelecer uma comunicação telefónica com
+                o utilizador do sistema. É também utilizado para comunicações ou resoluções de problemas no desempenho das
+                tarefas dos <i>robots</i> para as tarefas de <i>pickup and delivery</i> ou de vigilância.
+
+                Nome, email, contacto telefónico, número mecanográfico, número de contribuinte, função, palavra-passe
+                utilizados para criar uma conta de utilizador.
+
+                Função: utilizada para personalizar e permitir o acesso às diferentes funcionalidades para as quais o
+                utilizador com determinada função esta autorizado a realizar.
+            </td>
+            <td>Nome, email, contacto telefónico, número mecanográfico, número de contribuinte, função, palavra-passe.
+            </td>
+          </tr>
+          <tr>
+            <td><b>Marketing e Publicidade -</b> Para comunicação de <i>upgrades</i> da aplicação, informações sobre o sistema ou
+                novas funcionalidades e campanhas relacionadas ao RobDroneGo serão utilizados os dados de <i>email</i>, nome e
+                contacto telefónico. Os dados coletados podem ser utilizados para enviar informações personalizadas e
+                relevantes ao utilizador (novos serviços e atualizações ao serviço já existente). Esta comunicação é
+                feita com o consentimento explícito do utilizador antes de se registar na página do RobDroneGo. No entanto,
+                poderá, a qualquer momento, retirar a indicação de receber este tipo de comunicações enviando um email
+                com essa ordem expressa para <a href="mailto:robdronego@isep.ipp.pt"
+                style="color: blue;">robdronego@isep.ipp.pt</a>.</td>
+            <td>Email, nome e contacto telefónico</td>
+          </tr>
+          <tr>
+            <td><b>Cumprimento de obrigações fiscais -</b> Nome e número de contribuinte são utilizados para manter os dados
+                de transação pelo período obrigatório por lei.</td>
+            <td> Nome e número de contribuinte</td>
+          </tr>
+        </tbody>
+      </table>
+      </div>
+
+      <h3 (click)="toggleContent('conservation')" class="clickable-title">
+        Durante quanto tempo são conservados os seus dados pessoais?
+        <span class="arrow-icon">&#9660;</span>
+      </h3>
+      <div id="conservation" [ngStyle]="{'display': contentVisible === 'conservation' ? 'block' : 'none'}">
+      <p>Os dados pessoais (Nome, email, contacto telefónico, número mecanográfico, número de contribuinte, função,
+          palavra-passe) são conservados durante o período necessário para cumprir com as finalidades mencionadas
+          anteriormente, dentro dos limites legais, e enquanto houver vinculo entre o utilizador e a RobDroneGo, durante um período
+          máximo de um ano.
+          Terminado este prazo, a RobDroneGo compromete-se a eliminar e a destruir os seus dados pessoais.
+          No que diz à captação de imagens mencionada anteriormente, apenas são conservadas as imagens recolhidas
+          durante o período em que o <i>robot</i> executa as tarefas de <i>pickup and delivery</i> ou de vigilância. Terminada a tarefa
+          a executar as imagens serão eliminadas e destruídas.
+      </p>
+      </div>
+
+      <h3 (click)="toggleContent('direitos')" class="clickable-title">
+        Direitos do Titular dos dados
+        <span class="arrow-icon">&#9660;</span>
+      </h3>
+      <div id="direitos" [ngStyle]="{'display': contentVisible === 'direitos' ? 'block' : 'none'}">
+        <p>Em conformidade com o decreto de lei e regulamento do RGPD, referidos no artigo 12°
+          do RGPD, estabelecido na lei n.°58/2019 o titular de dados pessoais tem os seguintes
+          direitos:</p>
+        <ul>
+          <li><strong>Direito à transparência</strong> - O direito à transparência reporta-nos aos princípios do
+            tratamento equitativo e transparente que exigem que o titular dos dados seja informado da operação de tratamento
+            de dados e das suas finalidades.</li>
+          <li><strong>Direito à informação (artigo 13° e 14°, do RGPD)</strong> - As informações sobre o tratamento de dados pessoais relativos ao
+            titular dos dados deverão ser a este fornecidas no momento da sua recolha junto do mesmo ou, no caso destes
+            terem sido obtidos a partir de outra fonte, dentro de um prazo razoável, consoante as circunstâncias. Tem direito a obter informação clara,
+            transparente e compreensível sobre a forma como usamos os seus dados pessoais.</li>
+          <li><strong>Direito de acesso (artigo 13° e 14°, do RGPD)</strong> - Em complemento ao direito de informação, os titulares dos dados deverão
+            ter o direito a aceder aos dados pessoais recolhidos que lhes digam respeito e de exercer esse direito com facilidade e em intervalos razoáveis,
+            a fim de conhecer e verificar a sua licitude. O direito de acesso não é, contudo, ilimitado, tendo o mesmo que ser articulado com a legislação
+            de proteção de dados (podendo, por isso, ser rejeitado quando, por exemplo, o acesso possa prejudicar direitos e liberdades de terceiros),
+            neste caso, aplicam-se as imagens vigilância.</li>
+          <li><strong>Direito de retificação (artigo 16°, do RGPD)</strong> - direito de obter, sem demora injustificada,
+            a retificação dos dados pessoais inexatos e a completar dados incompletos. Apenas pode exercer este direito em
+            relação aos dados objetivos e que tenha sido o próprio titular dos dados a disponibilizar.</li>
+          <li><strong>Direito do apagamento (artigo 16°, 17°, 18°, 19° e 20° do RGPD)</strong> - O titular tem o direito de obter do responsável pelo tratamento o
+            apagamento dos seus dados pessoais, sem demora injustificada, e este tem a obrigação de apagar os dados pessoais,
+            sem demora injustificada. No entanto, este direito, tal como os demais, não é absoluto.</li>
+          <li><strong>Direito à limitação de tratamento</strong> - O titular dos dados tem o direito de obter do responsável
+            pelo tratamento à limitação do tratamento, em situações específicas.</li>
+          <li><strong>Direito de portabilidade</strong> - O novo Regulamento traz consigo a novidade do direito à portabilidade
+            dos dados, sendo que o titular dos dados tem o direito de receber os dados pessoais que lhe digam respeito e que
+            tenha fornecido a um responsável pelo tratamento num formato estruturado, de uso corrente e de leitura automática,
+            e o direito de transmitir esses dados a outro responsável pelo tratamento.</li>
+          <li><strong>Direito de oposição</strong> - O titular dos dados tem o direito de se opor a qualquer momento, por motivos
+            relacionados com a sua situação particular, ao tratamento dos dados pessoais que lhe digam respeito.</li>
+          <li><strong>Direito à não sujeição a decisões automatizadas</strong> - O titular dos dados tem o direito de não ficar
+            sujeito a nenhuma decisão tomada exclusivamente com base no tratamento automatizado, incluindo a definição de perfis,
+            que produza efeitos na sua esfera jurídica ou que o afete significativamente de forma similar.</li>
+          <li><strong>Direito de, a qualquer momento, retirar o seu consentimento para o tratamento de dados</strong> - Pode retirar
+            o seu consentimento ao tratamento de dados quando o referido tratamento for baseado no seu consentimento. A retirada de
+            consentimento não afeta a legalidade do tratamento baseado no consentimento antes da respetiva retirada.</li>
+          <li><strong>Direito de apresentar uma queixa junto da CNPD</strong> - Caso considere que o tratamento dos seus dados pessoais
+            realizado pela RoDroneGo viola a legislação de proteção de dados aplicável poderá apresentar reclamação perante a Comissão
+            Nacional de Proteção de Dados.</li>
+        </ul>
+        <p>Nos casos em que tenha prestado consentimento para determinado tratamento de dados pessoais, poderá retirá-lo a
+          qualquer momento. Para exercer qualquer um dos seus direitos, deverá fazê-lo entrando em contacto com a
+          RobDroneGo, S.A., através do endereço de email <a href="mailto:robdronego@isep.ipp.pt"
+            style="color: blue;">robdronego@isep.ipp.pt</a>, informando o motivo do contacto e o direito que pretende
+          exercer no assunto do email. A RobDroneGo procederá à análise cuidada do pedido, avaliando a sua legitimidade e
+          pertinência, comprometendo-se a dar resposta em tempo oportuno, um prazo de 30 dias úteis. A legitimidade e
+          pertinência do pedido será confirmada através da solicitação do envio de uma cópia ou imagem de um documento de
+          identificação válido.
+          Caso necessite, o titular de dados pessoais poderá, ainda, apresentar uma reclamação junto da Comissão Nacional
+          de Proteção de Dados ou através da <a href="https://www.cnpd.pt/cidadaos/participacoes/">Comissão Nacional de
+            Proteção de Dados</a>.</p>
+        <p>Lembramos que estes direitos, como quaisquer outros, deverão ser exercidos de forma razoável e de boa-fé pelo
+          seu titular. Se os pedidos para o exercício dos seus direitos forem manifestamente infundados ou excessivos, por
+          exemplo, se solicitar informações de forma injustificada e repetida ou abusar do direito a receber informações,
+          nomeadamente prestando informações falsas ou suscetíveis de induzir em erro, reservamo-nos o direito de cobrar
+          uma taxa razoável tendo em consideração o custo administrativo do fornecimento de informação ou de não dar
+          seguimento ao seu pedido.</p>
+      </div>
+
+      <br>
+    </div>
+  </div>
+
+  <div class="content bottom-right">
+    <button id="BackToMenu" type="button" (click)="backToMenu()">
+      Voltar ao Menu Principal</button>
+  </div>
+</body>

@@ -1,0 +1,28 @@
+
+<body class="body">
+
+    <div class="form-container">
+        <h2>Informações do Novo Edifício</h2>
+        <form  [formGroup]="formBuilding">
+          <label for="id">ID:</label>
+          <input type="text" formControlName="id"  >
+    
+          <label for="name">Nome:</label>
+          <input type="text" formControlName="name"  >
+    
+          <label for="description">Descrição:</label>
+          <textarea  formControlName="description" rows="3" ></textarea>
+    
+          <label for="width">Largura (Width):</label>
+          <input type="number" formControlName="width" >
+    
+          <label for="depth">Profundidade (Depth):</label>
+          <input type="number" formControlName="depth" >
+    
+          <button id="btnCriarEdificio" type="submit" (click)=" onSubmitForm()">Criar Edifício</button>
+          
+          <button class="back-button" (click)="goBack()">Voltar</button>
+        </form>
+      </div>  
+</body>
+

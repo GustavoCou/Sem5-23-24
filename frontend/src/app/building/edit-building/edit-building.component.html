@@ -1,0 +1,40 @@
+<body class="body">
+
+    <div class="form-container">
+        <h2>Editar Edifício</h2>
+        <form [formGroup]="formBuilding">
+          
+    
+           <label for="id">ID:</label>
+           <input type="text" formControlName="id" [readonly]="checksDisabled"  >
+        
+          <div class="checkbox-input">
+            <input type="checkbox" id="nameCheckbox" [checked]="!isNameDisabled" [disabled]="checksDisabled" (change)="toggleReadonly('name')">
+            <label for="name">Nome:</label>
+            <input type="text" formControlName="name" [readonly]="isNameDisabled">
+          </div>
+
+          <div class="checkbox-input">
+            <input type="checkbox" id="descriptionCheckbox" [checked]="!isDescriptionDisabled" [disabled]="checksDisabled" (change)="toggleReadonly('description')">
+            <label for="description">Descrição:</label>
+            <input type="text" formControlName="description" rows="3" [readonly]="isDescriptionDisabled">
+          </div>
+
+          <div class="checkbox-input">
+            <input type="checkbox" id="widthCheckbox" [checked]="!isWidthDisabled" [disabled]="checksDisabled" (change)="toggleReadonly('width')">
+            <label for="width">Largura (Width):</label>
+            <input type="number" formControlName="width" [readonly]="isWidthDisabled">
+          </div>
+
+          <div class="checkbox-input">
+            <input type="checkbox" id="depthCheckbox" [checked]="!isDepthDisabled" [disabled]="checksDisabled" (change)="toggleReadonly('depth')">
+            <label for="depth">Profundidade (Depth):</label>
+            <input type="number" formControlName="depth" [readonly]="isDepthDisabled">
+          </div>
+    
+          <button id= "btnEditarEdificio" type="submit" (click)="onSubmitForm()">Editar Edifício</button>
+          
+          <button class="back-button" (click)="goBack()">Voltar</button>
+        </form>
+    </div>
+</body>

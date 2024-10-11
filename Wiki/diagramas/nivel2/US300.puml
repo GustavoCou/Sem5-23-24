@@ -1,0 +1,35 @@
+@startuml
+autonumber
+actor "Gestor de Campus" as GC
+
+participant "<<System (C4)>>\n SPA/Frontend" as SPA
+participant "<<System (C4)>>\n MDC" as MDC
+
+activate GC
+GC -> SPA : Iniciar o processo de listar pisos servidos por elevador de edificio
+activate SPA
+SPA --> GC : Solicitar o edíficio que pretende listar os dados 
+deactivate SPA
+
+GC -> SPA : Selecciona o edifício pretendido
+activate SPA
+SPA -> MDC : GET loadBuildings()
+activate MDC
+MDC -> MDC : getBuildings()
+MDC --> SPA : lista de edifícios (JSON)
+deactivate MDC
+SPA --> GC : Solicitar a confirmação dos dados 
+deactivate SPA
+
+GC -> SPA : Confirma os dados
+activate SPA
+SPA -> MDC : GET getFloorsServed()
+activate MDC
+MDC --> MDC : getFloorsBuildingElevator(buildingId)
+MDC --> SPA : lista de elevadores e pisos(JSON)
+deactivate MDC
+SPA --> GC : Apresenta a informação solicitada e informa o sucesso da operação
+deactivate SPA
+deactivate GC
+
+@enduml

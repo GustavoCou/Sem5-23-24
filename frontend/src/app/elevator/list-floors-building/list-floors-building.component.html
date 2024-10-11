@@ -1,0 +1,52 @@
+<!-- list-floors-building.component.html -->
+
+<body class="body">
+  <!-- Toolbar -->
+  <div class="toolbar" role="banner">
+    <img width="185" alt="RobDroneGo Logo" src="/assets/Logo.png" />
+    <span>Bem-vindo ao RobDroneGo 😃</span>
+    <img class="logoIsep" alt="ISEP Logo" src="/assets/LogoIsep_SFundo.png">
+    <img class="logoDei" alt="DEI Logo" src="/assets/DeiLogo_SFundo.png">
+  </div>
+
+  <div class="content">
+    <div *ngIf="showForm" class="form-container">
+      <div class="white-box">
+        <div class="inputbox">
+          <label for="building-select">Edifício Pretendido</label>
+          <select id="building-select" required [(ngModel)]="buildingId" (change)="getFloorsServed()">
+            <option value="" selected>Selecionar</option>
+            <option *ngFor="let b of buildingsList" [value]="b.id">{{ b.name }}</option>
+          </select>
+        </div>
+      </div>
+      <div class="button-container">
+        <!-- List Floors Building Elevator button -->
+        <button id="list-floors-building" type="button" (click)="getFloorsServed();"
+          style="background-color: rgba(255, 38, 0, 0.832); color: white;">
+          Listar Pisos de Edifício <br> servidos por Elevador/es
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Exibir os resultados -->
+  <div class="content">
+    <div *ngIf="showForm">
+      <ng-container *ngIf="elevatorList && elevatorList.length > 0">
+        <div class="form-container-result">
+          <ng-container *ngFor="let elevator of elevatorList">
+            <b>Id do Elevador: {{ elevator.elevatorId }}</b>
+            <ul>
+              <pre>{{ elevator | json }}</pre>
+            </ul>
+          </ng-container>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+
+  <div class="content bottom-right">
+    <button id="BackToMenu" type="button" (click)="backToMenu()">Voltar ao Menu do Elevador</button>
+  </div>
+</body>

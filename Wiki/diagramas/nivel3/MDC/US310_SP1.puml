@@ -1,0 +1,48 @@
+@startuml
+autonumber
+
+participant ":System" as SY
+participant ":API" as API
+participant ":RoomController" as CTRL
+participant ":RoomService" as SERV
+participant ":room: Room" as ROOM
+participant ":RoomRepository" as REPO
+participant ":FloorRepository" as FREPO
+
+activate SY
+    SY -> API : POST Room
+    activate API
+        API -> CTRL : createRoom(roomDTO)
+        activate CTRL
+            CTRL -> SERV : CreateRoom(roomDTO)
+                activate SERV
+                    SERV -> FREPO : findByDomainId(roomDTO.floor)
+                    activate FREPO
+                        alt "Floor not found"
+                            FREPO -> SERV : null
+                            SERV -> CTRL : fail
+                            CTRL -> API : error response
+                            API -> SY : error
+                        end
+                        FREPO -> SERV : floor
+                    deactivate FREPO
+                    SERV -> ROOM : create()
+                        activate ROOM
+                            alt "Error creating Room"
+                                ROOM --> SERV : fail
+                                SERV --> CTRL : fail
+                                CTRL --> API : error reponse
+                                API --> SY : error
+                            end
+                            ROOM --> SERV : room
+                        deactivate ROOM
+                    SERV -> REPO : save(room)
+                    activate REPO
+                    deactivate REPO
+                    SERV -> CTRL : ok
+                deactivate SERV
+                CTRL --> API : success response
+                API --> SY : success
+deactivate SY
+
+@enduml

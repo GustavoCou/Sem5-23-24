@@ -1,0 +1,21 @@
+
+<body class="body">
+
+  <div class="building-list">
+    <h2>Lista de Edificios</h2>
+    
+    <ul>
+      <!-- Iterar sobre a lista de edificios -->
+      <li *ngFor="let building of buildingList">
+        <h2>{{ building.id }}</h2>
+        <h3>Nome: {{ building.name }}</h3>
+        <p> Descripção: {{ building.description }}</p>
+        <p>Largura: {{ building.width }} m Profundidade: {{ building.depth }} m</p>
+      </li>
+    </ul>
+    
+    <!-- Botão de voltar -->
+    <button class="back-button" (click)="goBack()">Voltar</button>
+  </div>
+
+</body>

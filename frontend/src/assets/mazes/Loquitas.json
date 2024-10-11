@@ -1,0 +1,25 @@
+{
+  "groundTextureUrl": "../assets/textures/ground.jpg",
+  "wallTextureUrl": "../assets/textures/wall.jpg",
+  "doorTextureUrl": "../assets/textures/door.jpg",
+  "wallElevatorTextureUrl": "../assets/textures/interior.jpg",
+  "floorElevatorUrl": "../assets/textures/FlooriElevator.jpg",
+  "doorElevatorTextureUrl": "../assets/textures/elevatorDoor.jpg",
+  "roofTextureUrl": "../assets/textures/roof.jpg",
+  "roofBridgeTextureUrl": "../assets/textures/roofBridge.jpg",
+  "bridgeTexture": "../assets/textures/glass.jpg",
+  "bridgeDoorTexture": "../assets/textures/glass2.jpg",
+  "groundBridgeTexture": "../assets/textures/groundBridge.jpg",
+  "size": { "width": 11, "height": 5 },
+  "map": [
+    [3,2, 3, 2, 3, 2, 3, 2, 3, 2, 9, 1],
+    [1,0, 1, 0, 1, 0, 1, 0, 7, 2, 0, 1],
+    [1,0, 6, 5, 5, 2, 5, 2, 0, 0, 0, 1],
+    [3,2, 2, 5, 7, 2, 7, 2, 1, 0, 0, 1],
+    [1,0, 0, 0, 1, 0, 1, 0, 7, 2, 2, 1],
+    [2,2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0] 
+  ],
+  "initialPosition": [3, 10],
+  "initialDirection": 180.0,
+  "exitLocation": [-0.5, 6]
+}

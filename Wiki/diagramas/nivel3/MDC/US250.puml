@@ -1,0 +1,78 @@
+@startuml
+
+BridgeComponent -> EditBridgeComponent : Activate/EditBridgeComponent
+EditBridgeComponent -> EditBridgeComponent : ngOnInit()
+
+' Vai buscar os buildings
+EditBridgeComponent -> HttpRequestsService : getBuildings()
+HttpRequestsService -> Router : GET /building/list
+Router -> BuildingController : listBuildings()
+BuildingController -> BuildingService : getAllBuildings()
+BuildingService -> BuildingRepo : listAll()
+BuildingRepo -> BuildingSchema : find()
+BuildingSchema --> BuildingRepo : buildingDocs[]
+BuildingRepo --> BuildingService : buildings[]
+BuildingService --> BuildingController : buildings[]
+BuildingController --> Router : buildings[]
+Router --> HttpRequestsService : buildings[]
+HttpRequestsService --> EditBridgeComponent : buildings[]
+
+' Vai buscar as pontes
+EditBridgeComponent -> HttpRequestsService : getBridge(bridgeId)
+HttpRequestsService -> Router : GET /bridge/:bridgeId
+Router -> BridgeController : getBridge(req, res)
+BridgeController -> BridgeService : getBridge(bridgeId)
+BridgeService -> BridgeRepo : findById(bridgeId)
+BridgeRepo -> BridgeSchema : findOne(bridgeId)
+BridgeSchema --> BridgeRepo : bridgeDoc
+BridgeRepo -> BridgeMap : toDomain(bridgeDoc)
+BridgeMap --> BridgeRepo : bridge
+BridgeRepo --> BridgeService : bridge
+BridgeService --> BridgeController : bridgeDTO
+BridgeController --> Router : bridgeDTO
+Router --> HttpRequestsService : bridgeDTO
+HttpRequestsService --> EditBridgeComponent : bridgeDTO
+
+'faz pedido de edição
+EditBridgeComponent -> EditBridgeComponent : prepareData()
+EditBridgeComponent -> Dto : Converts form data to BridgeDTO
+Dto --> EditBridgeComponent : bridgeDTO
+EditBridgeComponent -> HttpRequestsService : PUT /bridge/:bridgeId
+HttpRequestsService -> Router : PUT /bridge/:bridgeId
+Router -> BridgeController : updateBridge(req, res, next)
+
+' atualiza a ponte backend
+BridgeController -> BridgeService : updateBridge(bridgeDTO)
+BridgeService -> BridgeRepo : findAndGiveBridge(bridgeDTO.bridgeId)
+BridgeRepo --> BridgeSchema : findOne(bridgeDTO.bridgeId)
+BridgeSchema --> BridgeRepo : bridgeDoc
+BridgeRepo -> BridgeMap : toDomain(bridgeDoc)
+BridgeMap --> BridgeRepo : bridge
+
+BridgeService -> FloorRepo : sameBuilding(bridgeDTO.floorIdX, bridgeDTO.floorIdY)
+FloorRepo --> BridgeService : boolean
+
+BridgeService -> BridgeRepo : bridgeBetweenFloors(bridgeDTO.floorIdX, bridgeDTO.floorIdY)
+BridgeRepo --> BridgeService : boolean
+
+BridgeService -> FloorRepo : getFloorId(bridgeDTO.floorIdX, bridgeDTO.floorIdY)
+FloorRepo --> BridgeService : boolean
+
+BridgeService -> BuildingRepo : getBuildingByFloor(bridgeDTO.floorIdX, bridgeDTO.floorIdY)
+BuildingRepo --> BridgeService : buildings[]
+
+BridgeService -> BridgeRepo : updateOne(bridgeDTO)
+BridgeRepo -> BridgeMap : toPersistence(bridgeDTO)
+BridgeMap --> BridgeRepo : bridgePersistenceModel
+BridgeRepo -> BridgeSchema : updateOne(bridgeId, bridgePersistenceModel)
+BridgeSchema --> BridgeRepo : updatedBridgeDoc
+BridgeRepo -> BridgeMap : toDomain(updatedBridgeDoc)
+BridgeMap --> BridgeRepo : updatedBridge
+BridgeRepo --> BridgeService : updatedBridge
+BridgeService --> BridgeController : updatedBridgeDTO
+BridgeController --> Router : updatedBridgeDTO
+Router --> HttpRequestsService : response
+HttpRequestsService --> EditBridgeComponent : Display Response
+
+
+@enduml

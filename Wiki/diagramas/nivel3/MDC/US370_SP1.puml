@@ -1,0 +1,62 @@
+@startuml
+
+participant "Express App (express.ts)" as expressApp
+participant "RobotRoute" as route
+participant "RobotController" as controller
+participant "RobotService" as service
+participant "Robot (Domain Model)" as robot
+participant "RobotMap" as mapper
+participant "RobotRepo" as repo
+participant "Robot Persistence (MongoDB Schema)" as persistence
+database "MongoDB" as db
+
+expressApp -> route : PATCH Request (inhibit robot)
+activate route
+
+route -> controller : Delegate request
+deactivate route
+activate controller
+
+controller -> service : inhibitRobot(robotId, status)
+deactivate controller
+activate service
+
+service -> robot : Set Inhibition Status
+deactivate service
+activate robot
+robot --> service : Robot instance / Error
+deactivate robot
+activate service
+
+alt Inhibition successful
+    service -> repo : update(robot)
+    deactivate service
+    activate repo
+    repo -> mapper : toPersistence(robot)
+    deactivate repo
+    activate mapper
+    mapper -> db : Update Robot
+    deactivate mapper
+    activate db
+    db --> mapper : Success Confirmation
+    deactivate db
+    activate mapper
+    mapper --> repo : Robot Updated
+    deactivate mapper
+    activate repo
+    repo --> service : Success Confirmation
+    deactivate repo
+    activate service
+    service --> controller : Inhibition Success
+    deactivate service
+    activate controller
+else Inhibition failed
+    service --> controller : Error Message
+    activate service
+end
+deactivate service
+
+controller --> expressApp : HTTP Response (Success/Error)
+deactivate controller
+
+@enduml

@@ -1,0 +1,20 @@
+@startuml
+autonumber
+actor "Administrador"
+
+' Referência ao diagrama anterior
+note over "Administrador", "<<System (C4)>>\n RobDroneGo"
+  ver Diagrama LogIn(representa interaçao anterior)
+end note
+
+"Administrador" -> "<<System (C4)>>\n RobDroneGo" : faz pedido para listar utentes pendentes de aceitação
+
+"<<System (C4)>>\n RobDroneGo" --> "Administrador" : mostra a lista de utentes com estado pendente
+
+"Administrador" -> "<<System (C4)>>\n RobDroneGo" : aceita/recusa pedido
+
+"<<System (C4)>>\n RobDroneGo" --> "Administrador" : notifica o sucesso da operação
+
+
+
+@enduml

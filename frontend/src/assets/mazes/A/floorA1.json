@@ -1,0 +1,48 @@
+{
+  "groundTextureUrl": "../assets/textures/ground.jpg",
+  "wallTextureUrl": "../assets/textures/wall.jpg",
+  "doorTextureUrl": "../assets/textures/door.jpg",
+  "wallElevatorTextureUrl": "../assets/textures/interior.jpg",
+  "floorElevatorUrl": "../assets/textures/FlooriElevator.jpg",
+  "doorElevatorTextureUrl": "../assets/textures/elevatorDoor.jpg",
+  "roofTextureUrl": "../assets/textures/roof.jpg",
+  "roofBridgeTextureUrl": "../assets/textures/roofBridge.jpg",
+  "bridgeTexture": "../assets/textures/glass.jpg",
+  "bridgeDoorTexture": "../assets/textures/glass2.jpg",
+  "groundBridgeTexture": "../assets/textures/groundBridge.jpg",
+  "size": {
+    "width": 10,
+    "height": 5
+  },
+  "map": [
+    [3, 2, 2, 2, 3, 2, 3, 2, 3, 9, 1],
+    [1, 0, 0, 0, 3, 5, 2, 5, 5, 0, 1],
+    [1, 0, 0, 0, 4, 0, 0, 0, 0, 0, 1],
+    [1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1],
+    [1, 0, 0, 0, 3, 2, 1, 0, 3, 2, 1],
+    [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0]
+  ],
+  "initialPosition": [
+    4,
+    1
+  ],
+  "initialDirection": 0.0,
+  "elevatorExit": [
+    0,
+    9
+  ],
+  "elevatorFloors": [
+    {
+      "piso": 2,
+      "nome": "Piso a2",
+      "filePath": 2
+    }
+  ],
+  "bridgesPoint": [
+  ],
+ 
+  "exitLocation": [
+    -0.5,
+    6
+  ]
+}

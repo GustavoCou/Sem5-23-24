@@ -1,0 +1,90 @@
+
+
+
+@startuml
+autonumber
+actor  "Utente" as UTENTE
+participant ":TaskComponent" as TC
+participant ":CreateTaskComponent" as CreateTask
+participant ":TaskViewModel" as TaskModel
+participant "TaskMap" as TaskMAP
+participant ":TaskDTO" as TaskDTO
+participant ":TaskRequestService" as SERVICE
+participant "TaskRequestMap" as TaskRMAP
+participant ":TaskRequestDTO" as TaskRDTO
+participant ":TaskAPI" as BLDG
+
+
+activate UTENTE
+note over UTENTE
+  ver Diagrama LogInN3(representa interaçao anterior)
+end note
+
+
+UTENTE -> TC : Iniciar o processo de requsisitar tarefa
+activate TC
+
+
+TC -> TC : resetShow()
+
+TC -> CreateTask : showCreateTask= true
+
+deactivate TC
+
+activate CreateTask
+
+CreateTask -> CreateTask : loadBuildings()
+
+CreateTask  --> UTENTE : Solicitar os dados necessário
+
+deactivate CreateTask
+
+UTENTE -> CreateTask  : Introduzir os dados solicitados
+activate CreateTask
+
+
+
+CreateTask -> CreateTask:  onSubmitForm()
+
+alt if Task Type == Security task
+CreateTask -> TaskModel : task=createSecurityTask(formBuilder)
+
+else  Task Type == Pick Up Delivery task
+
+CreateTask -> TaskModel : task=createPickupDeliveryTask(formBuilder)
+
+ end alt
+
+CreateTask -> TaskMAP : taskDTO= toDTO(Task)
+activate TaskMAP
+TaskMAP -> TaskDTO :create
+TaskMAP -->  CreateTask
+deactivate TaskMAP
+
+
+CreateTask -> SERVICE : createTask(taskDTO)
+activate SERVICE
+
+SERVICE -> BLDG : POST Task (taskDTO)
+activate BLDG
+
+return JSON
+    note right:  US 460_TaskAPI SD
+
+deactivate BLDG
+
+SERVICE -> TaskRMAP : taskRequestkDTO= toDTO(JSON)
+activate TaskRMAP
+TaskRMAP -> TaskRDTO :create
+TaskRMAP -->  SERVICE :taskRequestkDTO
+deactivate TaskRMAP
+
+
+SERVICE --> CreateTask :taskRequestkDTO
+deactivate SERVICE
+CreateTask  --> UTENTE : Informa o sucesso da operação
+
+
+deactivate CreateTask
+
+@enduml

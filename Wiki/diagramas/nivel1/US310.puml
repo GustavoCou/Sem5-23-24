@@ -1,0 +1,23 @@
+@startuml
+autonumber
+actor "Gestor de Campus" as GC
+activate GC
+
+GC -> "<<System (C4)>>\n RobDroneGo" : Iniciar o processo para criar uma sala de piso de edificio
+activate "<<System (C4)>>\n RobDroneGo"
+"<<System (C4)>>\n RobDroneGo" --> GC : Solicitar os dados necessários para criar uma sala
+deactivate "<<System (C4)>>\n RobDroneGo"
+
+GC -> "<<System (C4)>>\n RobDroneGo" : Inserir os dados da nova sala
+activate "<<System (C4)>>\n RobDroneGo"
+"<<System (C4)>>\n RobDroneGo" --> GC : Pedir a confirmação
+deactivate "<<System (C4)>>\n RobDroneGo"
+
+GC -> "<<System (C4)>>\n RobDroneGo" : Confirmar os dados
+activate "<<System (C4)>>\n RobDroneGo"
+"<<System (C4)>>\n RobDroneGo" --> GC : Informar o sucesso da operação
+deactivate "<<System (C4)>>\n RobDroneGo"
+
+deactivate GC
+
+@enduml

@@ -1,0 +1,23 @@
+@startuml
+
+actor "Fleet Manager" as manager
+
+participant "<<System (C4)>>\n RobDroneGo" as system
+
+manager -> system: Initiate "Create Robot" use case
+activate system
+
+
+
+system --> manager: Ask for robot data
+deactivate system
+manager -> system: Provide robot data
+activate system
+
+
+
+system -> manager: Display success or failure message
+deactivate system
+
+@enduml
+

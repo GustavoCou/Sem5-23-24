@@ -1,0 +1,37 @@
+@startuml
+skinparam componentStyle uml2
+
+' Define components as circles
+() "UI Campus" as UIC
+() "API Campus" as APIC
+() "UI Fleet" as UIF
+() "API Fleet" as APIF
+() "UI Visualization 3D" as UI3D
+
+
+
+' Define main system component
+component "RobDroneGo" <<component>><<C4_System>> {
+    ' Define nested components within the system
+    component "       <<component>>\n    Task Management" as TM
+    component "       <<component>>\n    Fleet Management" as FM
+    component "          <<component>>\n    Campus Management" as CM
+    component "      <<component>>\n    Planning(ALGAV)" as PL
+    component "            <<component>>\n     Visualization 3D(SGRAI)" as VIS3D
+    component "      <<component>>\n    User Management" as UM
+
+}
+UIC -down- CM
+APIC -down- CM
+UI3D -down- VIS3D
+UIF -up- FM
+APIF -up- FM
+CM -right- PL 
+FM -right- TM 
+TM -down- PL 
+PL -down- FM
+
+
+' Layout direction
+left to right direction
+@enduml

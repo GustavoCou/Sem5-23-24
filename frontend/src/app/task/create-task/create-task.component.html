@@ -1,0 +1,116 @@
+<div class="task-form-container">
+
+
+  <div class="form-container">
+
+    <label> Tarefa:</label>
+    <button id="security-button" class="task-type-button" (click)="selectedTaskType = 'securityTask'">Tarefa Vigilancia</button>
+    <button id="pickup-button" class="task-type-button" (click)="selectedTaskType = 'pickupDeliveryTask'">Tarefa Pickup Delivery</button>
+
+
+    <div class ="taskType" *ngIf="selectedTaskType === 'securityTask'">
+      <form  [formGroup]="formSecTask">
+        <div class="inputbox">
+          <label for="robot" >Robô (Code/Nickname)</label>
+          <input  type="text" formControlName="robot" />
+        </div>
+
+
+        <div class="inputbox">
+          <label for="building">Edificio Code</label>
+          <select id="building-select" formControlName="building" (change)="loadFloors()">
+
+            <option *ngFor="let b of buildings" [value]="b.id">{{ b.name }}</option>
+          </select>
+
+
+          <div class="inputbox">
+            <label for="floors">Pisos</label>
+            <select id="floor-select" multiple formControlName="floors">
+              <option *ngFor="let floor of floors" [value]="floor.id">
+                {{ floor.id }}
+              </option>
+            </select>
+          </div>
+
+        </div>
+
+        <div class="inputbox">
+          <label for="emContactName" >Nome do Contato de Emergência</label>
+          <input formControlName="emContactName" name="emergency-contact-name"/>
+        </div>
+
+        <div class="inputbox">
+          <label for="emContactPhone">Telefone do Contato de Emergência</label>
+          <input   type="number" formControlName="emContactPhone" pattern="\d*" name="emergency-contact-phone"/>
+        </div>
+      </form>
+      <button id="submitSecurityTask" (click)="onSubmit()">Submeter</button>
+      <button id="BackSecurityButton" type="button" (click)="goBack()" style="background-color: #333; color: white; margin-right: 10px;">
+        Voltar
+      </button>
+
+    </div>
+
+    <div class ="taskType" *ngIf="selectedTaskType === 'pickupDeliveryTask'">
+
+      <form  [formGroup]="formPickUpDeliveryTask">
+
+        <div class="inputbox">
+          <div class="column">
+            <label for="robot">Robô (Code/Nickname):</label>
+            <input formControlName="robot" name="robot"/>
+          </div>
+
+          <div class="column">
+            <label for="pickupRoom">Sala/Gabinete do Emitente:</label>
+            <input formControlName="pickupRoom" name="pickupRoom"/>
+          </div>
+
+          <div class="column">
+            <label for="deliveryRoom">Sala/Gabinete do Receptor :</label>
+            <input formControlName="deliveryRoom" name="deliveryRoom"/>
+          </div>
+
+          <div class="column">
+            <label for="pickupContactName">Nome do Contato Emitente:</label>
+            <input formControlName="pickupContactName" name="pickupContactName"/>
+          </div>
+
+          <div class="column">
+            <label for="pickupContactPhone">Telefone do Contato de Emitente:</label>
+            <input type="number" pattern="\d*"  formControlName="pickupContactPhone" name="pickupContactPhone"/>
+          </div>
+
+          <div class="column">
+            <label for="deliveryContactName">Nome do Contato de Receptor:</label>
+            <input formControlName="deliveryContactName" name="deliveryContactName"/>
+          </div>
+
+          <div class="column">
+            <label for="deliveryContactPhone">Telefone do Contato de Receptor:</label>
+            <input type="number" pattern="\d*" formControlName="deliveryContactPhone" name="deliveryContactPhone"/>
+          </div>
+
+          <div class="column">
+            <label  for="validationCode"> Código de Confirmação:</label>
+            <input formControlName="validationCode" name="confirmationCode"/>
+          </div>
+
+          <div class="column">
+            <label for="descriptionDelivery">Descrição de Envio:</label>
+            <textarea formControlName="descriptionDelivery" name="descriptionDelivery"></textarea>
+          </div>
+        </div>
+
+
+      </form>
+      <button id="submitPickUpTask" (click)="onSubmit()">Submeter</button>
+      <button id="BackPickUpButton" type="button" (click)="goBack()" style="background-color: #333; color: white; margin-right: 10px;">
+        Voltar
+      </button>
+    </div>
+
+
+  </div>
+</div>

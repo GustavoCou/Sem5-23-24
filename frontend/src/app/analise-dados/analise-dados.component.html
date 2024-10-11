@@ -1,0 +1,48 @@
+<body class="body">
+    <div class="toolbar" role="banner">
+        <img width="185" alt="RobDroneGo Logo" src="/assets/Logo.png" />
+
+        <span>Bem-vindo ao RobDroneGo</span>
+
+        <img class="logoIsep" alt="ISEP Logo" src="/assets/LogoIsep_SFundo.png">
+        <img class="logoDei" alt="DEI Logo" src="/assets/DeiLogo_SFundo.png">
+    </div>
+
+    <div class="message-box">
+        <div class="message-box-inner">
+            <h1>Análise de Dados</h1>
+        </div>
+    </div>
+
+    <form #userlogin="ngForm" (ngSubmit)="onClickSubmit(userlogin.value)">
+        <div class="content center">
+            <div class="selection">
+                <h2 style="color: black">Origem</h2>
+                <input type="text" placeholder="Piso" name="origin_floor" ngModel>
+                <input type="number" placeholder="Célula (x)" name="origin_x" ngModel>
+                <input type="number" placeholder="Célula (y)" name="origin_y" ngModel>
+            </div>
+
+            <div class="selection">
+                <h2 style="color: black">Destino</h2>
+                <input type="text" placeholder="Piso" name="target_floor" ngModel>
+                <input type="number" placeholder="Célula (x)" name="target_x" ngModel>
+                <input type="number" placeholder="Célula (y)" name="target_y" ngModel>
+            </div>
+
+            <input type="submit" value="Calcular">
+        </div>
+    </form>
+
+    <div class="bestPath">
+        <div *ngFor="let item of bestPath; last as isLast">
+                <span style="color:black; padding: 5px;">{{item.type}}</span>
+                <span style="color:black; padding: 5px;">{{item.args}}</span>
+            <img *ngIf="!isLast" src="../../assets/black-arrow.png" width="80" height="20">
+        </div>
+    </div>
+
+    <div class="content bottom-right">
+        <button id="BackToMenu" type="button" (click)="backToMenu()">Voltar ao Menu Principal</button>
+    </div>
+</body>

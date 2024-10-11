@@ -1,0 +1,79 @@
+@startuml
+autonumber
+
+participant ":System" as SY
+participant ":RobotTypeComponent (Angular)" as RC
+participant ":RobotTypeService (Angular)" as RS
+
+participant ":RobotTypeRoute" as RT
+participant ":RobotTypeController" as CTRL
+participant ":RobotTypeService" as SERV
+participant ":RobotTypeRepository" as REPO
+participant ":robotType: RobotType" as ROBOTTYPE
+participant ":RobotTypeDto" as DTO
+participant ":RobotTypeSchema" as SCHEMA
+participant ":RobotTypeMap" as MAP
+
+activate SY
+SY -> RC : POST createRobotType(id, robotModel, brand, tasks)
+activate RC
+RC -> RS : createRobotType(id, robotModel, brand, tasks)
+activate RS
+RS -> RT : POST createRobotType(id, robotModel, brand, tasks)
+activate RT
+RT -> CTRL : createRobotType(id, robotModel, brand, tasks)
+activate CTRL
+CTRL -> SERV : createRobotType(dto)
+activate SERV
+SERV -> REPO : findByDomainId()
+activate REPO
+REPO -> SCHEMA : findOne()
+activate SCHEMA
+deactivate SCHEMA
+REPO -> MAP : toDomain()
+activate MAP
+MAP --> REPO : robotType[]
+deactivate MAP
+REPO --> SERV : robotType[]
+deactivate REPO
+SERV -> ROBOTTYPE : create(dto)
+activate ROBOTTYPE
+alt "Erro na criação do tipo de robô"
+ROBOTTYPE --> SERV : error
+SERV --> CTRL : error
+CTRL --> RT : error
+RT --> SY : error
+end
+ROBOTTYPE --> SERV : robotType[]
+deactivate ROBOTTYPE
+SERV -> REPO : save(robotType)
+activate REPO
+REPO -> MAP : toPersistence(robotType)
+activate MAP
+MAP --> REPO : robotType[]
+deactivate MAP
+REPO -> SCHEMA : create(rawRobotType)
+activate SCHEMA
+deactivate SCHEMA
+REPO -> MAP : toDomain()
+activate MAP
+MAP --> REPO : robotType[]
+deactivate MAP
+deactivate REPO
+SERV -> DTO : toDTO(robotType)
+activate DTO
+DTO --> SERV : dto
+deactivate DTO
+SERV --> CTRL : Success
+deactivate SERV
+CTRL --> RT :Success
+deactivate CTRL
+RT --> RS : Success 
+deactivate RT
+RS --> RC : Success
+deactivate RS
+RC --> SY : Success
+deactivate RC
+deactivate SY
+
+@enduml

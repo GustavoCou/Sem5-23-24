@@ -1,0 +1,45 @@
+<body class="body">
+	<!-- Toolbar -->
+	<div class="toolbar" role="banner">
+		<img width="185" alt="RobDroneGo Logo" src="/assets/Logo.png" />
+
+
+		<span>Bem-vindo ao RobDroneGo</span>
+
+
+		<img class="logoIsep" alt="ISEP Logo" src="/assets/LogoIsep_SFundo.png">
+		<img class="logoDei" alt="DEI Logo" src="/assets/DeiLogo_SFundo.png">
+	</div>
+
+	<div class="message-box" *ngIf="!showCreateTask && !showListTask && !showListTaskOrder">
+		<div class="message-box-inner">
+			<h1>Gestão de Tarefas</h1>
+		</div>
+	</div>
+
+	<div class="button-container" *ngIf="!showCreateTask && !showListTask && !showListTaskApprove && !showFilteredTaskList && !showListTaskOrder">
+
+		<button id="btnCriarEdificio" class="option-button" (click)="resetShow();showCreateTask= true">Criar tarefa</button>
+		<button id="btnListarPendentes" class="option-button" (click)="resetShow();showListTask= true">Listar Requisições
+			Não
+			Aprovadas e Aprovar/Recusar Requisições</button>
+		<button id="btnListar" class="option-button" (click)="resetShow();showListTaskApprove= true">Listar Requisições
+			Aprovadas</button>
+		<button class="option-button" (click)="resetShow(); showFilteredTaskList = true">Listagem de Requisições</button>
+		<button id="btnCriarEdificio" class="option-button" (click)="resetShow();showListTaskOrder= true">Obter Sequência de
+			Tarefas</button>
+	</div>
+
+	<div class="workspace-container">
+		<app-create-task *ngIf="showCreateTask"></app-create-task>
+		<app-list-task-not-approved *ngIf="showListTask"></app-list-task-not-approved>
+		<app-filtered-task-list *ngIf="showFilteredTaskList"></app-filtered-task-list>
+		<app-status-task-approve *ngIf="showListTaskApprove"></app-status-task-approve>
+		<app-list-task-order *ngIf="showListTaskOrder"></app-list-task-order>
+	</div>
+	<div class="content bottom-right" *ngIf="!showCreateTask && !showListTask && !showListTaskApprove && !showFilteredTaskList && !showListTaskOrder">
+		<button id="BackToMenu" type="button" (click)="backToMenu()">
+			Voltar Menu Principal</button>
+	</div>
+
+</body>

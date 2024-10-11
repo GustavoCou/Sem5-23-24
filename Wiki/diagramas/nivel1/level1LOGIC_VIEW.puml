@@ -1,0 +1,32 @@
+
+@startuml
+skinparam packageStyle rect
+skinparam componentStyle uml2
+
+' Define components with circle shape
+() "UI Campus" as UIC
+() "API Campus" as APIC
+() "UI Frota" as UIF
+() "API Frota" as APIF
+() "UI Tarefa" as UIT
+() "API Tarefa" as APIT
+() "UI User" as UIU
+() "API User" as APIU
+
+
+' Define system boundary as a component
+component "RobDroneGo" << C4 system >>as RDG
+
+' Define relationships
+UIC -up- RDG
+APIC -up- RDG
+UIF -down- RDG
+APIF -down- RDG
+UIT -up- RDG
+APIT -down- RDG
+UIU -left- RDG
+APIU -right- RDG
+' Layout direction
+left to right direction
+
+@enduml

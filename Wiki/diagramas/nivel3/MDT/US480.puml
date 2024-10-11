@@ -1,0 +1,31 @@
+@startuml
+
+actor Gestor as "Gestor de Tarefas"
+' Referência ao diagrama anterior
+note over "Gestor"
+  ver Diagrama LogInN3(representa interaçao anterior)
+end note
+
+Gestor -> TaskComponent : showListTask()
+TaskComponent -> ListTaskNotApprovedComponent : ngOnInit()
+ListTaskNotApprovedComponent -> HttpRequestsTaskService : getRequest('task/pending')
+HttpRequestsTaskService -> TaskRequestController : listPendingTaskRequests(req, res, next)
+TaskRequestController -> TaskRequestService : listPendingTaskRequests()
+TaskRequestService -> TaskRequestRepo : findPendingRequest()
+TaskRequestRepo -> TaskRequestSchema : find({ status: TaskStatus.Pending })
+TaskRequestSchema -> TaskRequestRepo : pendingTasks[mongoose.Document]
+TaskRequestRepo -> TaskRequestMap : toDomain(pendingTasks)
+TaskRequestMap -> TaskRequestRepo : TaskRequest[]
+TaskRequestRepo -> TaskRequestService : return TaskRequest[]
+TaskRequestService -> TaskRequestMap : toDTO(TaskRequest)
+TaskRequestMap -> TaskRequestDTO : createDto
+TaskRequestDTO -> TaskRequestMap : return dto
+TaskRequestMap -> TaskRequestService : TaskRequestDTO[]
+TaskRequestService -> TaskRequestController : return taskRequests[TaskRequestDTO]
+TaskRequestController -> HttpRequestsTaskService : return taskRequestDTOs[TaskRequestDTO]
+HttpRequestsTaskService -> ListTaskNotApprovedComponent : taskRequestDTOs[TaskRequestDTO]
+ListTaskNotApprovedComponent -> RequestTaskMapper : toTaskModel(taskRequestDTO)
+RequestTaskMapper -> ListTaskNotApprovedComponent : requestTaskModel[]
+ListTaskNotApprovedComponent -> Gestor : Mostrar tarefas pendentes
+
+@enduml

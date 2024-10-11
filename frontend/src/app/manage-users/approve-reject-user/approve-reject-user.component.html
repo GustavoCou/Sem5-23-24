@@ -1,0 +1,15 @@
+<ul>
+    <li *ngFor="let utente of user" class="user-item">
+        <div class="user-details">
+            <div><strong>Nome utente:</strong>{{ utente.nomeCompleto }}</div>
+            <div><strong>Contacto:</strong>{{ utente.telefone }}</div>
+            <div><strong>Email:</strong>{{ utente.email }}</div>
+            <div><strong>Numero Mecanográfico:</strong>{{ utente.numMecanografico }}</div>
+            <div><strong>Numero Contribuinte:</strong>{{ utente.numeroContribuinte }}</div>
+        </div>
+        <div class="user-actions">
+            <button class="approve" (click)="approve(utente)">Aprovar</button>
+            <button class="reject" (click)="reject(utente)">Rejeitar</button>
+        </div>
+    </li>
+</ul>

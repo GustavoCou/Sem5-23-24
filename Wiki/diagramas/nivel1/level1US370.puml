@@ -1,0 +1,19 @@
+@startuml
+
+' Logical View
+actor "Fleet Manager" as manager
+participant "UI Layer" as ui
+participant "System" as system
+
+' Scenario (Use Case View)
+manager -> ui: Initiate "Create Robot" use case
+ui -> system: Request to create a robot
+alt Robot Creation Successful
+    system -> ui: Robot created successfully
+    ui -> manager: Display success message
+else Robot Creation Failed
+    system -> ui: Error in robot creation
+    ui -> manager: Display error message
+end
+
+@enduml

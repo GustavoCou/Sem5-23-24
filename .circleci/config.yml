@@ -1,0 +1,52 @@
+version: 2.1
+
+jobs:
+  build:
+    docker:
+      - image: cimg/node:18.18.0
+      - image: circleci/mongo:latest
+
+    working_directory: ~/repo
+
+    steps:
+      - checkout
+      - run:
+          name: Debug Info
+          command: |
+            ls -l
+            pwd
+          working_directory: ~/repo/backend
+
+      # Restore dependencies from cache (if available)
+      - restore_cache:
+          keys:
+            - dependency-cache-{{ checksum "backend/package.json" }}
+            # Fallback to using the latest cache if no exact match is found
+            - dependency-cache-
+
+      # Install Node.js dependencies
+      - run:
+          name: Install Dependencies
+          working_directory: ~/repo/backend
+          command: npm install
+          
+
+      # Cache dependencies for future builds
+      - save_cache:
+          key: dependency-cache-{{ checksum "backend/package.json" }}
+          paths:
+            - ./node_modules
+
+      # Run tests
+      - run:
+          name: Run Tests
+          working_directory: ~/repo/backend
+          command: npm test
+          
+
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - build:
+          name: Build Job

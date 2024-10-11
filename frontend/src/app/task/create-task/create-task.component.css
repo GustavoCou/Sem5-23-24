@@ -1,0 +1,85 @@
+.task-form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.task-type-button {
+  margin-right: 10px;
+}
+
+
+
+label {
+  margin-top: 10px;
+}
+
+.form-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+}
+.form-container taskType{
+  margin-right: 10px;
+}
+
+.form-container .column {
+  display: inline-block;
+  width: 48%; /* Ajusta el ancho según tus necesidades */
+  margin-right: 2%; /* Agrega un pequeño margen entre columnas */
+}
+
+/* Asegúrate de agregar un clearfix para manejar el diseño de cuadrícula */
+.form-container::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+.form-container .inputbox {
+  margin-bottom: 15px;
+}
+
+.form-container label {
+  display: block;
+  margin-bottom: 8px;
+  color: #333; /* Adjust text color if necessary */
+}
+
+.form-container input,
+.form-container select {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc; /* Add a border color */
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.form-container button {
+  background-color: rgb(255, 89, 0);
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.form-container button:hover {
+  background-color: rgb(255, 132, 0);
+}
+
+
+input,
+textarea,
+button {
+  margin-bottom: 15px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+

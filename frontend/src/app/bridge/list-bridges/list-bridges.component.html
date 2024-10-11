@@ -1,0 +1,79 @@
+<div class="form-container">
+
+    <h2>Listar Passagens</h2>
+
+    <select class="form-control2" [(ngModel)]="selectedBuildingId1" (ngModelChange)="onChangeBuildingId()">
+        <option value="" disabled selected>Selecione um Edifício</option>
+        <option *ngFor="let building of buildings" [value]="building.id">{{ building.id }}</option>
+    </select>
+
+    <!-- Selector for Second Building -->
+    <select class="form-control2" [(ngModel)]="selectedBuildingId2" (ngModelChange)="onChangeBuildingId()">
+        <option value="" disabled selected>Selecione um Edifício</option>
+        <option *ngFor="let building of buildings" [value]="building.id">{{ building.id }}</option>
+    </select>
+
+
+    <div class="d-flex gap-2 justify-content-start">
+        <button (click)="onGetAllBridges()" class="btn btn-success my-2 w-25">
+            Obter todas as passagens
+        </button>
+        <button (click)="onSubmitForm()" class="btn btn-info my-2 w-25">
+            Obter todas as passagens entre dois edificios
+        </button>
+        <div class="d-flex justify-content-center my-3">
+            <button class="back-button" (click)="goBack()">Voltar</button>
+        </div>
+    </div>
+
+    <div class="my-3">
+        <span *ngIf="!isFieldValid" class="text-sm text-danger">Deve introduzir o Id de dois Edificios</span>
+        <span *ngIf="displayMessage" class="text-sm text-danger">{{ displayMessage }}</span>
+    </div>
+
+
+
+
+
+
+
+    <div *ngIf="listData.length > 0" class="form-container2">
+        <h2>Lista de passagens</h2>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th scope="col">Bridge Id</th>
+                    <th scope="col">Floor X</th>
+                    <th scope="col">Floor Y</th>
+                    <th scope="col">Building X</th>
+                    <th scope="col">Building Y</th>
+                    <th scope="col">Bridge Position X (x,y)</th>
+                    <th scope="col">Bridge Position Y (x,y)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let el of listData">
+                    <th scope="row">{{ el.bridgeId }}</th>
+                    <td scope="row">{{ el.floorIdX }}</td>
+                    <td scope="row">{{ el.floorIdY }}</td>
+                    <td scope="row">{{ el.buildingX }}</td>
+                    <td scope="row">{{ el.buildingY }}</td>
+                    <td scope="row">
+                        {{ el.bridgePositionX.posX }},{{ el.bridgePositionX.posY }}
+                    </td>
+                    <td scope="row">
+                        {{ el.bridgePositionY.posX }},{{ el.bridgePositionY.posY }}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="d-flex justify-content-center my-3">
+            <button class="back-button" (click)="goBack()">Voltar</button>
+        </div>
+    </div>
+</div>
+
+
+<div class="d-flex justify-content-center my-3">
+    <button class="back-button" (click)="goBack()">Voltar</button>
+</div>

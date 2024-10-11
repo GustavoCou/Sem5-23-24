@@ -1,0 +1,55 @@
+@startuml
+
+BridgeComponent -> ListFloorsBridgeComponent : Activate/ListFloorsBridgeComponent
+ListFloorsBridgeComponent -> ListFloorsBridgeComponent : ngOnInit()
+
+ListFloorsBridgeComponent -> HttpRequestsService : getBuildings()
+HttpRequestsService -> Router : GET /building/list
+Router -> BuildingController : listBuildings()
+BuildingController -> BuildingService : getAllBuildings()
+BuildingService -> BuildingRepo : listAll()
+BuildingRepo -> BuildingSchema : find()
+BuildingSchema --> BuildingRepo : buildingDocs[]
+BuildingRepo --> BuildingService : buildings[]
+BuildingService --> BuildingController : buildings[]
+BuildingController --> Router : buildings[]
+Router --> HttpRequestsService : buildings[]
+HttpRequestsService --> ListFloorsBridgeComponent : buildings[]
+
+
+ListFloorsBridgeComponent -> HttpRequestsService : getRequest('floor/get')
+HttpRequestsService -> FloorController : GET /floor/get
+FloorController -> FloorService : getAllFloors()
+FloorService -> FloorRepo : listAll()
+FloorRepo -> FloorSchema : find()
+FloorSchema --> FloorRepo : floorDocs[]
+FloorRepo --> FloorService : floors[]
+FloorService --> FloorController : floors[]
+FloorController --> HttpRequestsService : floors[]
+HttpRequestsService --> ListFloorsBridgeComponent : floors[]
+
+ListFloorsBridgeComponent -> HttpRequestsService : getRequest('bridge/' + buildingId)
+HttpRequestsService -> Router : GET /bridge/:buildingX
+Router -> BridgeController : listFloorsWithBridge(req, res, next)
+
+BridgeController -> BridgeService : getAllFloorsWithBridges(buildingToGetFloor)
+
+BridgeService -> BuildingRepo : findById(buildingId)
+BuildingRepo --> BridgeService : buildingData
+
+BridgeService -> BridgeRepo : listAllWithBuilding(checkBuilding)
+BridgeRepo --> BridgeService : bridges[]
+
+BridgeService -> FloorRepo : findByDomainId(floorId)
+FloorRepo --> BridgeService : floorData
+
+BridgeService -> BridgeMapInformationDTO : toDTO(getBridge, floorX, floorY))
+BridgeMapInformationDTO --> BridgeService : bridgeInformationDTO
+
+BridgeService --> BridgeController : bridgeInformationDTO[]
+
+BridgeController -> Router : bridgeInformationDTO[]
+Router -> HttpRequestsService : response
+HttpRequestsService -> ListFloorsBridgeComponent : response data
+
+@enduml

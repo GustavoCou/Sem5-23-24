@@ -1,0 +1,25 @@
+@startuml
+autonumber
+actor "Fleet Manager" as GC
+participant "<<System (C4)>>\n SPA/Frontend" as UI
+participant "<<System (C4)>>\n MDC" as MDC
+
+activate GC
+
+
+GC -> UI : Initiate process to create robot
+activate UI
+UI--> GC : request robot data
+deactivate UI
+GC -> UI: Introduces robot data
+activate UI
+UI -> MDC : POST Robot
+activate MDC
+MDC -> MDC : create(robot)
+MDC --> UI : robot created
+UI --> GC : Informs of operation success or failure
+deactivate UI
+
+deactivate GC
+
+@enduml

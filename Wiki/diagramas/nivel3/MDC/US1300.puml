@@ -1,0 +1,61 @@
+@startuml
+actor Utilisador as user
+participant "Frontend\nPágina Login\n [SPA]" as LoginForm
+participant "HttpRequestUserService\n[SPA]" as FrontendService
+participant "Role Based \nMenu Component\n[SPA]" as MenuComponent
+participant "UsersController\n [Backend]" as UsersController
+participant "UserService\n [Backend]" as UserService
+participant "AuthDto\n [Backend]" as AuthDto
+participant "UserDto\n [Backend]" as UserDto
+participant "IUserRepository\n [Backend]" as IUserRepository
+database "SQLServer\n UserAPIDB" as Database
+
+user -> LoginForm : Enter Credentials
+activate LoginForm
+LoginForm -> AuthDto : Create(AuthDto)
+deactivate LoginForm
+activate AuthDto
+AuthDto --> LoginForm : AuthDto(email, password)
+deactivate AuthDto
+activate LoginForm
+LoginForm -> FrontendService : Credentials(AuthDto)
+deactivate LoginForm
+activate FrontendService
+FrontendService -> UsersController : POST /api/Users/Authenticate\n(AuthDto)
+deactivate FrontendService
+activate UsersController
+UsersController -> UserService : AuthenticateUser(AuthDto)
+deactivate UsersController
+activate UserService
+UserService -> IUserRepository : GetByDomainId(AuthDto.email)
+deactivate UserService
+activate IUserRepository
+IUserRepository -> Database : Query User Data
+deactivate IUserRepository
+activate Database
+Database --> IUserRepository : User Data
+deactivate Database
+activate IUserRepository
+IUserRepository --> UserService : User Data
+deactivate IUserRepository
+activate UserService
+UserService -> UserDto : Populate DTO
+deactivate UserService
+activate UserDto
+UserDto --> UserService : Encapsulates User Info
+deactivate UserDto
+activate UserService
+UserService --> UsersController : JWT Token
+deactivate UserService
+activate UsersController
+UsersController --> FrontendService : Response (JWT Token)
+deactivate UsersController
+activate FrontendService
+FrontendService -> MenuComponent : Adjust Menu (Decode JWT Token for Role)
+deactivate FrontendService
+activate MenuComponent
+MenuComponent --> user : Display Role-Based Menu // User becomes the role
+deactivate MenuComponent
+deactivate FrontendService
+
+@enduml

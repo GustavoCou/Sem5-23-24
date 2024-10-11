@@ -1,0 +1,19 @@
+@startuml
+autonumber
+actor "User" as GC
+
+activate GC
+
+GC -> "<<System (C4)>> SPA/Frontend" : Acede à aplicação para se autenticar
+activate "<<System (C4)>> SPA/Frontend"
+"<<System (C4)>> SPA/Frontend"  --> GC : Solicita dados de logIn
+deactivate "<<System (C4)>> SPA/Frontend"
+GC -> "<<System (C4)>> SPA/Frontend"  : Insere os dados de logIn
+activate "<<System (C4)>> SPA/Frontend"
+
+"<<System (C4)>> SPA/Frontend"  --> GC : Dá acesso à aplicação
+deactivate "<<System (C4)>> SPA/Frontend"
+
+deactivate GC
+
+@enduml

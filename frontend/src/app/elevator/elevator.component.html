@@ -1,0 +1,37 @@
+<body class="body">
+    <!-- Toolbar -->
+    <div class="toolbar" role="banner">
+        <img width="185" alt="RobDroneGo Logo" src="/assets/Logo.png" />
+
+        <span>Bem-vindo ao RobDroneGo 😃</span>
+
+
+        <img class="logoIsep" alt="ISEP Logo" src="/assets/LogoIsep_SFundo.png">
+        <img class="logoDei" alt="DEI Logo" src="/assets/DeiLogo_SFundo.png">
+    </div>
+
+    <div class="message-box">
+        <div class="message-box-inner">
+            <h1></h1>
+        </div>
+    </div>
+    <div class="button-container" *ngIf="!showCreateElevator && !showListFloorBuildingElevator && !showListElevator && !showEditElevator">
+        <button class="option-button" (click)="resetShow(); showCreateElevator = true;">Criar Elevador</button>
+        <button class="option-button" (click)="resetShow(); showListFloorBuildingElevator = true;">Listar Pisos de
+            Edifício servidos por elevador</button>
+        <button class="option-button" (click)="resetShow(); showListElevator = true;">Listar Elevadores</button>
+        <button class="option-button" (click)="resetShow(); showEditElevator = true;">Editar Elevador</button>
+    </div>
+
+    <div class="workspace-container">
+        <app-create-elevator *ngIf="showCreateElevator"></app-create-elevator>
+        <app-list-floors-building *ngIf="showListFloorBuildingElevator"></app-list-floors-building>
+        <app-list-elevator *ngIf="showListElevator"></app-list-elevator>
+        <app-edit-elevator *ngIf="showEditElevator"></app-edit-elevator>
+    </div>
+
+    <div class="content bottom-right">
+        <button id="BackToMenu" type="button" (click)="backToMenu()">
+            Voltar ao Menu Principal</button>
+    </div>
+</body>

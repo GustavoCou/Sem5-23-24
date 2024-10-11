@@ -1,0 +1,77 @@
+@startuml
+
+participant "Angular Frontend\n(ListRobotComponent)" as frontend
+participant "HTTP Service\n(HttpRequestsService)" as httpService
+participant "Toast Service\n(ToastrService)" as toastService
+participant "Express App (express.ts)" as expressApp
+participant "RobotRoute" as route
+participant "RobotController" as controller
+participant "RobotService" as service
+participant "RobotMap" as mapper
+participant "RobotRepo" as repo
+participant "Robot Persistence (MongoDB Schema)" as persistence
+database "MongoDB" as db
+
+frontend -> httpService : GET Request (list robots)
+activate httpService
+
+httpService -> expressApp : GET Request (list robots)
+deactivate httpService
+activate expressApp
+
+expressApp -> route : HTTP Request
+deactivate expressApp
+activate route
+
+route -> controller : Delegate request
+deactivate route
+activate controller
+
+controller -> service : listRobots()
+deactivate controller
+activate service
+
+service -> repo : getAllRobots()
+deactivate service
+activate repo
+
+repo -> persistence : Query Robot Data
+deactivate repo
+activate persistence
+
+persistence -> db : Retrieve Data
+deactivate persistence
+activate db
+db --> persistence : Robot Data
+deactivate db
+activate persistence
+
+persistence --> repo : Map Data to Domain Objects
+deactivate persistence
+
+repo -> mapper : toDTO(List<Robot>)
+deactivate repo
+activate mapper
+
+mapper --> service : List<IRobotDTO>
+deactivate mapper
+activate service
+service --> controller : Response Data
+deactivate service
+activate controller
+controller --> expressApp : HTTP Response (Robot List)
+deactivate controller
+activate expressApp
+expressApp --> httpService : Response Data
+deactivate expressApp
+activate httpService
+httpService --> frontend : Display Robot List
+deactivate httpService
+activate frontend
+frontend -> toastService : onError(Show Error Message)
+deactivate frontend
+activate toastService
+toastService -> frontend : Display Error Toast
+deactivate toastService
+
+@enduml

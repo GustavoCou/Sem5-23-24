@@ -1,0 +1,98 @@
+# Uma pipeline de build contínuo envolve a automação do processo de construção, testes e possivelmente implantação de um módulo de serviço.
+# O Bitbucket Pipelines é uma ferramenta de integração contínua e entrega contínua (CI/CD) que permite automatizar essas etapas.
+#  What this Pipeline does:
+#               - Build and test backend APP
+#               - Build and test frontend APP
+#               - Deploy backend API to APP Services from Azure
+#               - Deploy frontend APP to APP Services from Azure
+
+clone:
+  depth: full
+
+pipelines: # Define os estágios da pipeline.
+  branches:
+    main: # Nome do branch ou evento que acionará automaticamente a pipeline.
+      - parallel:
+          - step: # Define uma etapa da pipeline
+              name: Build and Test Frontend #  Define o nome da etapa
+              image: node:18 # Especifica a imagem Docker que será usada para as etapas da pipeline.
+              caches:
+                - node # Permite armazenar em cache certos diretórios entre as execuções da pipeline para acelerar builds subsequentes
+              script: # Contém os comandos a serem executados na etapa.
+                - echo "Running Build and Test Frontend"
+                - cd frontend
+                - npm install
+                - npm install -g @angular/cli
+                - ng update @angular/core@9 @angular/cli@9
+                - npm install lil-gui
+                - ng build
+                - apt update && apt install zip
+                - zip -r frontend-$BITBUCKET_BUILD_NUMBER.zip . -x *.git* bitbucket-pipelines.yml
+                - cd ..
+              artifacts:
+                - "frontend/build/*.zip"
+          - step:
+              name: Build and Test Backend
+              image: node:18
+              caches:
+                - node
+              script:
+                - echo "Running Build and Test Backend"
+                - cd backend
+                - npm install
+                - npm test
+                - apt update && apt install zip
+                - zip -r backend-$BITBUCKET_BUILD_NUMBER.zip . -x *.git* bitbucket-pipelines.yml
+                - cd ..
+          - step:
+              name: Security Scan
+              script:
+                # Run a security scan for sensitive data.
+                # See more security tools at https://bitbucket.org/product/features/pipelines/integrations?&category=security
+                - echo "Run a security scan for sensitive data"
+                - pipe: atlassian/git-secrets-scan:0.5.1
+          - step:
+              name: Deploy Frontend to Vercel
+              image: node:18
+              caches:
+                - node
+              script:
+                - npm install -g vercel
+                - vercel --version
+                - cd frontend
+                - vercel --prod --token=$VERCEL_TOKEN --yes
+                
+          #- step:
+           #   name: Deploy Backend to Vercel
+            #  image: node:18
+             # caches:
+              #  - node
+              #script:
+               # - npm install -g vercel
+                #- vercel --version
+                #- cd backend
+                #- vercel --prod --token=$BACKEND --yes
+                
+          #- step:
+           #   name: Deploy to test
+            #  deployment: test
+              # trigger: manual  # Uncomment to make this a manual deployment.
+             # script:
+              #  - pipe: atlassian/azure-web-apps-deploy:1.0.0
+               #   variables:
+                #    AZURE_APP_ID: $AZURE_APP_ID
+                 #   AZURE_PASSWORD: $AZURE_PASSWORD
+                  #  AZURE_TENANT_ID: $AZURE_TENANT_ID
+                   # AZURE_RESOURCE_GROUP: $AZURE_RESOURCE_GROUP
+                    #AZURE_APP_NAME: $FRONTEND_APP
+                    #ZIP_FILE: frontend/build-$BITBUCKET_BUILD_NUMBER.zip
+                    
+                #- pipe: atlassian/azure-web-apps-deploy:1.0.1
+                 # variables:
+                  #  AZURE_APP_ID: $AZURE_APP_ID
+                   # AZURE_PASSWORD: $AZURE_PASSWORD
+                    #AZURE_TENANT_ID: $AZURE_TENANT_ID
+                    #AZURE_RESOURCE_GROUP: $AZURE_RESOURCE_GROUP
+                    #AZURE_APP_NAME: $BACKEND_APP
+                    #ZIP_FILE: backend/build/backend-$BITBUCKET_BUILD_NUMBER.zip
+    

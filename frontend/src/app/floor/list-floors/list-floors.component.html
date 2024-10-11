@@ -1,0 +1,30 @@
+<div class="floor-list">
+    <h2>Listar Piso</h2>
+    <div class="white-box">
+
+        <div class="inputbox">
+            <label for="building-select">Edificio </label>
+            <select id="building-select" [(ngModel)]="selectedBuildingId" (change)="fetchFloorList()">
+
+              <option *ngFor="let b of buildingsList" [value]="b.id">{{ b.name }}</option>
+            </select>
+        </div>    
+
+    <ul>
+        <!-- Iterar sobre a lista de floors -->
+        <li *ngFor="let floor of floorList">
+        <h2>{{ floor.id }}</h2>
+        <h3>Descripção: {{ floor.floorDescription }}</h3>
+        <p>Largura: {{ floor.floorSize.width }} m Profundidade: {{ floor.floorSize.depth }} m</p>
+        </li>
+    </ul>  
+
+      <div class="button-container">
+        <!-- Back button to hide the form -->
+        
+        <button id="BackButton" type="button" (click)="goBack()" style="background-color: #333; color: white; margin-right: 10px;">
+          Voltar
+        </button>
+
+      </div>
+    </div>

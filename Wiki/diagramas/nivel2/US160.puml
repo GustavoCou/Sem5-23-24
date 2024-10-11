@@ -1,0 +1,26 @@
+@startuml
+autonumber
+actor "Gestor de Campus" as GC
+
+participant "<<System (C4)>> \n SPA/Frontend"   as UI
+participant "<<System (C4)>>\n MDC" as MDC
+
+activate GC
+
+
+GC -> UI : Iniciar o processo de editar ediificio
+activate UI
+UI --> GC : Solicitar dados do edificio
+deactivate UI
+GC -> UI : Introduzir os dados solicitados
+activate UI
+UI -> MDC : PUT/PATCH Building
+activate MDC
+MDC -> MDC : updateOne(building)
+MDC --> UI : Building editado
+UI --> GC : Informa o sucesso da operação
+deactivate UI
+
+deactivate GC
+
+@enduml

@@ -1,0 +1,68 @@
+@startuml
+autonumber
+
+participant "Angular\nListElevatorComponent\n(Script)" as SCRIPT
+participant "Angular\nElevatorService" as FE_SERV
+participant "HttpRequestsService" as HTTP
+
+participant ":API" as API
+participant ":ElevatorController" as CTRL
+participant ":ElevatorService" as SERV
+participant ":ElevatorRepository" as REPO
+participant ":Elevator Mapper" as MAPPER
+participant ":Elevator Schema" as SCHEMA
+
+database "MongoDB" as DB
+
+
+SCRIPT -> FE_SERV : getElevatorsByBuildingId()
+activate FE_SERV
+    FE_SERV -> HTTP : get<buildingId>
+    activate HTTP
+        HTTP -> API : GET
+                activate API
+                    API -> CTRL : getElevatorsByBuilding(buildingId)
+                    activate CTRL
+                        CTRL -> SERV : getElevatorsByBuilding(buildingId)
+                            activate SERV
+                                SERV -> SERV : getBuilding(buildingId)
+                                SERV -> REPO : findByBuildingId(buildingId)
+                                activate REPO
+                                    REPO -> SCHEMA : find()
+                                    activate SCHEMA
+                                        SCHEMA -> DB
+                                        activate DB
+                                            DB -> SCHEMA : elevatorSchema[]
+                                        deactivate DB
+                                    SCHEMA -> REPO : elevatorsDocument
+                                    deactivate SCHEMA
+                                    loop
+                                        REPO -> MAPPER : toDomain()
+                                        activate MAPPER
+                                        MAPPER -> REPO : elevatorInstance
+                                        deactivate MAPPER
+                                    end
+                                    REPO -> SERV : Result<elevatorList[]>
+                                    deactivate REPO
+                                loop
+                                    SERV -> MAPPER : toDTO(Elevator)
+                                    activate MAPPER
+                                    MAPPER -> SERV : elevatorDTO
+                                    deactivate MAPPER
+                                end
+                                SERV -> CTRL : Result<elevatorDTO[]>
+                            deactivate SERV
+                            CTRL --> API : success response
+                    deactivate CTRL
+                        
+                            API -> HTTP : response
+                deactivate API
+                HTTP -> FE_SERV : Observable<Elevator[]>
+    deactivate HTTP
+    FE_SERV -> SCRIPT : Observable<Elevator[]>
+deactivate FE_SERV
+
+
+
+
+@enduml

@@ -1,0 +1,23 @@
+@startuml
+autonumber
+actor "Gestor de Campus" as GC
+activate GC
+
+GC -> "<<System (C4)>> SPA/Frontend"  : Iniciar o processo de listar os pisos de um edifício
+activate "<<System (C4)>> SPA/Frontend"
+"<<System (C4)>> SPA/Frontend"  --> GC : /' Solicitar o edifício a listar '/
+deactivate "<<System (C4)>> SPA/Frontend"
+
+GC -> "<<System (C4)>> SPA/Frontend" : Introduzir os dados solicitados
+activate "<<System (C4)>> SPA/Frontend"
+"<<System (C4)>> SPA/Frontend"  --> GC : /' Solicitar a confirmação dos dados '/
+deactivate "<<System (C4)>> SPA/Frontend"
+
+GC -> "<<System (C4)>> SPA/Frontend"  : Confirma os dados
+activate "<<System (C4)>> SPA/Frontend"
+"<<System (C4)>> SPA/Frontend"  --> GC : /' Informa o sucesso da operação '/
+deactivate "<<System (C4)>> SPA/Frontend"
+
+deactivate GC
+
+@enduml

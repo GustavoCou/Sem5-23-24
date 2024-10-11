@@ -1,0 +1,35 @@
+<div>
+    <div>
+        <select [(ngModel)]="status" name="status" (change)="robotType = null; userId = null;">
+            <option value="Pending">Pending</option>
+            <option value="Approved">Approved</option>
+            <option value="Disapproved">Disapproved</option>
+        </select>
+        <select [(ngModel)]="robotType" name="robot" (change)="status = null; userId = null;">
+            <option *ngFor="let robot of robotList" [value]="robot.nickName">{{ robot.nickName }}</option>
+        </select>
+        <select [(ngModel)]="userId" name="user" (change)="robotType = null; status = null;">
+            <option *ngFor="let user of userList" [value]="user.id">{{ user.nomeCompleto }}</option>
+        </select>
+        <button (click)="searchCriteria()">Pesquisar</button>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Utilizador</th>
+                <th>Robot</th>
+                <th>Estado</th>
+                <th>Data</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of taskRequestList">
+                <td>{{ item.requesterUser }}</td>
+                <td>{{ item.robot }}</td>
+                <td>{{ item.status }}</td>
+                <td>{{ item.date }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

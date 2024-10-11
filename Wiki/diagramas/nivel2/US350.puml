@@ -1,0 +1,32 @@
+@startuml
+autonumber
+actor "Gestor de Frota" as GF
+
+participant "<<System (C4)>>\n SPA/Frontend" as SPA
+participant "<<System (C4)>>\n MDC" as MDC
+
+activate GF
+
+GF -> SPA : Iniciar o processo para criar um tipo de robot
+activate SPA
+SPA --> GF : Solicitar os dados necessários para criar um tipo de robot 
+deactivate SPA
+
+GF -> SPA : Inserir os novos dados e seleccionar a tarefa a executar
+activate SPA
+SPA --> GF : Pedir a confirmação 
+deactivate SPA
+
+GF -> SPA : Confirmar os dados
+activate SPA
+SPA -> MDC : POST createRobotType(id, robotModel, brand, tasks)
+activate MDC
+MDC -> MDC : createRobotType(id, robotModel, brand, tasks)
+MDC --> SPA : Tipo de robot criado
+deactivate MDC
+SPA --> GF : Informar o sucesso da operação
+deactivate SPA
+
+deactivate GF
+
+@enduml

@@ -1,0 +1,38 @@
+<div class="form-container">
+    <div class="white-box">
+      
+      
+      <div class="inputbox">
+        <label for="building-select">Edificio Id</label>
+        <select id="building-select" [(ngModel)]="selectedBuildingId" (change)="loadFloors()">
+         
+          <option *ngFor="let b of buildings" [value]="b.id">{{ b.name }}</option>
+        </select>
+      
+      
+      </div>
+      <div class="inputbox">
+        <label for="floor-select">Piso</label>
+        <select id="floor-select" [(ngModel)]="selectedFloor">
+
+          <option *ngFor="let floor of floors" [value]="floor.id">{{ floor.id }}</option>
+        </select>
+      </div>
+  
+  
+      <div class="inputbox">
+        <label for="json-file">Selecionar arquivo JSON </label>
+        <input id ="json-file" type="file" id="json-file" (change)="onFileSelected($event)" accept=".json" />
+      </div>
+      <div class="button-container">
+        <!-- Back button to hide the form -->
+        <button id="BackButton" type="button" (click)="goBack()" style="background-color: #333; color: white; margin-right: 10px;">
+          Voltar
+        </button>
+  
+        <!-- Update Floor button -->
+        <button id="UpdateFloor" type="button" (click)=" onSubmitForm()" style="background-color: rgba(255, 38, 0, 0.832); color: white;">
+            Enviar Mapa
+        </button>
+      </div>
+</div>

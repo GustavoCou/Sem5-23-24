@@ -1,0 +1,79 @@
+<p-toast></p-toast>
+<div class="my-2">
+    <div class="form-container">
+        <!-- O título e o conteúdo do formulário são exibidos apenas se houver pisos 
+        <div *ngIf="floors.length > 1">-->
+        <h2>Informações da Nova Passagem</h2>
+        <form [formGroup]="bridgeForm">
+            <div class="my-2">
+                <div class="d-flex gap-2 w-50">
+                    <input type="text" class="form-control" placeholder="Passagem ID*" aria-describedby="basic-addon1"
+                        formControlName="bridgeId" />
+                </div>
+            </div>
+            <div>
+                <div class="d-flex gap-2">
+                    <input type="text" class="form-control" placeholder="Coordenada1 X*" aria-describedby="basic-addon1"
+                        formControlName="bridgeXPosX" type="number" />
+                    <input type="text" class="form-control" placeholder="Coordenada1 Y*" aria-describedby="basic-addon1"
+                        formControlName="bridgeXPosY" type="number" />
+                </div>
+            </div>
+            <div class="my-2">
+                <div class="d-flex gap-2">
+                    <input type="text" class="form-control" placeholder="Coordenada2 X*" aria-describedby="basic-addon1"
+                        formControlName="bridgeYPosX" type="number" />
+                    <input type="text" class="form-control" placeholder="Coordenada2 Y*" aria-describedby="basic-addon1"
+                        formControlName="bridgeYPosY" type="number" />
+                </div>
+            </div>
+
+            <!--AQUI-->
+            <div class="d-flex gap-2">
+                <select class="form-control2" formControlName="buildingIdX">
+                    <option value="" disabled selected>Edificio ID*</option>
+                    <option *ngFor="let building of buildings" [value]="building.id">{{ building.id }}</option>
+                </select>
+                <select class="form-control2" formControlName="floorIdX">
+                    <option value="" disabled selected>Piso ID*</option>
+                    <option *ngFor="let floor of floorsX" [value]="floor.id">{{ floor.id }}</option>
+                </select>
+            </div>
+
+
+            <div>
+                <select class="form-control2" formControlName="buildingIdY">
+                    <option value="" disabled selected>Edificio ID*</option>
+                    <option *ngFor="let building of buildings" [value]="building.id">{{ building.id }}</option>
+                </select>
+
+                <select class="form-control2" formControlName="floorIdY">
+                    <option value="" disabled selected>Piso ID*</option>
+                    <option *ngFor="let floor of floorsY" [value]="floor.id">{{ floor.id }}</option>
+                </select>
+            </div>
+
+
+            <div class="d-flex justify-content-center my-3">
+                <button (click)="onSubmitForm()" class="w-25 btn btn-success">Criar Passagem</button>
+                <button class="back-button" (click)="goBack()">Voltar</button>
+            </div>
+        </form>
+        <!-- </div>
+
+        <div *ngIf="floors.length <= 1" class="no-floors-message">
+            Não há pisos disponíveis ou suficientes para criar uma passagem.-->
+
+        <!-- Mensagem de erro de validação do formulário -->
+        <span class="text-danger text-center d-flex justify-content-center" *ngIf="!isFormValid">
+            Deve preencher todos os campos
+        </span>
+
+    </div>
+
+
+
+</div>
+
+
+<!--</div>-->

@@ -1,0 +1,1 @@
+export type TaskSearchCriteria = { status: string | null } | { robotType: string | null } | { userId: string | null };

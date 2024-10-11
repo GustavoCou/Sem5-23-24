@@ -1,0 +1,37 @@
+@startuml
+autonumber
+actor "Gestor de Campus" as GC
+
+participant "<<System (C4)>>\n SPA/Frontend" as SPA
+participant "<<System (C4)>>\n MDC" as MDC
+
+activate GC
+
+GC -> SPA : Iniciar o processo para criar um piso de edifício
+activate SPA
+SPA --> GC : Solicitar e seleccionar os dados necessários para criar um piso
+deactivate SPA
+
+GC -> SPA : Inserir os novos dados e seleccionar o edificío
+activate SPA
+SPA -> MDC : GET loadBuildings()
+activate MDC
+MDC -> MDC : getBuildings()
+MDC --> SPA : lista de edifícios (JSON)
+deactivate MDC
+SPA --> GC : Pedir a confirmação 
+deactivate SPA
+
+GC -> SPA : Confirmar os dados
+activate SPA
+SPA -> MDC : POST createFloor()
+activate MDC
+MDC -> MDC : createFloor()
+MDC --> SPA : Piso criado
+deactivate MDC
+SPA --> GC : Informar o sucesso da operação
+deactivate SPA
+
+deactivate GC
+
+@enduml

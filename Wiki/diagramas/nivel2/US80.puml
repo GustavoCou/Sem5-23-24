@@ -1,0 +1,27 @@
+@startuml
+
+actor "Administrador"
+
+' Referência ao diagrama anterior
+note over "Administrador"
+  ver Diagrama LogInN2(representa interaçao anterior)
+end note
+
+"Administrador" -> "<<System (C4)>> \n SPA/Frontend" : faz pedido para listar utentes pendentes de aceitação
+
+"<<System (C4)>> \n SPA/Frontend" -> "<<System (C4)>>\n MDU": GET '/Users/PendingUtentes'
+
+"<<System (C4)>>\n MDU" --> "<<System (C4)>> \n SPA/Frontend": return lista de utentes pendentes de aceitação
+
+"<<System (C4)>> \n SPA/Frontend" --> "Administrador" : mostra a lista de utentes com estado pendente
+
+"Administrador" -> "<<System (C4)>> \n SPA/Frontend" : aceita/recusa pedido
+
+"<<System (C4)>> \n SPA/Frontend" --> "<<System (C4)>>\n MDU" : PUT '/Users/{email}/updatestatus'
+
+"<<System (C4)>>\n MDU"  --> "<<System (C4)>> \n SPA/Frontend" : sucesso da operação
+
+
+"<<System (C4)>> \n SPA/Frontend"  --> "Administrador"  : sucesso da operação
+
+@enduml

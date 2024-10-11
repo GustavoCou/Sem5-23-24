@@ -1,0 +1,68 @@
+@startuml
+
+ElevatorComponent -> CreateElevatorComponent : Activate/CreateElevatorComponent
+CreateElevatorComponent -> CreateElevatorComponent : ngOnInit()
+
+CreateElevatorComponent -> HttpRequestsService : getBuildings()
+HttpRequestsService -> Router : GET /building/list
+Router -> BuildingController : listBuildings()
+BuildingController -> BuildingService : getAllBuildings()
+BuildingService -> BuildingRepo : listAll()
+BuildingRepo -> BuildingSchema : find()
+BuildingSchema --> BuildingRepo : buildingDocs[]
+BuildingRepo --> BuildingService : buildings[]
+BuildingService --> BuildingController : buildings[]
+BuildingController --> Router : buildings[]
+Router --> HttpRequestsService : buildings[]
+HttpRequestsService --> CreateElevatorComponent : buildings[]
+
+CreateElevatorComponent -> HttpRequestsService : getRequest('floor/get/' + buildingId)
+HttpRequestsService -> Router : GET /floor/get/:buildingId
+Router -> FloorController : listFloors(req, res, next)
+FloorController -> FloorService : getFloorsByBuildingId(buildingId)
+FloorService -> FloorRepo : findByBuildingId(buildingId)
+FloorRepo -> FloorSchema : find(building)
+FloorSchema --> FloorRepo : floorDocs[]
+FloorRepo --> FloorService : floors[]
+FloorService --> FloorController : floors[]
+FloorController --> Router : floors[]
+Router --> HttpRequestsService : floors[]
+HttpRequestsService --> CreateElevatorComponent : Update floorsX/Y[] 
+
+CreateElevatorComponent -> CreateElevatorComponent : prepareData()
+CreateElevatorComponent -> Dto : Converts form data to ElevatorDTO
+Dto --> CreateElevatorComponent : elevatorDTO
+
+CreateElevatorComponent -> HttpRequestsService : postRequest('elevator', elevatorDTO)
+HttpRequestsService -> Router : POST /elevator
+Router -> ElevatorController : createElevator(req, res, next)
+
+ElevatorController -> ElevatorService : createElevator(elevatorDTO)
+ElevatorService -> ElevatorRepo: countElevatorsByBuilding(elevatorDTO.buildingId)
+ElevatorRepo -> ElevatorService: numberOfElevators
+ElevatorService -> ElevatorRepo : findId(elevatorDTO.elevatorId)
+ElevatorRepo --> ElevatorService : boolean
+ElevatorService -> BuildingRepo : getBuilding(buildingId)
+BuildingRepo --> ElevatorService : buildingData
+ElevatorService -> FloorRepo : getFloorId(floorIds)
+FloorRepo --> ElevatorService : floorData
+ElevatorService -> ElevatorRepo : findBySerialNumber(elevatorDTO.serialNumber)
+ER --> ElevatorService : boolean
+ElevatorService -> FloorRepo : checkFloorAndBuilding(elevatorDTO.floorIds, elevatorDTO.buildingId)
+FloorRepo --> ElevatorService : boolean
+ElevatorService -> Elevator : create(elevatorDTO: DTO)
+Elevator --> ElevatorService : elevator
+ElevatorService -> ElevatorRepo: save(elevator)
+ElevatorRepo -> ElevatorMap : toPersistence(elevator)
+ElevatorMap -> ElevatorSchema : create(elevatorPersistenceModel)
+ElevatorSchema --> ElevatorRepo : savedElevatorDoc
+ElevatorRepo -> ElevatorMap : toDomain(savedElevatorDoc)
+ElevatorMap --> ElevatorRepo : elevator
+ElevatorRepo --> ElevatorService : elevatorDTO
+ElevatorService --> ElevatorController : elevatorDTO
+ElevatorController --> Router : elevatorDTO
+Router --> HttpRequestsService : response
+HttpRequestsService --> ElevatorComponent : response
+
+
+@enduml

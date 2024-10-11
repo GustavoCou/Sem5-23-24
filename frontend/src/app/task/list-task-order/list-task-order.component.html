@@ -1,0 +1,27 @@
+<button class="select-button" *ngIf="solucaoTarefas.length === 0" (click)="obterPercursoTarefas()">
+    Obter Percurso de Tarefas
+</button>
+
+
+<div *ngIf="solucaoTarefas.length > 0" class="caminho-container">
+
+    <div class="caminho-tarefas">
+        <strong>Caminho mais eficiente:</strong>
+        <div class="tarefas-container">
+            <ng-container *ngFor="let tarefaId of solucaoTarefas; let last = last">
+                <span class="tarefa-item">{{ tarefaId }}</span>
+                <span *ngIf="!last" class="tarefa-separador">-></span>
+            </ng-container>
+        </div>
+    </div>
+
+
+    <div class="tempo-dispendido">
+        <strong>O tempo do caminho é: <span>{{ custoCaminho }}</span></strong>
+    </div>
+</div>
+
+
+<div class="content bottom-right">
+    <button id="BackToMenu" type="button" (click)="goBack()">Voltar ao Menu da Tarefa</button>
+</div>

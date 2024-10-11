@@ -1,0 +1,60 @@
+@startuml
+autonumber
+
+participant ":System" as SY
+participant ":ListBuildingMinMaxFloorComponent\n(Angular)" as LC
+participant ":FloorService (Angular)" as FS
+
+participant ":FloorRoute" as FL
+participant ":FloorController" as CTRL
+participant ":FloorService" as SERV
+participant "listDTO : List<FloorDto>" as DTO
+participant ":floor: Floor" as FLOOR
+participant ":FloorRepository" as REPO
+participant ":FloorSchema" as SCHEMA
+participant ":FloorMap" as MAP
+participant "list: List<TEntity>" as LIST
+
+activate SY
+SY -> LC :  GET getBuildingsInFloorRange(min, max)
+activate LC
+LC -> FS : getBuildingsInFloorRange(min, max)
+activate FS
+FS -> FL : GET getBuildingsInFloorRange(min, max)
+activate FL
+FL -> CTRL : getBuildingsInFloorRange(min, max)
+activate CTRL
+CTRL -> SERV : getBuildingsInFloorRange(minFloors, maxFloors)
+activate SERV
+SERV -> SERV : countTotalFloorsByBuildings()
+SERV -> REPO : findFloorsByBuilding(buildingId)
+activate REPO
+REPO -> SCHEMA : find()
+activate SCHEMA
+deactivate SCHEMA
+REPO -> MAP : toDomain()
+activate MAP
+MAP --> REPO : floors[]
+deactivate MAP
+REPO --> LIST: create()
+activate LIST
+deactivate LIST
+REPO --> SERV : list
+deactivate REPO
+SERV --> DTO : toDTO(floor)
+activate DTO 
+DTO --> SERV : floors[]
+deactivate DTO
+SERV --> CTRL : floors[]
+deactivate SERV
+CTRL --> FL : floors[]
+deactivate CTRL
+FL --> FS : floors[]
+deactivate FL
+FS --> LC : floors[]
+deactivate FS
+LC --> SY : floors[]
+deactivate LC
+deactivate SY
+
+@enduml

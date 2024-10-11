@@ -1,0 +1,121 @@
+@startuml
+autonumber
+
+participant ":System" as SY
+participant ":FloorComponent (Angular)" as FC
+participant ":FloorService (Angular)" as FS
+
+participant ":FloorRoute" as FL
+participant ":FloorController" as CTRL
+participant ":FloorService" as SERV
+participant ":FloorRepository" as REPO
+participant ":floor: Floor" as FLOOR
+participant ":FloorDto" as DTO
+participant ":FloorSchema" as SCHEMA
+participant ":FloorMap" as MAP
+
+participant ":BuildingRoute" as BR
+participant ":BuildingController" as BCTRL
+participant ":BuildingService" as BSERV
+participant ":BuildingRepository" as BREPO
+participant ":BuildingSchema" as BSCHEMA
+participant ":BuildingMap" as BMAP
+
+activate SY
+SY -> FC : GET loadBuildings()
+activate FC
+FC -> FC : ngOnInit() 
+FC -> FS : getBuildings()
+activate FS
+FS -> BR : GET getBuildings()
+activate BR
+BR -> BCTRL : listBuilding()
+activate BCTRL
+BCTRL ->  BSERV : ListBuilding()
+activate BSERV
+BSERV -> BREPO : listAll()
+activate BREPO 
+BREPO -> BSCHEMA : find()
+activate BSCHEMA
+deactivate BSCHEMA
+BREPO -> BMAP : toDomain()
+activate BMAP
+BMAP --> BREPO : buildings[]
+deactivate BMAP
+BREPO --> BSERV : buildings[]
+deactivate BREPO
+BSERV --> BCTRL : buildings[]
+deactivate BSERV
+BCTRL --> BR : buildings[]
+deactivate BCTRL
+BR --> FS : buildings[]
+deactivate BR
+FS --> FC : buildings[]
+deactivate FS
+FC --> SY : buildings[]
+deactivate FC
+deactivate SY
+
+SY -> FC : POST createFloor(floorId, floorDescription, { widthStr, depthStr }, building)
+activate SY
+activate FC
+FC -> FS : createFloor(floorId, floorDescription, { widthStr, depthStr }, building)
+activate FS
+FS -> FL : POST createFloor(floorId, floorDescription, { widthStr, depthStr }, building)
+activate FL
+FL -> CTRL : createFloor(floorId, floorDescription, { widthStr, depthStr }, building)
+activate CTRL
+CTRL -> SERV : createFloor(dto)
+activate SERV
+SERV -> REPO : findByDomainId()
+activate REPO
+REPO -> SCHEMA : findOne()
+activate SCHEMA
+deactivate SCHEMA
+REPO -> MAP : toDomain()
+activate MAP
+MAP --> REPO : floor[]
+deactivate MAP
+REPO --> SERV : floor[]
+deactivate REPO
+SERV -> FLOOR : create(dto)
+activate FLOOR
+alt "Erro na criação do piso"
+FLOOR --> SERV : error
+SERV --> CTRL : error
+CTRL --> FL : error
+FL --> SY : error
+end
+FLOOR --> SERV : floor[]
+deactivate FLOOR
+SERV -> REPO : save(floor)
+activate REPO
+REPO -> MAP : toPersistence(floor)
+activate MAP
+MAP --> REPO : floor[]
+deactivate MAP
+REPO -> SCHEMA : create(rawFloor)
+activate SCHEMA
+deactivate SCHEMA
+REPO -> MAP : toDomain()
+activate MAP
+MAP --> REPO : floor[]
+deactivate MAP
+deactivate REPO
+SERV -> DTO : toDTO(floor)
+activate DTO
+DTO --> SERV : dto
+deactivate DTO
+SERV --> CTRL : Success
+deactivate SERV
+CTRL --> FL :Success
+deactivate CTRL
+FL --> FS : Success 
+deactivate FL
+FS --> FC : Success
+deactivate FS
+FC --> SY : Success
+deactivate FC
+deactivate SY
+
+@enduml

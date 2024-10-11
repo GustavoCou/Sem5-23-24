@@ -1,0 +1,62 @@
+<!-- list-building-min-max-floor.component.html -->
+
+<body class="body">
+    <!-- Toolbar -->
+    <div class="toolbar" role="banner">
+      <img width="185" alt="RobDroneGo Logo" src="/assets/Logo.png" />
+      <span>Bem-vindo ao RobDroneGo 😃</span>
+      <img class="logoIsep" alt="ISEP Logo" src="/assets/LogoIsep_SFundo.png">
+      <img class="logoDei" alt="DEI Logo" src="/assets/DeiLogo_SFundo.png">
+    </div>
+  
+    <div class="content">
+      <div *ngIf="showForm" class="form-container">
+        <div class="white-box">
+          <div class="inputbox">
+            <label for="new-minFloor">Mínimo de pisos</label>
+            <input type="number" required [(ngModel)]="minFloors" id="new-minFloor" name="new-minFloor" />
+          </div>
+          <div class="inputbox">
+            <label for="new-maxFloor">Máximo de pisos</label>
+            <input type="number" required [(ngModel)]="maxFloors" id="new-maxFloor" name="new-maxFloor" />
+          </div>
+        </div>
+        <div class="button-container">
+          <!-- List Building Floor button -->
+          <button id="list-building-min-max-floor" type="button" (click)="getBuildingsInFloorRange();"
+            style="background-color: rgba(255, 38, 0, 0.832); color: white;">
+            Listar Edifícios com <br> Minimo e Máximo de pisos
+          </button>
+        </div>
+      </div>
+    </div>
+  
+      <!-- Exibir os resultados -->
+      <div class="content">
+        <div *ngIf="floors.length > 0" class="form-container-result">
+          <h3>Edifícios Encontrados:</h3>
+          <ng-container *ngFor="let floor of floors; let last = last">
+            <div>
+              <b>Id do Edifício:</b> {{ floor.buildingId }}
+              <ul>
+                <li><b>Id dos Pisos:</b>
+                  <span *ngIf="floor.floorIds.length > 0; else noFloor">
+                    <span *ngFor="let floorId of floor.floorIds; let lastFloorId = last">
+                      {{ floorId }}{{ !lastFloorId ? ', ' : '' }}
+                    </span>
+                  </span>
+                  <ng-template #noFloor> [não tem pisos definidos] </ng-template>
+                </li>
+                <li><b>Total de pisos:</b> {{ floor.totalFloors }}</li>
+              </ul>
+            </div>
+            <div *ngIf="!last" class="paragraph-gap"></div>
+          </ng-container>
+        </div>
+      </div>
+      
+    <div class="content bottom-right">
+      <button id="BackToMenu" type="button" (click)="backToMenu()">Voltar ao Menu do Edifício</button>
+    </div>  
+  </body>
+  

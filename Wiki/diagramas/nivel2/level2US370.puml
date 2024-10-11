@@ -1,0 +1,38 @@
+@startuml
+
+' Development View
+actor "Fleet Manager" as manager
+participant "UI Layer" as ui
+participant "HTTP Server (Express)" as server
+participant "RobotRouter" as router
+participant "Validation (celebrate)" as validation
+participant "RobotController" as controller
+participant "RobotService" as service
+database "MongoDB" as mongodb
+
+' Process View (abstracted into validation and service operations)
+manager -> ui: Initiate "Create Robot"
+ui -> server: POST /robot/create (robotDTO)
+server -> router: Forward to /create
+router -> validation: Validate Request
+alt Validation Passed
+    validation -> router: Success
+    router -> controller: Request to create robot
+    controller -> service: Create robot operation
+    alt Robot Creation Successful
+        service -> controller: Robot created successfully
+        controller -> ui: Display success message
+        ui -> manager: Inform success
+    else Robot Creation Failed
+        service -> controller: Error in robot creation
+        controller -> ui: Display error message
+        ui -> manager: Inform error
+    end
+else Validation Failed
+    validation -> router: Failure
+    router -> server: 400 Bad Request
+    server -> ui: Display validation error
+    ui -> manager: Inform validation error
+end
+
+@enduml

@@ -1,0 +1,22 @@
+@startuml
+autonumber
+actor "Gestor de Campus" as GC
+
+participant "<<System>>\nSPA" as UI
+participant "<<System>>\nMDC" as MDC
+
+activate GC
+    GC -> UI : Iniciar o processo para criar uma sala de piso de edificio
+    activate UI
+        UI --> GC : Solicitar os dados necessários para criar uma sala
+    GC -> UI : Inserir os dados da nova sala (submit)
+        UI -> MDC : POST Room
+        activate MDC
+            MDC -> MDC : createRoom(roomDTO)
+            MDC --> UI : Sala criada
+        deactivate MDC
+        UI --> GC : Informar o sucesso da operação
+    deactivate UI
+deactivate GC
+
+@enduml

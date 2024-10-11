@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" height="342px" preserveAspectRatio="none" style="width:854px;height:342px;background:#FFFFFF;" version="1.1" viewBox="0 0 854 342" width="854px" zoomAndPan="magnify"><defs/><g><line style="stroke:#181818;stroke-width:0.5;stroke-dasharray:5.0,5.0;" x1="165" x2="165" y1="82.6094" y2="260.3672"/><line style="stroke:#181818;stroke-width:0.5;stroke-dasharray:5.0,5.0;" x1="496" x2="496" y1="82.6094" y2="260.3672"/><line style="stroke:#181818;stroke-width:0.5;stroke-dasharray:5.0,5.0;" x1="786" x2="786" y1="82.6094" y2="260.3672"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="116" x="104" y="79.5332">Gestor de Tarefas</text><ellipse cx="165" cy="13.5" fill="#E2E2F0" rx="8" ry="8" style="stroke:#181818;stroke-width:0.5;"/><path d="M165,21.5 L165,48.5 M152,29.5 L178,29.5 M165,48.5 L152,63.5 M165,48.5 L178,63.5 " fill="none" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="116" x="104" y="273.9004">Gestor de Tarefas</text><ellipse cx="165" cy="285.4766" fill="#E2E2F0" rx="8" ry="8" style="stroke:#181818;stroke-width:0.5;"/><path d="M165,293.4766 L165,320.4766 M152,301.4766 L178,301.4766 M165,320.4766 L152,335.4766 M165,320.4766 L178,335.4766 " fill="none" style="stroke:#181818;stroke-width:0.5;"/><rect fill="#E2E2F0" height="49.2188" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="128" x="432" y="32.3906"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="110" x="439" y="53.9238">&lt;&lt;System (C4)&gt;&gt;</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="89" x="453.5" y="71.5332">SPA/Frontend</text><rect fill="#E2E2F0" height="49.2188" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="128" x="432" y="259.3672"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="110" x="439" y="280.9004">&lt;&lt;System (C4)&gt;&gt;</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="89" x="453.5" y="298.5098">SPA/Frontend</text><rect fill="#E2E2F0" height="49.2188" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="124" x="724" y="32.3906"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="110" x="731" y="53.9238">&lt;&lt;System (C4)&gt;&gt;</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="30" x="773" y="71.5332">MDT</text><rect fill="#E2E2F0" height="49.2188" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="124" x="724" y="259.3672"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="110" x="731" y="280.9004">&lt;&lt;System (C4)&gt;&gt;</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="30" x="773" y="298.5098">MDT</text><path d="M5,97.6094 L5,123.6094 L325,123.6094 L325,107.6094 L315,97.6094 L5,97.6094 " fill="#FEFFDD" style="stroke:#181818;stroke-width:0.5;"/><path d="M315,97.6094 L315,107.6094 L325,107.6094 L315,97.6094 " fill="#FEFFDD" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="299" x="11" y="116.1045">ver Diagrama LogInN2(representa interaçao anterior)</text><polygon fill="#181818" points="484,147.3125,494,151.3125,484,155.3125,488,151.3125" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="165" x2="490" y1="151.3125" y2="151.3125"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="307" x="172" y="146.4561">faz pedido para listar tarefas pendentes de aprovacao</text><polygon fill="#181818" points="774,177.6641,784,181.6641,774,185.6641,778,181.6641" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="496" x2="780" y1="181.6641" y2="181.6641"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="124" x="503" y="176.8076">GET '/Tasks/Pending'</text><polygon fill="#181818" points="507,208.0156,497,212.0156,507,216.0156,503,212.0156" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;stroke-dasharray:2.0,2.0;" x1="501" x2="785" y1="212.0156" y2="212.0156"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="266" x="513" y="207.1592">return lista de tarefas pendentes de aprovacao</text><polygon fill="#181818" points="176,238.3672,166,242.3672,176,246.3672,172,242.3672" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;stroke-dasharray:2.0,2.0;" x1="170" x2="495" y1="242.3672" y2="242.3672"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="284" x="182" y="237.5107">mostra a lista de tarefas pendentes de aprovacao</text><!--MD5=[024bb090eb1888adaedce2d01222d0bc]
+@startuml
+
+actor "Gestor de Tarefas"
+
+' Referência ao diagrama anterior
+note over "Gestor de Tarefas"
+  ver Diagrama LogInN2(representa interaçao anterior)
+end note
+
+"Gestor de Tarefas" -> "<<System (C4)>> \n SPA/Frontend" : faz pedido para listar tarefas pendentes de aprovacao
+
+"<<System (C4)>> \n SPA/Frontend" -> "<<System (C4)>>\n MDT": GET '/Tasks/Pending'
+
+"<<System (C4)>>\n MDT" - -> "<<System (C4)>> \n SPA/Frontend": return lista de tarefas pendentes de aprovacao
+
+"<<System (C4)>> \n SPA/Frontend" - -> "Gestor de Tarefas" : mostra a lista de tarefas pendentes de aprovacao
+
+@enduml
+
+@startuml
+
+actor "Gestor de Tarefas"
+
+note over "Gestor de Tarefas"
+  ver Diagrama LogInN2(representa interaçao anterior)
+end note
+
+"Gestor de Tarefas" -> "<<System (C4)>> \n SPA/Frontend" : faz pedido para listar tarefas pendentes de aprovacao
+
+"<<System (C4)>> \n SPA/Frontend" -> "<<System (C4)>>\n MDT": GET '/Tasks/Pending'
+
+"<<System (C4)>>\n MDT" - -> "<<System (C4)>> \n SPA/Frontend": return lista de tarefas pendentes de aprovacao
+
+"<<System (C4)>> \n SPA/Frontend" - -> "Gestor de Tarefas" : mostra a lista de tarefas pendentes de aprovacao
+
+@enduml
+
+PlantUML version 1.2022.7(Mon Aug 22 18:01:30 WEST 2022)
+(GPL source distribution)
+Java Runtime: Java(TM) SE Runtime Environment
+JVM: Java HotSpot(TM) 64-Bit Server VM
+Default Encoding: UTF-8
+Language: pt
+Country: PT
+--></g></svg>

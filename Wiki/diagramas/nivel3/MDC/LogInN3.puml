@@ -1,0 +1,27 @@
+@startuml
+
+User -> UserLogInComponent :insert credentials (email, senha)
+
+UserLogInComponent -> AuthDto:  newAuthDto
+AuthDto -> UserLogInComponent : AuthDto
+
+UserLogInComponent -> HttpRequestUserService: POST ('Users/Authenticate')
+HttpRequestUserService -> UserController: Authenticate(AuthDto)
+UserController -> UserService: AuthenticateUser(dto.email, dto.password)
+UserService -> UserRepository : GetDomainIdAsync(email)
+UserRepository -> UserService: return User
+UserService -> UserController: return User
+
+UserController -> UserService: GenerateJwtToken(user)
+UserService -> UserService: validateCredentials
+UserService -> UserService: generate JWTToken
+
+UserService -> UserDto: newUserDto
+UserDto -> UserService: userDto
+
+UserService -> UserController : return UserDto, Token
+UserController -> HttpRequestUserService: return UserDto, Token
+
+HttpRequestUserService -> UserLogInComponent: return UserDto, Token
+UserLogInComponent -> User: sucessfull Authentication
+@enduml

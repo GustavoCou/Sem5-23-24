@@ -1,0 +1,126 @@
+@startuml
+autonumber
+participant ":Route" as BLDG
+participant ":TaskRequestController" as CTRL
+participant ":CreateTaskDTO" as DTO
+participant ":TaskRequestService" as SERV
+participant ":HTTPRequestService" as HTTPSERV
+participant ":Task" as TASK
+participant ":TaskRequest" as TASK_REQUEST
+participant ":TaskRepository" as TaskREPO
+participant ":TaskRequestRepository" as RequestREPO
+participant "TaskMap" as DTOMAP
+participant "TaskRequestMap" as DTORequestMAP
+participant "CreateTaskMap" as DTOCreateMAP
+
+database Database
+
+
+
+activate BLDG
+
+BLDG -> CTRL : createTaskRequest(req, res, next)
+activate CTRL
+CTRL -> DTO: createTaskDTO=create()
+activate DTO
+return
+deactivate DTO
+CTRL -> SERV : CreateTaskAndRequest(createTaskDTO)
+activate SERV
+
+SERV -> DTOCreateMAP : taskDTO= create(createTaskDTO)
+activate DTOCreateMAP
+DTOCreateMAP --> SERV :
+deactivate DTOCreateMAP
+SERV -> TASK: task=Create(TaskDTO)
+
+
+alt  Security Task
+SERV -> HTTPSERV : request(createTaskDTO.robot)
+activate HTTPSERV
+HTTPSERV --> SERV
+
+deactivate HTTPSERV
+
+SERV -> HTTPSERV : request(createTaskDTO.building)
+    note right:   to verify  if exist buildings,floor,robot  \n from campus/frota manager API
+
+activate HTTPSERV
+HTTPSERV --> SERV
+
+deactivate HTTPSERV
+
+SERV -> HTTPSERV : request(createTaskDTO.floor)
+activate HTTPSERV
+HTTPSERV --> SERV
+
+deactivate HTTPSERV
+
+
+
+else  PickUp DeliveryTak
+
+deactivate HTTPSERV
+SERV -> HTTPSERV : request(createTaskDTO.robot)
+activate HTTPSERV
+HTTPSERV --> SERV
+
+deactivate HTTPSERV
+SERV -> HTTPSERV : request(createTaskDTO.pickupRoom)
+    note right:   to verify if exist robot ,room pickup ,room Delivery  \n from campus/frota manager API
+
+activate HTTPSERV
+HTTPSERV --> SERV
+
+deactivate HTTPSERV
+SERV -> HTTPSERV : request(createTaskDTO.deliveryRoom)
+activate HTTPSERV
+HTTPSERV --> SERV
+deactivate HTTPSERV
+
+
+else if a Error
+
+SERV --> CTRL: ("Something not  exist")
+deactivate SERV
+CTRL --> BLDG : error ("Something not  exist")
+
+
+
+end alt
+activate SERV
+
+SERV --> TASK_REQUEST : taskRequest=create(createTaskDTO,Task.id)
+activate SERV
+SERV --> TaskREPO :save(task)
+activate TaskREPO
+
+TaskREPO -> Database: writeData(task)
+activate Database
+
+
+return taskSaved
+deactivate TaskREPO
+
+SERV --> RequestREPO :save(taskRequest)
+activate RequestREPO
+
+RequestREPO -> Database: writeData(taskRequest)
+activate Database
+
+
+return taskRequestSaved
+deactivate RequestREPO
+
+SERV -->  DTORequestMAP : toDTO(taskRequestSaved)
+activate DTORequestMAP
+
+return taskRequestDTO :
+deactivate DTORequestMAP
+SERV --> CTRL :
+deactivate SERV
+CTRL --> BLDG :
+
+
+
+@enduml

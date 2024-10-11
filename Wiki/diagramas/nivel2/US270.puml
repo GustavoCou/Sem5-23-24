@@ -1,0 +1,20 @@
+@startuml
+autonumber
+actor "Gestor de Campus" 
+
+participant "<<System (C4)>>\n SPA/Frontend" as UI
+participant "<<System (C4)>>\n MDC" as MDC
+
+"Gestor de Campus"  -> UI : faz pedido para criar elevador
+
+UI --> "Gestor de Campus" : solicita os dados para a criaçao do elevador 
+
+"Gestor de Campus" -> UI : envia os dados para criar o elevador 
+
+UI -> MDC : createElevator(elevatorId, positionX, positionY, serialNumber, Description, Floor)
+
+MDC --> UI : elevator
+
+UI -->"Gestor de Campus" : infroma sobre o sucesso da operacao
+
+@enduml

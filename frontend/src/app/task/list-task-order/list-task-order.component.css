@@ -1,0 +1,195 @@
+.select-button {
+    background-color: rgb(243, 89, 17);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+
+ul {
+    list-style-type: none;
+    padding: -10000px;
+    margin-top: 10px;
+    max-height: 90vh;
+    overflow-y: auto;
+    width: 100%;
+    box-sizing: border-box;
+
+}
+
+li {
+    border: 1px solid #ddd;
+    margin-top: -1px;
+    background-color: #f6f6f6;
+    padding: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+
+
+button.reject {
+    background-color: #f1e8e8;
+    color: black;
+    border: 2px solid #f44336;
+}
+
+button.reject:hover {
+    background-color: #f44336;
+    color: white;
+}
+
+
+.task-details {
+    flex-grow: 1;
+    padding-top: 10px;
+    color: black;
+}
+
+.task-actions {
+    display: flex;
+    gap: 10px;
+    margin-left: 30px;
+}
+
+.approve,
+.reject {
+    width: auto;
+}
+
+
+.task-item div {
+    margin-bottom: 5px;
+}
+
+.task-item:first-child {
+    margin-top: 20px;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+}
+
+.content.bottom-right {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    margin: 10px;
+}
+
+.content.bottom-right button {
+    background-color: rgba(0, 0, 0, 0.832);
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.content.bottom-right button:hover {
+    background-color: rgba(0, 0, 0, 0.832);
+}
+
+
+
+.tarefa-item {
+    margin: 0 10px;
+    /* Espaçamento horizontal */
+    background-color: #f35810;
+    /* Cor de fundo para os itens da lista */
+    padding: 5px 10px;
+    /* Espaçamento interno */
+    border-radius: 5px;
+    /* Bordas arredondadas */
+    color: black;
+    /* Cor das letras */
+}
+
+.custo-caminho {
+    font-size: 18px;
+    /* Tamanho da fonte do custo */
+    color: black;
+    /* Cor do texto do custo */
+    margin-bottom: 10px;
+    /* Espaçamento abaixo do custo */
+    text-align: center;
+    /* Centraliza o texto */
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.caminho-container {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.caminho-tarefas,
+.tempo-dispendido {
+    margin-bottom: 10px;
+    color: black;
+    font-weight: bold;
+    background-color: rgb(245, 80, 9);
+
+}
+
+.tarefas-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    white-space: nowrap;
+    margin-top: 5px;
+    color: black;
+}
+
+
+.tarefa-separador {
+    margin: 0 5px;
+    font-weight: bold;
+    color: black;
+}
+
+
+.caminho-tarefas,
+.tempo-dispendido {
+    margin-bottom: 15px;
+    /* Aumenta o espaçamento abaixo do cabeçalho */
+}
+
+.caminho-tarefas strong,
+.tempo-dispendido strong {
+    display: block;
+    /* Faz o cabeçalho ser um bloco, o que força uma quebra de linha */
+    margin-bottom: 10px;
+    /* Espaçamento abaixo do cabeçalho */
+}
+
+
+
+.tarefa-separador {
+    margin: 0 5px;
+    font-weight: bold;
+    color: black;
+}
+
+.content.bottom-right {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+}

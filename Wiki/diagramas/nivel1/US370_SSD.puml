@@ -1,0 +1,24 @@
+@startuml
+
+actor "Fleet Manager" as manager
+participant "<<System (C4)>>\n RobDroneGo" as system
+
+manager -> system: Initiate "Inhibit Robot" use case
+activate system
+
+
+system --> manager: Display list of robots and ask which one to inhibit
+deactivate system
+
+
+manager -> system: Select robot to inhibit
+activate system
+
+system --> manager: Inform of success or failure
+deactivate system
+
+
+
+
+
+@enduml

@@ -1,0 +1,53 @@
+@startuml
+skinparam componentStyle uml2
+
+' Define components as circles
+() "UI Campus" as UIC
+() "API Campus" as APIC
+() "UI Fleet" as UIF
+() "API Fleet" as APIF
+
+
+
+' Define main system component
+component "UI" <<component>><<C4_System>> {
+    ' Define nested components within the system
+    component "       <<component>>\n    HTTP Driver" as HTTP
+    component "      <<component>>\n          Service" as S
+    component "      <<component>>\n          Model" as M
+    () "Service API" as SAPI
+    () "HTTP Driver API" as HAPI
+    () "Model API" as MAPI
+    () "Observer API" as OAPI
+
+    package "Angular Component"<<component>>{
+        component "       <<component>>\n    HMTL+CSS+JS" as HTML
+        () "Component API" as CAPI
+        component "    <<component>>\n     Component" as C
+
+    }
+
+}
+UIC -down- HTML
+UIF -down- HTML
+APIF -up- HTTP
+APIC -up- HTTP
+HTML -left-CAPI
+CAPI -left-C
+HTML -up-OAPI
+C -left- SAPI
+SAPI -left- S
+S -down- HAPI
+HAPI -down- HTTP
+MAPI -up-C
+MAPI -down-M
+MAPI -up- S
+M -right- OAPI
+MAPI -right-HTTP
+
+
+
+
+' Layout direction
+left to right direction
+@enduml

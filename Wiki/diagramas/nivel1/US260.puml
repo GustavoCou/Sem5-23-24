@@ -1,0 +1,24 @@
+@startuml
+autonumber
+actor "Gestor de Campus"
+
+
+"Gestor de Campus" -> "<<System (C4)>>\n RobDroneGo" : faz pedido para listar passagens entre edificios
+
+"<<System (C4)>>\n RobDroneGo" --> "Gestor de Campus" : solicita os dados para listar as passagens
+
+alt edificio 1, edificio 2
+
+"Gestor de Campus" -> "<<System (C4)>>\n RobDroneGo" : insere os edificios para os quais pretende listar as passagens
+
+"<<System (C4)>>\n RobDroneGo" --> "Gestor de Campus" : apresenta a lista de passagens entre os edificios
+
+else  sem identificar edificios 
+
+"<<System (C4)>>\n RobDroneGo" --> "Gestor de Campus" : apresenta a lista de passagens entre os edificios
+
+
+end alt 
+
+
+@enduml

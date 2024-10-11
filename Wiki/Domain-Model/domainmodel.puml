@@ -1,0 +1,236 @@
+@startuml
+
+!define AUTOFOCUS on
+
+skinparam linetype ortho
+skinparam arrowThickness 1
+skinparam nodesep 100
+skinparam ranksep 150
+skinparam groupInheritance 3
+skinparam backgroundColor white
+
+allowmixing
+
+package "Robot Aggregate"{
+'cada Robot possui um número de série do fabricante e que deve ser registado quando se cria o robot no sistema. cada robot é identificado por um código e um nickname atribuidos pelo administrador. Por exemplo, um robot da marca X com número de série 1234567 tem o código "picker-0001" e o nickname "Robert" enquanto um outro robot da marca Y com número de série 456789 tem o código "sec-A-001" e o nickname "Jason"
+'apenas existem dois tipos de tarefas conhecidas que o sistema deve suportar: vigilância e entrega de objectos. quando criam um tipo de robot deve ser possivel identificar qual ou quais destas tarefas esse tipo de robot pode executar.
+'apenas inibido ou desinibido ->  um robot inibido não pode executar tarefas.
+    Entity Robot <<aggregate root>>
+    {
+        -boolean inhibited
+    }
+    Class RobotID <<value object>> <<identity>>
+    Class SerialNumber <<value object>>
+    Class NickName <<value object>>
+
+    Robot "1" *- "1" RobotID
+    Robot "1" *-- "1" SerialNumber
+    Robot "1" *-- "1" NickName
+}
+
+package "Robot Type Aggregate"{
+    'tipo de robot: obrigatório, alfanum+ericos, maximo 25 caracteres
+    'marca: obrigatório, maximo 50 caracteres
+    'modelo: obrigatório, máximo 100 caracteres
+    Entity RobotType <<aggregate root>>
+    Class RobotTypeID <<value object>> <<identity>>
+    Class Brand <<value object>>
+    Class Model <<value object>>
+    Class RobotTypeDescription <<value object>>
+
+    RobotType "1" *-- "1" RobotTypeID
+    RobotType "1" *-- "1" RobotTypeDescription
+    RobotType "1" *-- "1" Model
+    RobotType "1" *-- "1" Brand
+}
+
+package "User Aggregate" {
+    Entity User <<aggregate root>> {
+        UserRole
+    }
+    Class UserId <<value object>>
+    Class Name <<value object>>
+    Class Email <<value object>>
+    Class Password <<value object>>
+    Class PhoneNumber <<value object>>
+    Class MecanographicNumber <<value object>>
+    Class TaxPayerNumber <<value object>>
+
+    User "1" *-- "1" UserId
+    User "1" *-- "1" Name
+    User "1" *-- "1" Email
+    User "1" *-- "1" Password
+    User "1" *-- "1" PhoneNumber
+    User "1" *-- "1" MecanographicNumber
+    User "1" *-- "1" TaxPayerNumber
+}
+
+package "Task Aggregate" {
+    Entity Task <<aggregate root>>
+    Class TaskId <<value object>> <<identity>>
+    Class TaskType <<value object>>
+
+    Class PickupContact <<value object>>
+    Class DeliveryContact <<value object>>
+    Class ConfirmationCode <<value object>>
+    Class DeliveryDescription <<value object>>
+    Class EmergencyContact <<value object>>
+
+    Task "1" *-- "1" TaskId
+    Task "1" *-- "1" TaskType
+    Task "1" *-- "0..1" PickupContact
+    Task "1" *-- "0..1" DeliveryContact
+    Task "1" *-- "0..1" ConfirmationCode
+    Task "1" *-- "0..1" DeliveryDescription
+    Task "1" *-- "0..1" EmergencyContact
+}
+
+package "Task Request Aggregate" {
+    Entity TaskRequest <<aggregate root>>
+    Class TaskRequestId <<value object>> <<identity>>
+    Class Status <<value object>>
+    Class Data <<value object>>
+
+    TaskRequest "1" *-- "1" TaskRequestId
+    TaskRequest "1" *-- "1" Status
+    TaskRequest "1" *-- "1" Data
+}
+
+'criar um edificio, exemplo, edificio "B", com um nome opcional e com uma breve descrição (ex., "departamento de engenharia informática") indicando a dimensão máxima de cada piso em termos de células (ex., 10 x 10)
+'o código do edificio é obrigatório, no máximo 5 caracteres, letras e digitos, podendo conter espaços no meio
+'o nome do edificio é opcional, no máximo 50 caracteres alfanuméricos
+'descricao do edificio é opcional e tem no maximo 255 caracteres
+package "Building Aggregate" {
+    Entity Building <<aggregate root>>
+    {
+        - buildingDescription : string
+        - buildingName : string
+    }
+    Class BuildingID <<value object>> <<identity>>
+    entity BuildingSize <<entity>>
+    {
+        - width : int
+        - depth : int
+    }
+    
+    Building "1" *- "1" BuildingID
+    Building "1" *-- "1" BuildingSize
+
+}
+'edificio (obrigatório)
+'número identificativo (obrigatório, único no edificio)
+'lista de pisos do edificio servidos pelo elevador (obrigatório)
+'marca (opcional, alfanumerico, 50 caracteres)
+'modelo (opcional, mas obrigatório se marca for introduzido, alfanumerico, 50 caracteres)
+'breve descrição (opcional, alfanumerico, 250 caracteres)
+    package "Elevator Aggregate" {
+    
+    Class ElevatorID <<value object>> <<identity>>
+    Class ElevatorPosition <<value object>>
+    Class ElevatorBrand <<value object>>
+    Class ElevatorModel <<value object>>
+    Class ElevatorDescription <<value object>>
+    Class ElevatorSerialNumber <<value object>>
+    
+    Elevator "1" *- "1" ElevatorID
+    Elevator "1" *-- "1" ElevatorPosition
+    Elevator "1" o-- "0..1" ElevatorBrand 
+    Elevator "1" o-- "0..1" ElevatorModel 
+    Elevator "1" o-- "0..1" ElevatorDescription
+    Elevator "1" o-- "0..1" ElevatorSerialNumber
+
+
+  
+}
+
+'categorização dessa sala (Gabinete, Anfiteatro, Laboratório, Outro) e uma breve 'descrição, ex., "Laboratório de 'Engenharia de Qualidade"
+package "Room Type Aggregate" {
+    Entity RoomType <<aggregate root>>
+    
+    Class RoomTypeID <<value object>> <<identity>>
+    Class RoomTypeDescription <<value object>>
+
+    RoomType "1" *- "1" RoomTypeID
+    RoomType "1" *-- "1" RoomTypeDescription
+}
+
+'Criar sala permite definir um sala num dado piso de um edificio, exemplo sala "B310" no 3º piso do edificio B, com uma categorização dessa sala (Gabinete, Anfiteatro, Laboratório, Outro) e uma breve descrição, ex., "Laboratório de Engenharia de Qualidade"
+package "Room Aggregate" {
+    Entity Room <<aggregate root>>
+    Class RoomID <<value object>> <<identity>>
+    Class RoomDescription <<value object>>
+    Class RoomPosition <<value object>> 
+    {
+        - posX : int
+        - posY : int
+    }
+    Class RoomSize <<value object>>
+    {
+        - width : int
+        - wepth : int
+    }
+    
+    Room "1" *- "1" RoomID
+    Room "1" *-- "1" RoomDescription
+    Room "1" *-- "1" RoomPosition
+    Room "1" *-- "1" RoomSize
+
+}
+
+'cada piso é descrito, concetualmente, pela informação das salas de aulas e gabinetes existentes no piso e sua localização, bem como pela localização dos elevadores e dos corredores de acesso aos outros edifícios.
+package "Floor Aggregate" {
+    Entity Floor <<aggregate root>>
+    
+    Class FloorID <<value object>> <<identity>>
+    Class FloorSize <<value object>>
+    {
+        - width : int
+        - depth : int
+    }
+    Class FloorMap <<value object>>
+    Class FloorDescription <<value object>>
+    
+    Floor "1" *-- "1" FloorID
+    Floor "1" *-- "1" FloorSize
+    Floor "1" *-- "1" FloorMap
+    Floor "1" o-- "1" FloorDescription
+}
+
+
+'Corredor de acesso entre pisos: Acesso de A para B é igual de B para A bidirecional
+'em cada piso podem existir várias passagens, cada uma para outro edificio, e no mesmo edificio podem existir várias passagens para um outro edificio desde que em pisos diferentes 
+package "Bridge Aggregate" {
+    Entity Bridge <<aggregate root>>
+    
+    Class BridgeID <<value object>> <<identity>>
+    Class BridgePosition <<value object>>
+    {
+        - posX : int
+        - posY : int
+    }
+    
+    Bridge "1" *- "1" BridgeID
+    Bridge "1" *-- "*" BridgePosition
+
+}
+
+Elevator "0..1" o-- "1..*" BuildingID : Has
+Elevator "0..1" o-- "1..*" FloorID : Has
+Building "1" o-- "1..*" FloorID : Has
+Floor "1" o-- "0..*" RoomID : Has
+Room "0..*" o-- "1" RoomTypeID : Is
+Bridge "1" *-- "1" FloorID : Links
+Bridge "1" *-- "1" FloorID : Links
+Bridge "1" *-- "1" BuildingID : Links
+Bridge "1" *-- "1" BuildingID : Links
+Task "1" -> "0..1" RoomID : Uses
+Task "1" -> "0..1" RoomID : Uses
+Task "1" -> "0..*" FloorID : Monitors
+Task "1" -> "0..1" BuildingID : Surveils In
+Robot "0..*" o-- "1" RobotTypeID : Is
+RobotType "1..*" o-- "1..*" TaskId : Is
+TaskRequest "0..*" o-- "1" UserId : Requested By
+TaskRequest "0..*" o-- "1" RobotID : Issued to
+TaskRequest "1" o-- "1" TaskId : Has
+
+@enduml

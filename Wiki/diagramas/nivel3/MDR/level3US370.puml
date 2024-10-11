@@ -1,0 +1,21 @@
+@startuml
+
+actor "RobotController" as controller
+participant "RobotService" as service
+database "MongoDB" as mongodb
+participant "Robotrepo" as repo
+
+controller -> service: Create robot operation (robotDTO)
+service -> repo: Check if robot with same ID exists
+alt Robot with same ID exists
+    repo -> service: Robot exists
+    service -> controller: Inform about duplicate ID
+else Robot with same ID doesn't exist
+    service -> repo: Insert new robot data
+    repo -> mongodb: Store robot data
+    mongodb -> repo: Acknowledgment
+    repo -> service: Robot creation successful
+    service -> controller: Return success
+end
+
+@enduml

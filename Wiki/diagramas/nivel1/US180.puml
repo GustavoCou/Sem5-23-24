@@ -1,0 +1,26 @@
+@startuml
+autonumber
+actor "Gestor de Campus" as GC
+
+participant "<<System (C4)>>\n RobDroneGo" as SPA
+
+activate GC
+
+GC -> SPA : Iniciar o processo de listar os edifícios com mínimo e máximo de pisos
+activate SPA
+SPA --> GC : Solicitar o intervalo mínimo e máximo de pisos pretendido 
+deactivate SPA
+
+GC -> SPA : Introduzir os dados solicitados
+activate SPA
+SPA --> GC : Solicitar a confirmação dos dados 
+deactivate SPA
+
+GC -> SPA : Confirma os dados
+activate SPA
+SPA --> GC : Apresenta a informação solicitada e informa o sucesso da operação
+deactivate SPA
+
+deactivate GC
+
+@enduml

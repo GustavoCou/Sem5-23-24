@@ -1,0 +1,36 @@
+<body class="body">
+
+    <h1>Lista de Robots</h1>
+
+    <div class="robot-grid">
+      <div *ngFor="let robot of robotList" 
+     class="robot-card" 
+     [ngClass]="{'inhibited-true': robot.inhibited, 'inhibited-false': !robot.inhibited}"
+     (mouseover)="onMouseOver(robot)"
+     (mouseleave)="onMouseLeave()">
+        <div class="title-background">
+          <h2>{{ robot.nickName }}</h2>
+        </div>
+        <h3>ID : {{ robot.id }}</h3>
+        <p class="status">
+          <span *ngIf="!robot.inhibited" class="checkmark">&#10004;</span> <!-- Green checkmark -->
+          <span *ngIf="robot.inhibited" class="forbidden">&#9940;</span> <!-- Red forbidden sign -->
+        </p>
+        <button (click)="toggleInhibited(robot)" [ngClass]="{'inhibited': robot.inhibited, 'not-inhibited': !robot.inhibited}">
+          {{ robot.inhibited ? 'Desinibir' : 'Inibir' }}
+        </button>
+      </div>
+    </div>
+    <button class="back-button" (click)="goBack()">Voltar</button>
+    <div class="info-window" *ngIf="hoveredRobot">
+      <h3>Informação Completa:</h3>
+      <p>ID: {{ hoveredRobot.id }}</p>
+      <p>Nickname: {{ hoveredRobot.nickName }}</p>
+      <p>Status: {{ hoveredRobot.inhibited ? 'Inhibited' : 'Active' }}</p>
+      <p>Serial Number: {{ hoveredRobot.serialNumber}}</p>
+      <p>Robot Type ID: {{ hoveredRobot.robotTypeId}}</p>
+      <!-- Add more fields as needed -->
+    </div>
+    
+
+</body>

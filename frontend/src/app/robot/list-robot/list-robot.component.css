@@ -1,0 +1,222 @@
+:host {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    font-size: 14px;
+    color: #333;
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 8px 0;
+}
+
+p {
+    margin: 0;
+}
+
+.spacer {
+    flex: 1;
+}
+
+
+
+.toolbar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    background-color: rgba(255, 38, 0, 0.832);
+    color: white;
+    font-weight: 600;
+}
+
+.toolbar img {
+    margin: 0 16px;
+}
+
+.toolbar .logoIsep {
+    height: 40px;
+    margin-left: auto;
+}
+
+.toolbar .logoDei {
+    height: 40px;
+    margin: 0 16px;
+}
+
+.content {
+    display: flex;
+    margin: 82px auto 32px;
+    padding: 0 16px;
+    max-width: 960px;
+    flex-direction: column;
+    align-items: center;
+}
+
+svg.material-icons {
+    height: 24px;
+    width: auto;
+}
+
+svg.material-icons:not(:last-child) {
+    margin-right: 8px;
+}
+
+.card svg.material-icons path {
+    fill: #888;
+}
+
+
+.body {
+    background-image: url('/assets/Campus.png');
+    /* Caminho da imagem */
+    background-size: cover;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-position: center center;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    /* Isso garante que o fundo cubra a altura total da janela do navegador. */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: Arial, sans-serif;
+
+}
+
+
+
+.message-box {
+
+    color: rgb(30, 29, 29);
+    padding: 10px;
+    text-align: center;
+    margin-top: -350px;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 5px;
+}
+
+.message-box-inner {
+    padding: -8px;
+    /* Espaçamento interno para a caixa */
+    border-radius: 10px;
+
+}
+
+.button-container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: row;
+
+}
+
+.option-button {
+    background-color: rgb(255, 89, 0);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.option-button:hover {
+    background-color: rgb(255, 132, 0);
+}
+
+
+
+
+
+
+button {
+background-color: #4caf50;
+color: #fff;
+cursor: pointer;
+border: none;
+border-radius: 4px;
+padding: 10px;
+}
+
+.robot-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 10px;
+    max-width: 960px;
+    margin: 0 auto;
+  }
+  
+  .robot-card {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    aspect-ratio: 1 / 1;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Button styles based on inhibited status */
+  button.inhibited {
+    background-color: rgb(0, 0, 255);
+  }
+  
+  button.not-inhibited {
+    background-color: rgb(255, 0, 0);
+  }
+
+button:hover {
+background-color: #45a049;
+}
+
+.back-button{
+    background-color: rgb(94, 93, 93);
+}
+.back-button:hover  {
+    background-color: rgb(118, 117, 117);
+    }
+
+
+
+    .inhibited-true {
+        background-color: lightpink;
+      }
+      
+      .inhibited-false {
+        background-color: lightblue;
+      }
+      
+      .info-window {
+        position: fixed;
+        top: 50%; /* Center vertically */
+        right: 0;
+        transform: translateY(-50%); /* Adjust for vertical centering */
+        width: 25%; /* Set the width to a fourth of the screen */
+        max-height: 60%; /* Adjust the height as needed */
+        background-color: rgba(232, 84, 10, 0.9);
+        padding: 10px;
+        box-shadow: -2px 0 5px rgba(243, 238, 238, 0.2);
+        overflow-y: auto; /* Allows scrolling if content is longer */
+        z-index: 10; /* Ensures it's above other content */
+        border-radius: 5px; /* Optional, for rounded corners */
+      }
+      
+      
+      
+  
+  

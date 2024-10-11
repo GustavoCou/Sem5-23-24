@@ -1,0 +1,34 @@
+@startuml
+autonumber
+actor "LoggedOut User" as GC
+participant "<<System (C4)>>\n [SPA/Frontend]" as UI
+participant "<<System (C4)>>\n [UserAPI]" as MDC
+
+activate GC
+
+
+GC -> UI : Initiate process to login
+deactivate GC
+activate UI
+UI--> GC : asks for credentials(email + password)
+deactivate UI
+activate GC
+deactivate UI
+GC -> UI: Inserts credentials
+deactivate GC
+activate UI
+UI -> MDC : PATCH Authenticate
+deactivate UI
+activate MDC
+MDC -> MDC : authenticate(credentials)
+
+
+MDC --> UI : Response with JWT token
+deactivate MDC
+Activate UI
+UI --> GC : User becomes logged in with respective menu
+deactivate UI
+
+deactivate GC
+
+@enduml

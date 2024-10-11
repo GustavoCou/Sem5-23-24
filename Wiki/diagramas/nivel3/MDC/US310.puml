@@ -1,0 +1,83 @@
+@startuml
+autonumber
+
+participant "Angular\nCreateRoomComponent\n(Script)" as SCRIPT
+participant "Angular\nRoomService" as FE_SERV
+participant "HttpRequestsService" as HTTP
+
+participant ":API" as API
+participant ":RoomController" as CTRL
+participant ":RoomService" as SERV
+participant ":Room" as ROOM
+participant ":RoomRepository" as REPO
+participant ":FloorRepository" as FREPO
+participant ":Room Mapper" as MAPPER
+participant ":Room Schema" as SCHEMA
+
+database "MongoDB" as DB
+
+
+SCRIPT -> FE_SERV : createRoom(formValue)
+activate FE_SERV
+    FE_SERV -> HTTP : post<Room>
+    activate HTTP
+        HTTP -> API : POST
+                activate API
+                    API -> CTRL : createRoom(roomDTO)
+                    activate CTRL
+                        CTRL -> SERV : CreateRoom(roomDTO)
+                            activate SERV
+                                SERV -> FREPO : findByDomainId(roomDTO.floor)
+                                activate FREPO
+                                    alt "Floor not found"
+                                        FREPO -> SERV : null
+                                        SERV -> CTRL : fail
+                                        CTRL -> API : error response
+                                        API -> HTTP : error
+                                    end
+                                    FREPO -> SERV : floor
+                                deactivate FREPO
+                                SERV -> ROOM : create()
+                                    activate ROOM
+                                        alt "Error creating Room"
+                                            ROOM --> SERV : fail
+                                            SERV --> CTRL : fail
+                                            CTRL --> API : error reponse
+                                            API --> HTTP : error
+                                        end
+                                        ROOM --> SERV : room
+                                    deactivate ROOM
+                                SERV -> REPO : save(room)
+                                activate REPO
+                                    REPO -> MAPPER : toPersistence()
+                                    activate MAPPER
+                                    MAPPER -> REPO : rawRoom
+                                    deactivate MAPPER
+                                    REPO -> SCHEMA : create(rawRoom)
+                                    activate SCHEMA
+                                        SCHEMA -> DB : persist
+                                        SCHEMA -> REPO : roomCreated
+                                    deactivate SCHEMA
+                                    REPO -> MAPPER : toDomain
+                                    activate MAPPER
+                                        MAPPER -> REPO : Room
+                                    deactivate MAPPER
+                                    REPO -> SERV : Promise<Room>
+
+                                deactivate REPO
+                                SERV -> CTRL : ok
+                            deactivate SERV
+                            CTRL --> API : success response
+                    deactivate CTRL
+                        
+                            API -> HTTP : response
+                deactivate API
+                HTTP -> FE_SERV : Observable<Room>
+    deactivate HTTP
+    FE_SERV -> SCRIPT : Observable<Room>
+deactivate FE_SERV
+
+
+
+
+@enduml

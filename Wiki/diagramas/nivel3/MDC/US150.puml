@@ -1,0 +1,80 @@
+@startuml
+autonumber
+participant ":BuildingComponent" as BC
+participant ":CreateBuildingComponent" as CreateBuilding
+participant ":Route" as BLDG
+participant ":BuildingController" as CTRL
+participant ":BuildingDTO" as DTO
+participant ":BuildingService" as SERV
+participant ":building: Building" as BUILDING
+participant ":BuildingRepository" as REPO
+participant "BuildingMap" as DTOMAP
+
+database Database
+
+activate BC
+BC -> BC : resetShow()
+
+BC -> CreateBuilding : showCreateBuilding= true
+deactivate BC
+
+activate CreateBuilding
+CreateBuilding -> CreateBuilding:  onSubmitForm()
+CreateBuilding -> CreateBuilding:  prepareData()
+
+CreateBuilding -> BLDG : POST Building (id,name description,size)
+activate BLDG
+
+BLDG -> CTRL : createBuilding(req, res, next)
+activate CTRL
+CTRL -> DTO: buildingDTO=create()
+activate DTO
+return
+deactivate DTO
+CTRL -> SERV : CreateBuilding(buildingDTO)
+activate SERV
+alt
+SERV -> REPO : findById(buildingDTO.id)
+activate REPO
+REPO -> Database: read(building)
+activate Database
+Database --> REPO
+deactivate
+return (building)
+
+
+return  error ("Building exist")
+CTRL --> BLDG : error ("Building exist")
+return  error ("Building exist")
+else
+
+activate REPO
+REPO -> SERV : return(null)
+deactivate REPO
+activate SERV
+end alt
+
+
+SERV --> BUILDING : building= create(buildingDTO)
+SERV --> REPO :save(building)
+activate REPO
+
+REPO -> Database: writeData(building)
+activate Database
+
+return buildingSaved
+return buildingSaved
+deactivate REPO
+
+SERV -->  DTOMAP : toDTO(buildingSaved)
+activate DTOMAP
+
+return buildingSavedDTO :
+deactivate DTOMAP
+SERV --> CTRL :
+deactivate SERV
+CTRL --> BLDG :
+BLDG --> CreateBuilding : Success
+deactivate CreateBuilding
+
+@enduml

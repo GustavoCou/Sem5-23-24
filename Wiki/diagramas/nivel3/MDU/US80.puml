@@ -1,0 +1,34 @@
+@startuml
+
+actor Admin as "Administrador"
+' Referência ao diagrama anterior
+note over "Administrador"
+  ver Diagrama LogInN3(representa interaçao anterior)
+end note
+
+
+Admin -> ManageUsersComponent : showApproveRejectUser()
+ManageUsersComponent -> ApproveRejectUserComponent: ngOnInit()
+ApproveRejectUserComponent -> HttpRequestsUsersService: GET '/Users/PendingUtentes'
+HttpRequestsUsersService -> UserController: GetPendingUtentes()
+UserController -> UserService: GetPendingUtentesAsync()
+UserService -> UserRepository: GetUsersByApprovalStatusAsync(status)
+UserRepository -> UserService: return user[]
+UserService -> UserDto:  create UserDto
+UserDto -> UserService: return userDto
+UserService -> UserController: return userDto[]
+UserController -> HttpRequestsUsersService: return userDTO[]
+HttpRequestsUsersService -> UserDTO: create UserDto (frontend)
+UserDTO -> HttpRequestsUsersService: UserDTO[]
+HttpRequestsUsersService -> UserMapper: toUserModel(userdto)
+UserMapper -> HttpRequestsUsersService: UserModel[]
+HttpRequestsUsersService -> ApproveRejectUserComponent: UserModel[]
+ApproveRejectUserComponent -> Admin: return users[]
+Admin -> ApproveRejectUserComponent: approve()/reject()
+ApproveRejectUserComponent -> HttpRequestsUsersService: PUT '/Users/{email}/updatestatus'
+HttpRequestsUsersService -> UserController: UpdateUserApprovalStatus(email, UserDto)
+UserController -> UserService: ChangeUserApprovalStatusAsync(UserDto)
+UserService -> UserRepository: UpdateUserAsync(User)
+
+
+@enduml

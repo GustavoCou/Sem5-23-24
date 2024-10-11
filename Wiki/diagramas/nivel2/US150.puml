@@ -1,0 +1,25 @@
+@startuml
+autonumber
+actor "Gestor de Campus" as GC
+participant "<<System (C4)>> \n SPA/Frontend"  as UI
+participant "<<System (C4)>>\n MDC" as MDC
+
+activate GC
+
+
+GC -> UI : Iniciar o processo de criar edificio
+activate UI
+UI--> GC : Solicitar dados do edificio
+deactivate UI
+GC -> UI: Introduzir os dados solicitados
+activate UI
+UI -> MDC : POST Building
+activate MDC
+MDC -> MDC : create(building)
+MDC --> UI : building criado
+UI --> GC : Informa o sucesso da operação
+deactivate UI
+
+deactivate GC
+
+@enduml

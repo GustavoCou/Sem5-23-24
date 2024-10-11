@@ -1,0 +1,93 @@
+@startuml
+!define RECTANGLE class
+!define DATABASE entity
+
+skinparam rectangle {
+    BackgroundColor PaleGreen
+    BorderColor DarkSlateGray
+}
+
+skinparam database {
+    BackgroundColor Gold
+    BorderColor DarkSlateGray
+}
+
+skinparam linetype ortho
+
+
+package SPA{  
+note "http://localhost:4200/" as K2     
+
+RECTANGLE UtenteUI {
+     
+    
+}
+RECTANGLE GestorDeFrotaUI {
+     
+    
+}
+RECTANGLE GestorDeTarefasUI {
+     
+    
+}
+RECTANGLE GestorDeCampusUI {
+     
+    
+}
+RECTANGLE AdministradorUI {
+     
+    
+}
+}
+package PersistenceLayer{
+
+package MongoDB{
+    note "cluster0.28yj7at.mongodb.net" as K
+    
+DATABASE RobDroneGoDB {
+                           
+    
+}
+
+DATABASE TaskAPIDB {
+   
+}
+}
+package SQLServer{
+
+    note "endereço sql server" as K4
+DATABASE UserDB {
+   
+}
+}
+}
+
+package ServiceLayer{
+    RECTANGLE RobDroneGoAPI {
+  
+}
+RECTANGLE UserAPI {
+    
+    
+}
+
+RECTANGLE TaskAPI {
+    
+    
+}
+}
+
+
+AdministradorUI ---right--> UserAPI : "http://localhost:5001/Users"
+UtenteUI ---down--> TaskAPI : "http://localhost:4001/tasks"
+UtenteUI ---down--> RobDroneGoAPI : "http://localhost:4000/robot"
+GestorDeTarefasUI ---down--> TaskAPI : "http://localhost:4001/tasks"
+GestorDeFrotaUI ---down--> RobDroneGoAPI : "http://localhost:4000/robot"
+GestorDeCampusUI ---down--> RobDroneGoAPI : "http://localhost:4000/building"
+
+
+RobDroneGoAPI --down--> RobDroneGoDB 
+TaskAPI --down--> TaskAPIDB 
+UserAPI --down--> UserDB 
+
+@enduml

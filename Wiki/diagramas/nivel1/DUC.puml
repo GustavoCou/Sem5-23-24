@@ -1,0 +1,83 @@
+@startuml
+
+usecase US150 as "US150 - Criar edifício"
+usecase US160 as "US160 - Editar edifício"
+usecase US170 as "US170 - Listar todos os edifícios"
+usecase US180 as "US180 - Listar edifícios com min e max de pisos"
+usecase US190 as "US190 - Criar piso de edifício"
+usecase US200 as "US200 - Editar informação de piso de edifício"
+usecase US210 as "US210 - Listar todos os pisos de um edifício"
+usecase US220 as "US220 - Listar pisos de edifício com passagem para outros edifícios"
+usecase US230 as "US230 - Carregar mapa de piso"
+usecase US240 as "US240 - Criar passagem entre edifícios"
+usecase US250 as "US250 - Editar passagem entre edifícios"
+usecase US260 as "US260 - Listar passagens entre 2 edifícios"
+usecase US270 as "US270 - Criar elevador em edifício"
+usecase US280 as "US280 - Editar elevador em edifício"
+usecase US290 as "US290 - Listar elevadores em edifício"
+usecase US300 as "US300 - Listar pisos de edifício servidos por elevador"
+usecase US310 as "US310 - Criar sala de piso de edifício"
+usecase US350 as "US350 - Adicionar um novo tipo de robot indicando a sua designação e que tipos de tarefas pode executar da lista prédefinida de tarefas"
+usecase US360 as "US360 - Adicionar um novo robot à frota indicando o seu tipo, designação, etc"
+usecase US370 as "US370 - Inibir um robot"
+usecase US380 as "US380 - Consultar todos os robots da frota"
+usecase US390 as "US390 - Pesquisar todos os robots da frota por designação ou tarefa que pode executar"
+usecase US640 as "US640 - Deployment de um dos módulos do RFP numa VM do DEI seja sistemático, validando de forma agendada com o plano de testes"
+usecase US650 as "US650 - Apenas os clientes da rede interna do DEI (cablada ou via VPN) possam aceder à solução"
+usecase US660 as "US660 - Os clientes indicados na user story anterior possam ser definidos pela simples alteração de um ficheiro de texto"
+usecase US670 as "US670 - Identificar e quantificar os riscos envolvidos na solução preconizada"
+usecase US800 as "US800 - Definir o MBCO (Minimum Business Continuity Objective) a propor aos stakeholders"
+usecase US810 as "US810 - Proposta, justificada e implementada uma estratégia de cópia de segurança que minimize o RPO (Recovery Point Objective) e o WRT (Work Recovery Time)"
+usecase US820 as "US820 - Definir uma pasta pública para todos os utilizadores registados no sistema"
+usecase US830 as "US830 - Obter os utilizadores com mais do que 3 acessos incorretos"
+usecase US130 as "US130 - Upload do mapa do campus considerando edifícios e ligações interiores entre os mesmos para ser utilizado pelos robots"
+usecase US1220 as "US1220 - Obter os caminhos entre dois edificos considerando um critério de otimização"
+usecase US90 as "US90 - Relatório que, descrevendo a solução encontrada e considerando as normas do RGPD, identifique concretamente os dados pessoais utilizados, o tratamento a que serão sujeitos, bem como a finalidade e fundamento daquele tratamento e, ainda, o responsável pelo tratamento."
+
+actor "Gestor de Campus" as GC
+actor "Gestor de Frota" as GF
+actor "Gestor de Tarefas" as GT
+actor "Gestão de Utilizadores" as GU
+actor "Administrador de Sistemas" as AdS
+
+left to right direction
+
+GC --> (US150)
+GC --> (US160)
+GC --> (US170)
+GC --> (US180)
+GC --> (US190)
+GC --> (US200)
+GC --> (US210)
+GC --> (US220)
+GC --> (US230)
+GC --> (US240)
+GC --> (US250)
+GC --> (US260)
+GC --> (US270)
+GC --> (US280)
+GC --> (US290)
+GC --> (US300)
+GC --> (US310)
+GC --> (US130)
+
+GF --> (US350)
+GF --> (US360)
+GF --> (US370)
+GF --> (US380)
+GF --> (US390)
+
+GT --> (US1220)
+
+GU --> (US90)
+
+AdS --> (US640) 
+AdS --> (US650)
+AdS --> (US660)
+AdS --> (US670)
+AdS --> (US800)
+AdS --> (US810)
+AdS --> (US820)
+AdS --> (US830)
+
+@enduml

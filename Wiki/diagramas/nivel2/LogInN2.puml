@@ -1,0 +1,25 @@
+@startuml
+autonumber
+actor "User" as GC
+participant "<<System (C4)>> \n SPA/Frontend"  as UI
+participant "<<System (C4)>>\n MDC" as MDC
+
+activate GC
+
+
+GC -> UI : Acede à aplicação para se autenticar
+activate UI
+UI--> GC : Solicita dados de logIn
+deactivate UI
+GC -> UI: Insere os dados de logIn
+activate UI
+UI -> MDC : POST Users Authenticate
+activate MDC
+MDC -> MDC : Valida, autentica user e gera Token
+MDC --> UI : User autenticado
+UI --> GC : LogIn com sucesso
+deactivate UI
+
+deactivate GC
+
+@enduml

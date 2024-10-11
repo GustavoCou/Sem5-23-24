@@ -1,0 +1,52 @@
+<p-toast></p-toast>
+    <div class="form-container">
+        <h2>Editar Elevador</h2>
+
+        <div class="inputbox">
+            <label for="building-select">Edificio</label>
+            <select id="building-select" [(ngModel)]="selectedBuildingId" (change)="fetchElevatorList()">
+                <option *ngFor="let b of buildingList" [value]="b.id">{{ b.name }}</option>
+            </select>
+        </div>
+
+        <div class="inputbox">
+            <label for="elevator-select">Elevador</label>
+            <select id="elevator-select" [(ngModel)]="selectedElevatorId" (change)="loadElevatorInfo()">
+                <option *ngFor="let e of elevatorList" [value]="e.elevatorId">{{ e.elevatorId }}</option>
+            </select>
+        </div>
+
+            <h2>Informações do Elevador</h2>
+            <form [formGroup]="elevatorForm">
+                <div>
+                    <div class="d-flex gap-2">
+                        <input readonly type="text" class="form-control" placeholder="Id do Elevador" aria-describedby="basic-addon1" formControlName="elevatorId" type="text"/>
+                    </div>
+                </div>
+                <div class="my-2">
+                    <div class="d-flex gap-2">
+                        <input readonly type="text" class="form-control" placeholder="Posição X" aria-describedby="basic-addon1" formControlName="elevatorPosX" type="text" />
+    
+                        <input readonly type="text" class="form-control" placeholder="Posição Y" aria-describedby="basic-addon1" formControlName="elevatorPosY" type="text" />
+                    </div>
+                </div>
+                <div class="my-2">
+                    <div class="d-flex gap-2">
+                        <input type="text" class="form-control" placeholder="Marca" aria-describedby="basic-addon1" formControlName="elevatorBrand" />
+    
+                        <input type="text" class="form-control" placeholder="Modelo" aria-describedby="basic-addon1" formControlName="elevatorModel" />
+                    </div>
+                </div>
+                <div class="my-2">
+                    <div class="d-flex gap-2">
+                        <input type="text" class="form-control" placeholder="Número de Série" aria-describedby="basic-addon1" formControlName="elevatorSerialNumber" />
+    
+                        <input type="text" class="form-control" placeholder="Descrição" aria-describedby="basic-addon1" formControlName="elevatorDescription" />
+                    </div>
+                </div>
+                <div class="d-flex justify-content-center my-3">
+                    <button (click)="onSubmitForm()" class="w-25 btn btn-success">Editar Elevador</button>
+                    <button class="back-button" (click)="goBack()">Voltar</button>
+                </div>
+            </form>
+        </div>

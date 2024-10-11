@@ -1,0 +1,32 @@
+name: Build and Test
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Set Up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 18.18
+
+      - name: Install Dependencies
+        run: |
+          cd backend
+          npm install
+
+      - name: Run Tests
+        run: |
+          cd backend
+          npm test

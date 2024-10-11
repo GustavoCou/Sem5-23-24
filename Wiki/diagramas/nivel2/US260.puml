@@ -1,0 +1,31 @@
+@startuml
+autonumber
+actor "Gestor de campus" 
+
+"Gestor de campus" -> "<<System (C4)>>\n SPA/Frontend"  : faz pedido para listar passagens entre edificios
+
+"<<System (C4)>>\n SPA/Frontend" --> "Gestor de campus" : solicita os edificios 
+
+alt edificio 1, edificio 2
+"Gestor de campus"  -> "<<System (C4)>>\n SPA/Frontend" : envia o id dos edificios
+
+"<<System (C4)>>\n SPA/Frontend" -> "<<System (C4)>>\n MDC" : GET listBridgesBetweenBuilding(idBuildingX, idBuildingY)
+
+"<<System (C4)>>\n MDC" --> "<<System (C4)>>\n SPA/Frontend"  : lista de passagens (Bridge: Json)
+
+else  sem identificar edificios 
+
+"<<System (C4)>>\n SPA/Frontend" -> "<<System (C4)>>\n MDC" : GET listAllBridges()
+
+"<<System (C4)>>\n MDC" --> "<<System (C4)>>\n SPA/Frontend"  : lista de passagens (Bridge: Json)
+
+
+end alt 
+
+"<<System (C4)>>\n SPA/Frontend"  --> "Gestor de campus" : apresenta a informacao solicitada
+
+
+
+
+
+@enduml

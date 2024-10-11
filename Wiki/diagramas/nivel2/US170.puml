@@ -1,0 +1,22 @@
+@startuml
+autonumber
+actor "Gestor de Campus" as GC
+
+
+participant "<<System (C4)>> \n SPA/Frontend"   as UI
+participant "<<System (C4)>>\n MDC" as MDC
+
+activate GC
+
+GC -> UI : Iniciar o processo de listar edicicio
+activate UI
+UI -> MDC : GET Building
+activate MDC
+MDC -> MDC : listBuilding(building)
+MDC --> UI : List Building
+UI --> GC : Mostra lista de edificios
+deactivate UI
+
+deactivate GC
+
+@enduml

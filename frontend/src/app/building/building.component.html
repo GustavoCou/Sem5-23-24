@@ -1,0 +1,41 @@
+<!-- app.component.html -->
+
+<body class="body">
+    <!-- Toolbar -->
+    <div class="toolbar" role="banner">
+        <img width="185" alt="RobDroneGo Logo" src="/assets/Logo.png" />
+
+
+        <span>Bem-vindo ao RobDroneGo</span>
+
+
+        <img class="logoIsep" alt="ISEP Logo" src="/assets/LogoIsep_SFundo.png">
+        <img class="logoDei" alt="DEI Logo" src="/assets/DeiLogo_SFundo.png">
+    </div>
+
+    <div class="message-box" *ngIf="!showCreateBuilding && !showEditBuilding && !showListBuilding">
+        <div class="message-box-inner">
+            <h1>Gestão de Edificios</h1>
+        </div>
+    </div>
+    
+    <div class="button-container" *ngIf="!showCreateBuilding && !showEditBuilding && !showListBuilding">
+
+      <button id="btnCriarEdificio" class="option-button" (click)="resetShow();showCreateBuilding= true">Criar Edificio</button>
+      <button id="btnEditarEdificio" class="option-button" (click)="resetShow();showEditBuilding = true">Editar Edificio</button>
+      <button id="btnListarEdificio" class="option-button" (click)="resetShow();showListBuilding = true">Listar Edificio</button>
+      <button id="btnListarMinMax" class="option-button" (click)="resetShow();showListMinMaxBuildingFloor = true">Listar Edificio com minimo e máximo de pisos</button>
+      </div>
+
+      <div class="workspace-container">
+        <app-create-building *ngIf="showCreateBuilding"></app-create-building>
+        <app-edit-building *ngIf="showEditBuilding"></app-edit-building>
+        <app-list-building *ngIf="showListBuilding"></app-list-building>
+        <app-list-building-min-max-floor *ngIf="showListMinMaxBuildingFloor"></app-list-building-min-max-floor>
+      </div>
+      <div class="content bottom-right" *ngIf="!showCreateBuilding && !showEditBuilding && !showListBuilding">
+        <button id="BackToMenu" type="button" (click)="backToMenu()">
+          Voltar Menu Principal</button>
+      </div>
+      
+</body>

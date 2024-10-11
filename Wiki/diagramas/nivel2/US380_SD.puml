@@ -1,0 +1,23 @@
+@startuml
+autonumber
+actor "Fleet Manager" as GC
+participant "<<System (C4)>>\n SPA/Frontend" as UI
+participant "<<System (C4)>>\n MDC" as MDC
+
+activate GC
+
+
+GC -> UI : Initiate process to inhibit robot
+activate UI
+
+UI -> MDC : GET Robot
+activate MDC
+MDC -> MDC : list(robot)
+MDC --> UI : robot sends list of robots
+deactivate MDC
+UI --> GC : displays list of robots
+deactivate UI
+
+
+
+@enduml

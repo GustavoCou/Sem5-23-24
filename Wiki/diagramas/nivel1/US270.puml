@@ -1,0 +1,19 @@
+@startuml
+autonumber
+actor "Gestor de Campus"
+
+
+
+"Gestor de Campus" -> "<<System (C4)>>\n RobDroneGo" : faz pedido para criar elevador
+
+"<<System (C4)>>\n RobDroneGo" --> "Gestor de Campus" : solicita os dados para criar o elevador
+
+"Gestor de Campus" -> "<<System (C4)>>\n RobDroneGo": envia os dados para criar o elevador 
+
+"<<System (C4)>>\n RobDroneGo" --> "Gestor de Campus" : notifica com sucesso da criacao de elevador
+
+
+
+@enduml
+
+

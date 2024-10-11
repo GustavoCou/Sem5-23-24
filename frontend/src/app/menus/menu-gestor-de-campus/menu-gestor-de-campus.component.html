@@ -1,0 +1,47 @@
+<body class="body">
+<!-- Toolbar -->
+<div class="toolbar" role="banner">
+  <img width="185" alt="RobDroneGo Logo" src="/assets/Logo.png" />
+
+  <span> Bem-vindo ao RobDroneGo </span>
+
+  <img class="logoIsep" alt="ISEP Logo" src="/assets/LogoIsep_SFundo.png">
+  <img class="logoDei" alt="DEI Logo" src="/assets/DeiLogo_SFundo.png">
+</div>
+
+<!-- Menu -->
+
+
+<div class="container">
+  <div class="card highlight-card card-small">
+
+    <svg id="robot" width="101.678" height="101.678" viewBox="0 0 101.678 101.678">
+      <circle cx="50.839" cy="50.839" r="50.839" fill="#fff" />
+      <image xlink:href="/assets/Robot.svg" width="80" height="80" x="11.84" y="11.84" />
+    </svg>
+
+    <span>MENU PRINCIPAL</span>
+
+  </div>
+
+
+
+  <div class="menu-container">
+
+    <div class="menu-item dropdown">
+      <a href="#" class="dropdown">Gestor de Campus</a>
+      <div class="dropdown-content">
+        <a [routerLink]="['/floor']">Pisos</a>
+        <a [routerLink]="['/building']">Edificios</a>
+        <a [routerLink]="['/room']">Salas</a>
+        <a [routerLink]="['/elevator']">Elevadores</a>
+
+        <a [routerLink]="['/bridge']">Passagem</a>
+      </div>
+    </div>
+
+    
+
+  </div>
+</div>
+</body>

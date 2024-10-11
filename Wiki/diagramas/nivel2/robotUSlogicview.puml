@@ -1,0 +1,40 @@
+@startuml
+
+package "API" {
+  class "HTTP Server (Express)" as Server
+  class "RobotRouter" as Router
+}
+
+package "Controller" {
+  class "RobotController" as Controller
+}
+
+package "Service" {
+  class "RobotService" as Service
+}
+
+package "Repository" {
+  class "RobotRepository" as Repository
+}
+
+package "DTO" {
+  class "IRobotDTO" as DTO
+}
+
+package "Validation" {
+  class "Validation (celebrate)" as Validation
+}
+
+package "MongoAPI" as MongoDB {
+  class "Persistence" as DB
+}
+
+Server --> Router : Uses
+Router --> Controller : Uses
+Controller --> Service : Uses
+Service --> Repository : Uses
+Service --> DTO : Maps from
+Controller --> Validation : Validates with
+Repository --> MongoDB : Connects to
+
+@enduml

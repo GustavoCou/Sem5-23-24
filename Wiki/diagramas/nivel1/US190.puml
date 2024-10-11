@@ -1,0 +1,25 @@
+@startuml
+autonumber
+actor "Gestor de Campus" as GC
+participant "<<System (C4)>>\n RobDroneGo" as SPA
+
+activate GC
+
+GC -> SPA : Iniciar o processo para criar um piso de edifício
+activate SPA
+SPA --> GC : Solicitar os dados necessários para criar um piso 
+deactivate SPA
+
+GC -> SPA : Inserir os novos dados e seleccionar o edificío
+activate SPA
+SPA --> GC : Pedir a confirmação 
+deactivate SPA
+
+GC -> SPA : Confirmar os dados
+activate SPA
+SPA --> GC : Informar o sucesso da operação 
+deactivate SPA
+
+deactivate GC
+
+@enduml

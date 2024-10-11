@@ -1,0 +1,28 @@
+@startuml
+autonumber
+actor "Gestor de Campus" as GC
+
+participant "<<System (C4)>> \n SPA/Frontend"   as UI
+participant "<<System (C4)>>\n MDC" as MDC
+
+activate GC
+
+GC -> UI : Iniciar o processo de carregar mapa de piso
+activate UI
+UI --> GC : Solicitar dados (file,idBuilding,idfloor)
+deactivate UI
+GC -> UI : Introduzir os dados solicitados
+activate UI
+
+
+UI -> MDC : PATCH mapa
+activate MDC
+MDC -> MDC : uploadMap(floor)
+MDC --> UI : Mapa
+UI --> GC : Informa o sucesso da operação
+deactivate UI
+
+
+deactivate GC
+
+@enduml

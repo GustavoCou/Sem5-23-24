@@ -1,0 +1,74 @@
+@startuml
+
+
+BridgeComponent -> CreateBridgeComponent : Activate/CreateBridgeComponent
+CreateBridgeComponent -> CreateBridgeComponent : ngOnInit()
+
+'vai buscar os buildings
+CreateBridgeComponent -> HttpRequestsService : getBuildings()
+HttpRequestsService -> Router : GET /building/list
+Router -> BuildingController : listBuildings()
+BuildingController -> BuildingService : getAllBuildings()
+BuildingService -> BuildingRepo : listAll()
+BuildingRepo -> BuildingSchema : find()
+BuildingSchema --> BuildingRepo : buildingDocs[]
+BuildingRepo --> BuildingService : buildings[]
+BuildingService --> BuildingController : buildings[]
+BuildingController --> Router : buildings[]
+Router --> HttpRequestsService : buildings[]
+HttpRequestsService --> CreateBridgeComponent : buildings[]
+
+' vai buscar os pisos do edificio escolhido
+CreateBridgeComponent -> HttpRequestsService : getRequest('floor/get/' + buildingId)
+HttpRequestsService -> Router : GET /floor/get/:buildingId
+Router -> FloorController : listFloors(req, res, next)
+FloorController -> FloorService : getFloorsByBuildingId(buildingId)
+FloorService -> FloorRepo : findByBuildingId(buildingId)
+FloorRepo -> FloorSchema : find({building: buildingId})
+FloorSchema --> FloorRepo : floorDocs[]
+FloorRepo --> FloorService : floors[]
+FloorService --> FloorController : floors[]
+FloorController --> Router : floors[]
+Router --> HttpRequestsService : floors[]
+HttpRequestsService --> CreateBridgeComponent : Update floorsX/Y[] 
+
+CreateBridgeComponent -> CreateBridgeComponent : prepareData()
+CreateBridgeComponent -> Dto : Converts form data to BridgeDTO
+Dto --> CreateBridgeComponent : bridgeDTO
+CreateBridgeComponent -> HttpRequestsService : postRequest('bridge', bridgeDTO)
+HttpRequestsService -> Router : POST /bridge
+Router -> BridgeController : createBridge(req, res, next)
+
+BridgeController -> BridgeService : createBridge(bridgeDTO)
+BridgeService -> BridgeRepo : findById(bridgeDTOId)
+BridgeRepo -> BridgeSchema : findOne(bridgeDTOId)
+BridgeSchema --> BridgeRepo : bridge
+BridgeRepo --> BridgeService : bridge
+
+BridgeService -> FloorRepo : sameBuilding(bridgeDTO.floorIdX, bridgeDTO.floorIdY)
+FloorRepo --> BridgeService : boolean
+
+BridgeService -> BridgeRepo : bridgeBetweenFloors(bridgeDTO.floorIdX, bridgeDTO.floorIdY)
+BridgeRepo --> BridgeService : boolean
+
+BridgeService -> FloorRepo : getFloorId(bridgeDTO.floorIdX, bridgeDTO.floorIdY)
+FloorRepo --> BridgeService : boolean
+
+BridgeService -> BuildingRepo : getBuildingByFloor(bridgeDTO.floorIdX, bridgeDTO.floorIdY)
+BuildingRepo --> BridgeService : buildings[]
+
+BridgeService -> Bridge : create(bridgeDTO)
+Bridge --> BridgeService : bridge
+BridgeService -> BridgeRepo : save(bridge)
+BridgeRepo -> BridgeMap : toPersistence(bridge)
+BridgeMap --> BridgeSchema : create(bridgePersistenceModel)
+BridgeSchema --> BridgeRepo : savedBridgeDoc
+BridgeRepo -> BridgeMap : toDomain(savedBridgeDoc)
+BridgeMap --> BridgeRepo : bridge
+BridgeRepo --> BridgeService : bridgeDTO
+BridgeService --> BridgeController : bridgeDTO
+BridgeController --> Router : bridgeDTO
+Router --> HttpRequestsService : response
+HttpRequestsService --> CreateBridgeComponent : Display Response
+
+@enduml

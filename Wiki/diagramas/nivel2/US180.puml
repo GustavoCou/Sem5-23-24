@@ -1,0 +1,30 @@
+@startuml
+autonumber
+actor "Gestor de Campus" as GC
+
+participant "<<System (C4)>>\n SPA/Frontend" as SPA
+participant "<<System (C4)>>\n MDC" as MDC
+
+activate GC
+GC -> SPA : Iniciar o processo de listar os edifícios com mínimo e máximo de pisos
+activate SPA
+SPA --> GC : Solicitar o intervalo mínimo e máximo de pisos pretendido 
+deactivate SPA
+
+GC -> SPA : Introduzir os dados solicitados
+activate SPA
+SPA --> GC : Solicitar a confirmação dos dados 
+deactivate SPA
+
+GC -> SPA : Confirma os dados
+activate SPA
+SPA -> MDC : GET getBuildingsInFloorRange()
+activate MDC
+MDC -> MDC : getBuildingInFloorRange()
+MDC --> SPA : lista de edifícios (JSON)
+deactivate MDC
+SPA --> GC : Apresenta a informação solicitada e informa o sucesso da operação
+deactivate SPA
+deactivate GC
+
+@enduml

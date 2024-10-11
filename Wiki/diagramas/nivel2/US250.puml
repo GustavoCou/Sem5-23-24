@@ -1,0 +1,23 @@
+@startuml
+autonumber
+actor "Gestor Campus" as GC
+
+participant "<<System (C4)>>\n SPA/Frontend" as UI
+participant "<<System (C4)>>\n MDC" as MDC
+
+GC -> UI : faz pedido para editar a passagem 
+
+UI --> GC: solicita os dados para editar a passagem
+
+GC -> UI : envia os dados para editar a passagem 
+
+UI -> MDC : updateBridge(idBridge, (...dados a alterar...))
+
+
+MDC --> UI : bridgeUpdated
+
+UI --> GC: informa sobre o sucesso da operacao
+
+
+
+@enduml

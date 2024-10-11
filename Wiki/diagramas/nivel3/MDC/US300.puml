@@ -1,0 +1,101 @@
+@startuml
+autonumber
+
+participant ":System" as SY
+participant ":List-floors-building.component\n(Angular)" as LE
+participant ":Elevator.service" as ES
+
+participant ":ElevatorRoute" as API
+participant ":ElevatorController" as CTRL
+participant ":ElevatorService" as SERV
+participant ":elevator: Elevator" as ELEVATOR 
+participant ":ElevatorRepository" as REPO
+participant ":ElevatorMap" as MAP
+participant "FloorRepositopry" AS FREPO
+
+participant ":BuildingRoute" as BR
+participant ":BuildingController" as BCTRL
+participant ":BuildingService" as BSERV
+participant ":BuildingRepository" as BREPO
+participant ":BuildingSchema" as BSCHEMA
+participant ":BuildingMap" as BMAP
+
+activate SY
+SY -> LE : GET loadBuildings()
+activate LE
+LE -> LE : ngOnInit() 
+LE -> ES : getBuildings()
+activate ES
+ES -> BR : GET getBuildings()
+activate BR
+BR -> BCTRL : listBuilding()
+activate BCTRL
+BCTRL ->  BSERV : ListBuilding()
+activate BSERV
+BSERV -> BREPO : listAll()
+activate BREPO 
+BREPO -> BSCHEMA : find()
+activate BSCHEMA
+deactivate BSCHEMA
+BREPO -> BMAP : toDomain()
+activate BMAP
+BMAP --> BREPO : buildings[]
+deactivate BMAP
+BREPO --> BSERV : buildings[]
+deactivate BREPO
+BSERV --> BCTRL : buildings[]
+deactivate BSERV
+BCTRL --> BR : buildings[]
+deactivate BCTRL
+BR --> ES : buildings[]
+deactivate BR
+ES --> LE : buildings[]
+deactivate ES
+LE --> SY : buildings[]
+deactivate LE
+deactivate SY
+
+SY -> LE : getFloorsServed()
+activate SY
+activate LE
+LE -> ES : getFloorsBuildingElevator(buildingId)
+activate ES
+SY -> API : GET getFloorsServed()
+activate API
+API -> CTRL : getFloorsServed(req, res, next)
+activate CTRL
+CTRL -> SERV : getFloorsServed(buildingId)
+activate SERV
+SERV -> REPO : findByBuildingId(buildingId)
+activate REPO
+alt
+REPO -> SERV : null
+SERV -> CTRL : fail
+CTRL -> API : error response
+API -> SY : error
+end
+REPO --> SERV : elevator
+deactivate REPO
+loop
+SERV -> FREPO : findByDomainId(floorId)
+activate FREPO
+FREPO -> SERV : floor
+deactivate FREPO
+SERV --> MAP : toDTO(floor)
+activate MAP
+MAP --> SERV : floorDTO
+deactivate MAP
+end loop
+SERV --> CTRL : floorList<IFloorDTO>
+deactivate SERV
+CTRL --> API : success response
+deactivate CTRL
+API --> ES : success
+deactivate API
+ES --> LE : sucess
+deactivate ES
+LE --> SY : success
+deactivate LE
+deactivate SY
+
+@enduml

@@ -1,0 +1,133 @@
+<!-- floor.component.html -->
+
+<body class="body">
+  <!-- Toolbar -->
+  <div class="toolbar" role="banner">
+    <img width="185" alt="RobDroneGo Logo" src="/assets/Logo.png" />
+    <span>Bem-vindo ao RobDroneGo</span>
+    <img class="logoIsep" alt="ISEP Logo" src="/assets/LogoIsep_SFundo.png">
+    <img class="logoDei" alt="DEI Logo" src="/assets/DeiLogo_SFundo.png">
+  </div>
+
+  <div class="content">
+    <div>
+      <!-- Button to reveal the Create floor form -->
+
+      <button id="CreateFloorButton" type="button" (click)="showCreateForm = true; showUpdateForm = false; showUpdateMapForm =false; showListFloor=false;" *ngIf="!showCreateForm" class="option-button">
+        Criar Piso
+      </button>
+
+      <!-- Form for creating a floor -->
+      <div *ngIf="showCreateForm" class="form-container">
+        <div class="white-box">
+          <div class="inputbox">
+            <label for="new-floor">Id do Piso</label>
+            <input type="text" required="required" id="new-floor" #floorId />
+          </div>
+          <div class="inputbox">
+            <label for="new-description">Descrição do Piso</label>
+            <input type="text" id="new-description" #floorDescription />
+          </div>
+          <div class="inputbox">
+            <label for="new-width">Largura do Piso</label>
+            <input type="text" required="required" id="new-width" #width />
+          </div>
+          <div class="inputbox">
+            <label for="new-depth">Profundidade do Piso</label>
+            <input type="text" required="required" id="new-depth" #depth />
+          </div>
+          <div class="inputbox">
+            <label for="building-select">Nome do Edifício</label>
+            <select id="building-select" #building>
+              <option *ngFor="let b of buildings" [value]="b.id">{{ b.name }}</option>
+            </select>
+          </div>
+          <div class="button-container">
+            <!-- Back button to hide the form -->
+            <button id="BackCreateButton" type="button" (click)="showCreateForm = false; showUpdateForm = false" style="background-color: #333; color: white; margin-right: 10px;">
+              Retroceder
+            </button>
+
+            <!-- Create Floor button -->
+            <button id="CreateFloorSubmitButton" type="button" (click)="createFloor(floorId.value, floorDescription.value, { widthStr: width.value, depthStr: depth.value }, building.value);" style="background-color: rgba(255, 38, 0, 0.832); color: white;">
+              Criar Piso
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <!-- Button to reveal the Update floor form -->
+
+      <button id="UpdateFloorButton" type="button" (click)="showUpdateForm = true;  showCreateForm = false; showUpdateMapForm = false; showListFloor=false;" *ngIf="!showUpdateForm" class="option-button1">
+        Atualizar Piso
+      </button>
+
+      <!-- Form for updating a floor -->
+      <div *ngIf="showUpdateForm" class="form-container">
+        <div class="white-box">
+          <div class="inputbox">
+            <label for="floor-select">Id do Piso</label>
+            <select id="floor-select" [(ngModel)]="selectedFloorId" (change)="onFloorSelectChange()" #floor>
+              <option *ngFor="let a of floors" [value]="a.id">{{ a.id }}</option>
+            </select>
+          </div>
+          <div class="inputbox">
+            <label for="update-floor-description">Descrição do Piso</label>
+            <input type="text" id="update-floor-description" [(ngModel)]="selectedFloorDescription" />
+          </div>
+          <div class="inputbox">
+            <label for="update-floor-width">Largura do Piso</label>
+            <input type="text" id="update-floor-width" [(ngModel)]="selectedFloorWidth" />
+          </div>
+          <div class="inputbox">
+            <label for="update-floor-depth">Profundidade do Piso</label>
+            <input type="text" id="update-floor-depth" [(ngModel)]="selectedFloorDepth" />
+          </div>
+          <div class="inputbox">
+            <label for="update-floor-building">Nome do Edifício</label>
+            <select id="update-floor-building" [(ngModel)]="selectedFloorBuilding" [disabled]="true">
+              <option *ngFor="let b of buildings" [value]="b.id">{{ b.name }}</option>
+            </select>
+          </div>
+          <div class="button-container">
+            <!-- Back button to hide the form -->
+            <button id="BackUpdateButton" type="button" (click)="showUpdateForm = false; showCreateForm = false;" style="background-color: #333; color: white; margin-right: 10px;">
+              Retroceder
+            </button>
+      
+            <!-- Update Floor button -->
+            <button id="UpdateFloorSubmitButton" type="button" (click)="updateFloor(selectedFloorId, selectedFloorDescription, { widthStr: selectedFloorWidth, depthStr: selectedFloorDepth }, selectedFloorBuilding)" style="background-color: rgba(255, 38, 0, 0.832); color: white;">
+              Atualizar piso
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <!-- Button to reveal the update map with a floor form -->
+        <button id="UpdateMap" type="button" (click)="showUpdateMapForm = true;showCreateForm = false; showUpdateForm = false; showListFloor=false; " *ngIf="!showUpdateMapForm" class="option-button2">
+          Enviar Mapa
+        </button>
+      </div>
+        <!-- Form for update map with a floor  -->
+       <app-upload-floors-map *ngIf="showUpdateMapForm"> </app-upload-floors-map>
+       
+      <div>
+       <!-- Button to reveal the list of a floor  -->
+        <button id="ListFloor" type="button" (click)=" showListFloor=true;showUpdateMapForm = false ;showCreateForm = false; showUpdateForm = false;  " *ngIf="!showListFloor" class="option-button3">
+           Listar Piso
+        </button>
+      </div>
+      <!-- Form for List floor  -->
+     <app-list-floors *ngIf="showListFloor"> </app-list-floors>
+  
+    </div>
+  </div>
+
+  <div class="content bottom-right">
+    <button id="BackToMenu" type="button" (click)="backToMenu()">
+    Voltar ao Menu Principal</button>
+  </div>
+</body>

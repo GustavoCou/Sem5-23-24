@@ -1,0 +1,15 @@
+Identidade do Controlador:
+
+Nome da Empresa: XYZ Ltda.
+
+Endereço: Rua ABC, 123, Cidade, País
+
+Número de Registro da Empresa: [Número de Registro]
+
+Representante do Controlador: [Nome do Representante, se aplicável]
+
+Contato do Representante (se aplicável): [Endereço de e-mail ou número de telefone]
+
+Encarregado de Proteção de Dados (DPO): [Nome do DPO, se designado]
+
+Contato do DPO: [Endereço de e-mail ou número de telefone do DPO]

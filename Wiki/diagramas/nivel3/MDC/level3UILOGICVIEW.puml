@@ -1,0 +1,80 @@
+@startuml
+skinparam componentStyle uml2
+
+' Define components as circles
+() "UI Campus" as UIC
+() "API Campus" as APIC
+() "UI Fleet" as UIF
+() "API Fleet" as APIF
+
+
+
+' Define main system component
+component "UI" <<component>><<C4_System>> {
+    ' Define nested components within the system
+    component "       <<component>>\n    HTTP Driver" as HTTP
+    component "      <<component>>\n          Service" as S
+    component "      <<component>>\n             View" as V
+    component "      <<component>>\n             View Model" as VM
+    component "      <<component>>\n             DTO Exterior-interior" as DTOEI
+    component "      <<component>>\n          Model" as M
+     component "      <<component>>\n          Controller" as CON
+          component "      <<component>>\n          Repo /Adapter" as RADP
+          component "      <<component>>\n             DTO Service-Controller" as DTOSC
+    () "Service API" as SAPI
+    () "HTTP Driver API" as HAPI
+    () "Model API" as MAPI
+    () "DTO API" as DTOAPI
+    () "Observer API" as OAPI
+    () "Repo API" as RAPI
+    () "VM API" as VMAPI
+    () "Ctrl API" as CAPI
+    () "DTO2 API" as DTO2API
+
+
+}
+
+APIF -up- HTTP
+APIC -up- HTTP
+
+UIF -up- V
+UIC -up- V
+
+V -up- CAPI
+CAPI -left- CON
+V -left- VMAPI
+VMAPI -left- CON
+
+VM -up- VMAPI
+VM -down- OAPI
+
+
+
+S -down- CAPI
+S -left- VMAPI
+
+RAPI -left- RADP
+RAPI -right- S
+SAPI -down- S
+SAPI -up- CON
+RADP ..-down-> S
+S -down- HAPI
+HAPI -down- HTTP
+
+MAPI -down-M
+MAPI -up- S
+M -up- OAPI
+MAPI -right-HTTP
+
+DTOAPI -up- DTOEI
+DTOAPI -right- HTTP
+DTOAPI -down- RADP
+
+DTO2API -right- CON
+DTO2API -up- DTOSC
+DTO2API -left- S
+
+
+' Layout direction
+left to right direction
+@enduml

@@ -1,0 +1,59 @@
+@startuml
+
+participant "Express App (express.ts)" as expressApp
+participant "RobotRoute" as route
+participant "RobotController" as controller
+participant "RobotService" as service
+participant "RobotMap" as mapper
+participant "RobotRepo" as repo
+participant "Robot Persistence (MongoDB Schema)" as persistence
+database "MongoDB" as db
+
+expressApp -> route : GET Request (list robots)
+activate route
+
+route -> controller : Delegate request
+deactivate route
+activate controller
+
+
+
+controller -> service : listRobots()
+deactivate controller
+activate service
+
+service -> repo : getAllRobots()
+deactivate service
+activate repo
+
+repo -> persistence : Query Robot Data
+deactivate repo
+activate persistence
+
+persistence -> db : Retrieve Data
+deactivate persistence
+activate db
+
+db --> persistence : Robot Data
+deactivate db
+activate persistence
+
+persistence --> repo : Map Data to Domain Objects
+deactivate persistence
+activate repo
+
+repo -> mapper : toDTO(List<Robot>)
+deactivate repo
+activate mapper
+
+mapper --> service : List<IRobotDTO>
+deactivate mapper
+activate service
+
+service --> controller : Response Data
+deactivate service
+activate controller
+controller --> expressApp : HTTP Response (Robot List)
+deactivate controller
+
+@enduml

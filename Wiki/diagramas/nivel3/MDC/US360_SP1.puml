@@ -1,0 +1,44 @@
+@startuml
+
+participant "Express App (express.ts)" as expressApp
+participant "RobotRoute" as route
+participant "RobotController" as controller
+participant "RobotService" as service
+participant "Robot (Domain Model)" as robot
+participant "RobotMap" as mapper
+participant "RobotRepo" as repo
+participant "Robot Persistence (MongoDB Schema)" as persistence
+database "MongoDB" as db
+
+expressApp -> route : HTTP Request (to '/robot')
+route -> controller : Delegate request after validation
+
+controller -> service : createRobot(robotDTO)
+service -> robot : Create new Robot
+activate robot
+robot --> service : Robot instance / Error
+deactivate robot
+
+alt Robot creation successful
+    service -> mapper : toPersistence(robot)
+    activate mapper
+    mapper -> repo : Save Robot Data
+    deactivate mapper
+    repo -> persistence : Map Data to Schema
+    activate repo
+    persistence -> db : Persist Robot
+    activate persistence
+    db --> persistence : Success Confirmation
+    deactivate db
+    persistence --> repo : Robot persisted
+    deactivate persistence
+    repo --> service : Success Confirmation
+    deactivate repo
+    service --> controller : Robot Creation Success
+else Robot creation failed
+    service --> controller : Error Message
+end
+
+controller --> expressApp : HTTP Response (Success/Error)
+
+@enduml

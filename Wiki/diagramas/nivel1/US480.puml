@@ -1,0 +1,15 @@
+@startuml
+autonumber
+actor "Gestor de Tarefas"
+
+' Referência ao diagrama anterior
+note over "Gestor de Tarefas", "<<System (C4)>>\n RobDroneGo"
+  ver Diagrama LogIn(representa interaçao anterior)
+end note
+
+"Gestor de Tarefas" -> "<<System (C4)>>\n RobDroneGo" : faz pedido para listar tarefas pendentes de aprovação
+
+"<<System (C4)>>\n RobDroneGo" --> "Gestor de Tarefas" : mostra a lista de tarefas com estado para aprovação
+
+
+@enduml

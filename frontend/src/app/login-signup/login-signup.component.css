@@ -1,0 +1,185 @@
+:host {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-size: 14px;
+  color: #333;
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 8px 0;
+}
+
+p {
+  margin: 0;
+}
+
+.spacer {
+  flex: 1;
+}
+
+.toolbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  background-color: rgba(255, 38, 0, 0.832);
+  color: white;
+  font-weight: 600;
+  z-index: 100; /* Asegúrate de que el z-index sea mayor que el de otros elementos */
+}
+
+
+.toolbar img {
+  margin: 0 16px;
+}
+
+.toolbar .logoIsep {
+  height: 40px;
+  margin-left: auto;
+}
+
+.toolbar .logoDei {
+  height: 40px;
+  margin: 0 16px;
+}
+
+svg.material-icons {
+  height: 24px;
+  width: auto;
+}
+
+svg.material-icons:not(:last-child) {
+  margin-right: 8px;
+}
+
+.card svg.material-icons path {
+  fill: #888;
+}
+
+.body {
+  background-image: url('/assets/Campus.png');
+  background-size: cover;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-position: center center;
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: Arial, sans-serif;
+  color: white;
+}
+
+.content {
+  position: relative;
+  z-index: 1; /* Asegúrate de que el z-index sea mayor que el de otros elementos */
+  margin-top: 60px; /* Ajusta el valor según la altura de tu barra de herramientas */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.menu-container {
+  position: relative;
+  z-index: 2; /* Asegúrate de que el z-index sea mayor que el de .content */
+  margin-top: -160px;
+  background-color: rgba(255, 255, 255, 0.96);
+  flex-wrap: wrap;
+  padding: 100px;
+  justify-content: end;
+  gap: 20px;
+  border-radius: 10px;
+}
+
+.message-box {
+  margin-top: 100px;
+  color: rgb(30, 29, 29);
+  padding: 10px;
+  text-align: center;
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 5px;
+}
+
+.message-box-inner {
+  padding: -8px;
+  border-radius: 10px;
+
+}
+
+.button-container {
+  display: flex;
+  align-items: center;
+  margin-top: 50px;
+  flex-direction: row;
+  padding: 50px ;
+  justify-content: space-between ;
+}
+
+.option-button {
+  background-color: rgb(255, 89, 0);
+  color: white;
+  padding: 20px 50px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.option-button:first-child {
+  margin-right: 50px;
+}
+
+.option-button:hover {
+  background-color: rgb(255, 132, 0);
+}
+
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.popup-content {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 80%;
+  overflow: auto;
+  color: black;
+}
+
+.cookie-options {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.align-right {
+  text-align: right;
+  display: block;
+  width: 100%;
+}
+
+
+

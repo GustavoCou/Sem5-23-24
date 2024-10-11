@@ -1,0 +1,146 @@
+@startuml
+autonumber
+
+participant ":System" as SY
+participant ":FloorComponent (Angular)" as FC
+participant ":FloorService (Angular)" as FS
+
+participant ":FloorRoute" as FL
+participant ":FloorController" as CTRL
+participant ":FloorService" as SERV
+participant ":FloorRepository" as REPO
+participant ":FloorDto" as DTO
+participant ":FloorSchema" as SCHEMA
+participant ":FloorMap" as MAP
+participant ":floor: Floor" as FLOOR
+
+participant ":BuildingRoute" as BR
+participant ":BuildingController" as BCTRL
+participant ":BuildingService" as BSERV
+participant ":BuildingRepository" as BREPO
+participant ":BuildingSchema" as BSCHEMA
+participant ":BuildingMap" as BMAP
+
+activate SY 
+SY -> FC :  GET loadFloors()
+activate FC
+FC -> FC : ngOnInit() 
+FC -> FS : getFloors()
+activate FS
+FS -> FL : GET getFloors()
+activate FL
+FL -> CTRL : getFloors()
+activate CTRL
+CTRL ->  SERV : getFloor()
+activate SERV
+SERV -> REPO : getAll()
+activate REPO 
+REPO -> SCHEMA : find()
+activate SCHEMA
+deactivate SCHEMA
+REPO -> MAP : toDomain()
+activate MAP
+MAP --> REPO : floors[]
+deactivate MAP
+REPO --> SERV : floors[]
+deactivate REPO
+SERV --> CTRL : floors[]
+deactivate SERV
+CTRL --> FL : floors[]
+deactivate CTRL
+FL --> FS : floors[]
+deactivate FL
+FS --> FC : floors[]
+deactivate FS
+FC --> SY : floors[]
+deactivate FC
+deactivate SY
+
+SY -> FC : GET loadBuildings()
+activate SY
+activate FC
+FC -> FC : ngOnInit() 
+FC -> FS : getBuildings()
+activate FS
+FS -> BR : GET getBuildings()
+activate BR
+BR -> BCTRL : listBuilding()
+activate BCTRL
+BCTRL ->  BSERV : ListBuilding()
+activate BSERV
+BSERV -> BREPO : listAll()
+activate BREPO 
+BREPO -> BSCHEMA : find()
+activate BSCHEMA
+deactivate BSCHEMA
+BREPO -> BMAP : toDomain()
+activate BMAP
+BMAP --> BREPO : buildings[]
+deactivate BMAP
+BREPO --> BSERV : buildings[]
+deactivate BREPO
+BSERV --> BCTRL : buildings[]
+deactivate BSERV
+BCTRL --> BR : buildings[]
+deactivate BCTRL
+BR --> FS : buildings[]
+deactivate BR
+FS --> FC : buildings[]
+deactivate FS
+FC --> SY : buildings[]
+deactivate FC
+deactivate SY
+
+SY -> FC : PUT/PATCH updateFloor(floorId, floorDescription, { widthStr, depthStr }, building)
+activate SY
+activate FC
+FC -> FS : updateFloor(floorId, floorDescription, { widthStr, depthStr }, building)
+activate FS
+FS -> FL : PUT/PATCH updateFloor(floorId, floorDescription, { widthStr, depthStr }, building)
+activate FL
+FL -> CTRL : updateFloor(floorId, floorDescription, { widthStr, depthStr }, building)
+activate CTRL
+CTRL -> SERV : updateFloor(dto)
+activate SERV
+SERV -> REPO : findByDomainId(floorDTO.id)
+activate REPO
+REPO -> SCHEMA : findOne()
+activate SCHEMA
+deactivate SCHEMA
+REPO -> MAP : toDomain()
+activate MAP
+MAP -> FLOOR : create(dto)
+activate FLOOR
+SERV -> FLOOR : setDescription(description)
+SERV -> FLOOR : setSize(size)
+SERV -> FLOOR : setMapa(mapa)
+FLOOR --> SERV : floor[]
+deactivate FLOOR
+deactivate MAP
+SERV -> DTO : create(dto)
+activate DTO
+DTO --> SERV : floor[]
+deactivate DTO
+SERV -> REPO : updateOne(floor)
+REPO -> MAP : toPersistence(floor)
+activate MAP
+MAP --> REPO : floor
+deactivate MAP
+REPO -> SCHEMA : updateOne(floor)
+activate SCHEMA
+deactivate SCHEMA
+REPO --> SERV : Success
+deactivate REPO
+SERV --> CTRL : Success
+deactivate SERV
+CTRL --> FL : Success
+deactivate CTRL
+FL --> FS : Success 
+deactivate FL
+FS --> FC : Success
+deactivate FS
+FC --> SY : Success
+deactivate FC
+deactivate SY
+
+@enduml

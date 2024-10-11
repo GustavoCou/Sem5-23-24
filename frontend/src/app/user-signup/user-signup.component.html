@@ -1,0 +1,58 @@
+
+<body class="body">
+
+<!-- Toolbar -->
+<div class="toolbar" role="banner">
+  <img width="185" alt="RobDroneGo Logo" src="/assets/Logo.png"/>
+
+  <span>Welcome to RobDroneGo </span>
+
+  <img class="logoIsep" alt="ISEP Logo" src="/assets/LogoIsep_SFundo.png">
+  <img class="logoDei" alt="DEI Logo" src="/assets/DeiLogo_SFundo.png">
+</div>
+
+
+  <div class="form-container">
+    <h2>Informações Pessoais para registo</h2>
+    <form [formGroup]="formUser">
+      <label for="fullName">Nome Completo:</label>
+      <input type="text" formControlName="fullname">
+
+      <label for="email">Endereço email:</label>
+      <input type="text" formControlName="email">
+
+      <label for="Password">Password:</label>
+      <input type="password" formControlName="password">
+      <!--
+
+      <label for="userType">Função:</label>
+      <select formControlName="userType">
+        <option value="Administrador">Administrador</option>
+        <option value="GestorDeCampus">Gestor De Campus</option>
+        <option value="GestorDeFrota">Gestor De Frota</option>
+        <option value="GestorDeTarefas">Gestor De Tarefas</option>
+        <option value="Utente">Utente</option>
+      </select>
+-->
+      <label for="phoneNumber">Contacto Telefónico:</label>
+      <input type="text" formControlName="phoneNumber">
+
+      <label for="mechanographicNumber">Número Mecanográfico :</label>
+      <input type="text" formControlName="mechanographicNumber">
+
+      <label for="NIF">Número de Identificação Fiscal:</label>
+      <input type="text" formControlName="NIF">
+
+      <div class="inputbox">
+        <input type="checkbox" id="termsCheckbox" formControlName="acceptTerms" />
+        <label for="termsCheckbox">Li e aceito os <a [routerLink]="['/informacao']" target="_blank">termos e condições de privacidade</a></label>
+      </div>
+
+
+      <button type="submit" [ngClass]="{'button-disabled': !formUser.get('acceptTerms')?.value}" class="button" (click)="onSubmitForm()">Criar</button>
+
+      <button class="back-button" (click)="goBack()">Voltar</button>
+    </form>
+  </div>
+
+</body>

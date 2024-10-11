@@ -1,0 +1,13 @@
+@startuml
+autonumber
+actor "Gestor de Campus" as GC
+activate GC
+
+GC -> "<<System (C4)>> SPA/Frontend"  : Iniciar o processo de listar edicicio
+activate "<<System (C4)>> SPA/Frontend"
+"<<System (C4)>> SPA/Frontend"  --> GC : Mostra lista de edificios
+deactivate "<<System (C4)>> SPA/Frontend"
+
+deactivate GC
+
+@enduml

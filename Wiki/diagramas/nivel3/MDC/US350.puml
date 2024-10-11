@@ -1,0 +1,24 @@
+@startuml
+
+participant "Fleet Manager UI" as client
+participant "RobotRoute" as route
+participant "RobotController" as controller
+participant "RobotService" as service
+participant "RobotRepo" as repo
+participant "MongoDB" as db
+participant "RobotMap" as mapper
+participant "Robot (Domain Model)" as robot
+
+client -> route : GET Request (list robots)
+route -> controller : Delegate request
+
+controller -> service : listRobots()
+service -> repo : getAllRobots()
+repo -> db : Query Robot Data
+db --> repo : Robot Data
+repo -> mapper : toDomain(Robot Data)
+mapper --> service : List<Robot>
+service --> controller : Response Data
+controller --> client : HTTP Response (200 OK, Robot List)
+
+@enduml

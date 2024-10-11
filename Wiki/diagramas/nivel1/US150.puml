@@ -1,0 +1,19 @@
+@startuml
+autonumber
+actor "Gestor de Campus" as GC
+
+activate GC
+
+GC -> "<<System (C4)>> SPA/Frontend" : Iniciar o processo de criar edificio
+activate "<<System (C4)>> SPA/Frontend"
+"<<System (C4)>> SPA/Frontend"  --> GC : Solicitar dados do edificio
+deactivate "<<System (C4)>> SPA/Frontend"
+GC -> "<<System (C4)>> SPA/Frontend"  : Introduzir os dados solicitados
+activate "<<System (C4)>> SPA/Frontend"
+
+"<<System (C4)>> SPA/Frontend"  --> GC : Informa o sucesso da operação
+deactivate "<<System (C4)>> SPA/Frontend"
+
+deactivate GC
+
+@enduml

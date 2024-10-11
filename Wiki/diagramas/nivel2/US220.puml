@@ -1,0 +1,22 @@
+@startuml
+autonumber
+actor "Gestor de Campus" as GC
+
+participant "<<System (C4)>>\n SPA/Frontend" as UI
+participant "<<System (C4)>>\n MDC" as MDC
+
+GC -> UI : faz pedido para listar pisos de edificio com pontes 
+
+UI --> GC: solicita os dados a enviar
+
+GC -> UI : envia o id do edificio 
+
+UI -> MDC : listFloorsWithBridge(buildingId)
+
+MDC --> UI : floorsList
+
+UI --> GC: mostra a lista de pisos com passagem em edificio
+
+
+
+@enduml

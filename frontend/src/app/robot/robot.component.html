@@ -1,0 +1,36 @@
+<!-- app.component.html -->
+
+<body class="body">
+    <!-- Toolbar -->
+    <div class="toolbar" role="banner">
+        <img width="185" alt="RobDroneGo Logo" src="/assets/Logo.png" />
+
+        <span>Welcome to RobDroneGo 😃</span>
+
+        <img class="logoIsep" alt="ISEP Logo" src="/assets/LogoIsep_SFundo.png">
+        <img class="logoDei" alt="DEI Logo" src="/assets/DeiLogo_SFundo.png">
+    </div>
+
+    <div class="message-box" *ngIf="!showCreateRobot && !showListRobot">
+        <div class="message-box-inner">
+            <h1>Gestão de Robots</h1>
+        </div>
+    </div>
+
+    <div class="button-container" *ngIf="!showCreateRobot && !showListRobot">
+
+        <button class="option-button" (click)="resetShow();showCreateRobot= true">Criar Robot </button>
+        <button class="option-button" (click)="resetShow();showListRobot = true">Listar Robots </button>
+
+    </div>
+
+    <div class="workspace-container">
+        <app-create-robot *ngIf="showCreateRobot"></app-create-robot>
+        <app-list-robot *ngIf="showListRobot"></app-list-robot>
+    </div>
+    <div class="content bottom-right">
+        <button id="BackToMenu" type="button" (click)="backToMenu()">
+            Back to Menu</button>
+    </div>
+
+</body>

@@ -1,0 +1,52 @@
+@startuml
+
+BridgeComponent -> ListBridgeComponent : Activate/ListBridgeComponent
+ListBridgeComponent -> ListBridgeComponent : ngOnInit()
+
+'vai buscar os buildings
+ListBridgeComponent -> HttpRequestsService : getBuildings()
+HttpRequestsService -> Router : GET /building/list
+Router -> BuildingController : listBuildings()
+BuildingController -> BuildingService : getAllBuildings()
+BuildingService -> BuildingRepo : listAll()
+BuildingRepo -> BuildingSchema : find()
+BuildingSchema --> BuildingRepo : buildingDocs[]
+BuildingRepo --> BuildingService : buildings[]
+BuildingService --> BuildingController : buildings[]
+BuildingController --> Router : buildings[]
+Router --> HttpRequestsService : buildings[]
+HttpRequestsService --> ListBridgeComponent : buildings[]
+
+
+alt If Building IDs Provided
+    ListBridgeComponent -> HttpRequestsService: getRequest('bridge/' + buildingX + '/' + buildingY)
+    HttpRequestsService -> Router: route.get('/:buildingX/:buildingY')
+    Router -> BridgeController: listBridgesBetweenBuilding(req, res, next)
+    BridgeController -> BridgeService: listBridgesOfBuildings(buildingX, buildingY)
+    BridgeService -> BuildingRepo: findById(buildingX)
+    BuildingRepo --> BridgeService: building
+    BridgeService -> BuildingRepo: findById(buildingY)
+BuildingRepo --> BridgeService: building
+    BridgeService -> BridgeRepo: getBridgeBetweenBuildingsId(buildingX, buildingY)
+    BridgeRepo -> BridgeMapper: toDTO(bridges)
+    BridgeMapper -> BridgeDTO: bridgesDTO
+    BridgeDTO --> BridgeService: bridgesDTO
+    BridgeService --> BridgeController: bridgeDTO
+    BridgeController --> Router: Send response
+else If No Building IDs Provided
+    ListBridgeComponent -> HttpRequestsService: getRequest('bridge')
+    HttpRequestsService -> Router: route.get('')
+    Router -> BridgeController: listBridges(req, res, next)
+    BridgeController -> BridgeService: getAll()
+    BridgeService -> BridgeRepo: listAll()
+    BridgeRepo -> BridgeMapper: toDTO(bridges)
+     BridgeMapper -> BridgeDTO: bridgesDTO
+    BridgeDTO --> BridgeService: bridgesDTO
+    BridgeService --> BridgeController: bridgeDTO
+    BridgeController --> Router: Send response
+end
+Router -> HttpRequestsService: Send response
+HttpRequestsService -> ListBridgeComponent: Display bridges
+
+
+@enduml

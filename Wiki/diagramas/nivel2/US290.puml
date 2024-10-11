@@ -1,0 +1,27 @@
+@startuml
+autonumber
+actor "Gestor de Campus" as GC
+
+participant "<<System>>\nSPA" as UI
+participant "<<System>>\nMDC" as MDC
+
+activate GC
+    GC -> UI : Iniciar o processo para listar elevadores
+    activate UI
+        UI -> MDC : GET Edifícios
+        activate MDC
+            MDC -> MDC : getBuildings()
+            MDC -> UI : Resposta com lista de edifícios
+        deactivate MDC
+        UI --> GC : Apresenta lista de edificios
+        GC -> UI : Escolhe edificio
+        UI -> MDC : GET Elevadores
+        activate MDC
+            MDC -> MDC : getElevatorsByBuilding(buildingId)
+            MDC --> UI : Resposta com lista de Elevadores
+        deactivate MDC
+        UI --> GC : Apresenta lista de elevadores do edificio
+    deactivate UI
+deactivate GC
+
+@enduml

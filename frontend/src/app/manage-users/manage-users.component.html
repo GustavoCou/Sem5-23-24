@@ -1,0 +1,35 @@
+<body class="body">
+
+    <div class="toolbar" role="banner">
+        <img width="185" alt="RobDroneGo Logo" src="/assets/Logo.png" />
+
+        <span>RobDroneGo </span>
+
+
+        <img class="logoIsep" alt="ISEP Logo" src="/assets/LogoIsep_SFundo.png">
+        <img class="logoDei" alt="DEI Logo" src="/assets/DeiLogo_SFundo.png">
+    </div>
+
+    <div class="message-box">
+        <div class="message-box-inner">
+            <h1></h1>
+        </div>
+    </div>
+
+
+    <div class="button-container" *ngIf="!showApproveRejectUser">
+        <button class="option-button" (click)="resetShow(); showApproveRejectUser = true">Aprovar/Rejeitar
+            User</button>
+    </div>
+
+    <app-approve-reject-user *ngIf="showApproveRejectUser"></app-approve-reject-user>
+
+
+    <div class="content bottom-right">
+        <button id="BackToMenu" type="button" (click)="backToMenu()">Voltar ao Menu Principal</button>
+    </div>
+
+    <div id="info-display">
+
+    </div>
+</body>

@@ -1,0 +1,30 @@
+@startuml
+autonumber
+actor "Gestor de Campus" as GC
+
+participant "<<System (C4)>> \n SPA/Frontend" as UI
+participant "<<System (C4)>>\n MDC" as MDC
+
+activate GC
+GC -> UI : Iniciar o processo de listar os pisos de um edifício
+activate UI
+UI --> GC :/'  Solicitar o edifício a listar '/
+deactivate UI
+
+GC -> UI : Introduzir os dados solicitados
+activate UI
+UI --> GC : /' Solicitar a confirmação dos dados '/
+deactivate UI
+
+GC -> UI : Confirma os dados
+activate UI
+UI -> MDC : GET getFloorByBuilding
+activate MDC
+MDC --> UI : pisos (JSON)
+deactivate MDC
+UI --> GC :/'  Informa o sucesso da operação '/
+deactivate UI
+
+deactivate GC
+
+@enduml

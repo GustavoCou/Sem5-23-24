@@ -1,0 +1,88 @@
+
+
+@startuml
+skinparam componentStyle uml2
+
+' Define components as circles
+() "UI Campus" as UIC
+() "API Campus" as APIC
+() "UI Fleet" as UIF
+() "API Fleet" as APIF
+() "UI Visualization 3D" as UI3D
+
+
+
+' Define main system component
+component "RobDroneGo" <<component>><<C4_System>> as IMPVIEW{
+    ' Define nested components within the system
+    component "     <<component>>\n  <<C4 Container>>\n            U I" as UI 
+    component "      <<component>>\n    <<C4 Container>>\n   Planning(ALGAV)" as PL
+    component "            <<component>>\n        <<C4 Container>>\n Visualization 3D(SGRAI)" as VIS3D
+    component "      <<component>>\n    <<C4 Container>>\n       Master Data" as MD
+
+}
+
+
+UIC -up- UI
+UI3D -up- UI
+UIF -up- UI
+APIF -down- MD
+APIC -down- MD
+UI -up- MD
+MD -down- PL
+VIS3D -down- UI 
+
+
+
+' Layout direction
+left to right direction
+
+
+skinparam componentStyle uml2
+
+' Define components as circles
+() "UI Campus" as UIC1
+() "API Campus" as APIC1
+() "UI Fleet" as UIF1
+() "API Fleet" as APIF1
+() "UI Visualization 3D" as UI3D1
+
+
+
+' Define main system component
+component "RobDroneGo" <<component>><<C4_System>>as LOGICVIEW {
+    ' Define nested components within the system
+    component "       <<component>>\n    Task Management" as TM1
+    component "       <<component>>\n    Fleet Management" as FM1
+    component "          <<component>>\n    Campus Management" as CM1
+    component "      <<component>>\n    Planning(ALGAV)" as PL1
+    component "            <<component>>\n     Visualization 3D(SGRAI)" as VIS3D1
+    component "      <<component>>\n    User Management" as UM1
+
+}
+
+UIC1 -down- CM1
+APIC1 -down- CM1
+UI3D1 -down- VIS3D1
+UIF1 -up- FM1
+APIF1 -up- FM1
+
+
+
+
+' Additional relationships within the system
+CM1 -right- PL1 
+FM1 -right- TM1
+TM1 -down- PL1 
+PL1 -down- FM1
+UI-..-up->FM1  : manifest
+UI-..-up->CM1 : manifest
+PL-..-right->PL1 : manifest
+MD-..-left->FM1 : manifest
+MD-..-left->CM1 : manifest
+MD-..-left->CM1 : manifest
+' Layout direction
+left to right direction
+
+
+@enduml

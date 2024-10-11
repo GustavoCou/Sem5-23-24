@@ -1,0 +1,29 @@
+
+<body class="body">
+<!-- Toolbar -->
+<div class="toolbar" role="banner">
+  <img width="185" alt="RobDroneGo Logo" src="/assets/Logo.png"/>
+
+  <span>Welcome to RobDroneGo </span>
+
+  <img class="logoIsep" alt="ISEP Logo" src="/assets/LogoIsep_SFundo.png">
+  <img class="logoDei" alt="DEI Logo" src="/assets/DeiLogo_SFundo.png">
+</div>
+
+  <div class="form-container">
+    <h2>Por favor insira dados de acesso</h2>
+    <form [formGroup]="formLogin">
+
+      <label for="email">Endereço email:</label>
+      <input type="text" formControlName="email">
+
+      <label for="password">Password:</label>
+      <input type="password" formControlName="password">
+
+      <button type="submit" (click)=" onSubmitForm()">Login</button>
+
+      <button class="back-button" (click)="goBack()">Voltar</button>
+    </form>
+  </div>
+
+</body>

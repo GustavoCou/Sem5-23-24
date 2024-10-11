@@ -1,0 +1,52 @@
+@startuml
+autonumber
+participant ":FloorComponent" as FC
+participant ":ListFloorComponent" as ListF
+participant ":Router" as FL
+participant ":FloorController" as CTRL
+participant ":FloorService" as SERV
+participant ":floor: Floor" as FLOOR
+participant ":FloorRepository" as REPO
+participant "list: List<TEntity>" as LIST
+participant "listDTO : List<FloorDto>" as DTO
+participant "listDTO : List<FloorDto>" as DTO
+
+database Database
+
+activate FC
+FC -> ListF :showListFloorForm  = true
+deactivate FC
+
+activate ListF
+ListF -> ListF : loadBuildings()
+
+ListF --> FL : GET building
+activate FL
+    note right: US-170 SD \n to obtain buildings \n from the router
+FL --> ListF : buildingsList
+deactivate FL
+ListF -> ListF : fetchFloorList()
+ListF --> FL : GET pisos
+activate FL
+FL -> CTRL : getFloorByBuilding(buildingId)
+activate CTRL
+CTRL -> SERV : getFloorByBuilding(buildingId)
+activate SERV
+SERV -> REPO : findFloorsByBuilding(buildingId)
+activate REPO
+REPO -> Database : read(floor)
+REPO --> LIST: create()
+activate LIST
+deactivate LIST
+REPO --> SERV : list
+SERV --> DTO : toDTO(floor)
+activate DTO 
+DTO --> SERV :
+deactivate DTO
+SERV --> CTRL : 
+deactivate SERV
+CTRL --> FL :
+FL --> ListF : Success
+deactivate ListF
+
+@enduml

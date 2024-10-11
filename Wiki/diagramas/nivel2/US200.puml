@@ -1,0 +1,41 @@
+@startuml
+autonumber
+actor "Gestor de Campus" as GC
+
+participant "<<System (C4)>>\n SPA/Frontend" as SPA
+participant "<<System (C4)>>\n MDC" as MDC
+
+activate GC
+
+GC -> SPA : Iniciar o processo de edição de um piso
+activate SPA
+SPA --> GC : Seleccionar o piso que deseja editar e introduzir os dados relativos ao mesmo
+deactivate SPA
+
+GC -> SPA : Seleccionar e inserir os dados solicitados
+activate SPA
+SPA -> MDC : GET loadFloors()
+activate MDC
+MDC -> MDC : getFloors()
+MDC --> SPA : lista de pisos (JSON)
+deactivate MDC
+SPA -> MDC : GET loadBuildings()
+activate MDC
+MDC -> MDC : getBuildings()
+MDC --> SPA : lista de edifícios (JSON)
+deactivate MDC
+SPA --> GC : Solicitar a confirmação dos dados inseridos 
+deactivate SPA
+
+GC -> SPA : Confirmar os dados
+activate SPA
+SPA -> MDC : PUT/PATCH updateFloor()
+activate MDC
+MDC -> MDC : updateFloor()
+MDC --> SPA : Piso atualizado
+deactivate MDC
+SPA --> GC : Informar do sucesso da operação 
+deactivate SPA
+deactivate GC
+
+@enduml

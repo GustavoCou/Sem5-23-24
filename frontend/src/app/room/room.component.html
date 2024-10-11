@@ -1,0 +1,28 @@
+<body class="body">
+	<div class="toolbar" role="banner">
+		<img width="185" alt="RobDroneGo Logo" src="/assets/Logo.png" />
+
+		<span>Bem-vindo ao RobDroneGo</span>
+
+		<img class="logoIsep" alt="ISEP Logo" src="/assets/LogoIsep_SFundo.png">
+		<img class="logoDei" alt="DEI Logo" src="/assets/DeiLogo_SFundo.png">
+	</div>
+
+	<div class="message-box">
+		<div class="message-box-inner">
+			<h1>Gestão de Salas</h1>
+		</div>
+	</div>
+
+	<div class="button-container" *ngIf="!showCreateRoom">
+		<button class="option-button" (click)="resetShow(); showCreateRoom = true">Criar Sala</button>
+	</div>
+
+	<div class="workspace-container">
+		<app-create-room *ngIf="showCreateRoom"></app-create-room>
+	</div>
+
+	<div class="content bottom-right">
+		<button id="BackToMenu" type="button" (click)="backToMenu()">Voltar ao Menu Principal</button>
+	</div>
+</body>

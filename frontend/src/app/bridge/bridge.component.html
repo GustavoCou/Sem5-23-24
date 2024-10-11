@@ -1,0 +1,41 @@
+<body class="body">
+
+    <div class="toolbar" role="banner">
+        <img width="185" alt="RobDroneGo Logo" src="/assets/Logo.png" />
+
+        <span>RobDroneGo </span>
+
+
+        <img class="logoIsep" alt="ISEP Logo" src="/assets/LogoIsep_SFundo.png">
+        <img class="logoDei" alt="DEI Logo" src="/assets/DeiLogo_SFundo.png">
+    </div>
+
+    <div class="message-box">
+        <div class="message-box-inner">
+            <h1></h1>
+        </div>
+    </div>
+
+    <div class="button-container"
+        *ngIf="!showCreateBridge && !showListBridge && !showListFloorsBridge && !showEditBridge">
+        <button class="option-button" (click)="resetOption(); showCreateBridge= true">Criar Passagem</button>
+        <button class="option-button" (click)="resetOption(); showListBridge= true">Listar Passagens</button>
+        <button class="option-button" (click)="resetOption(); showListFloorsBridge= true">Listar Pisos de Edificio com
+            Passagem</button>
+        <button class="option-button" (click)="resetOption(); showEditBridge= true">Editar Passagem</button>
+
+    </div>
+
+    <app-list-bridges *ngIf="showListBridge"></app-list-bridges>
+    <app-create-bridge *ngIf="showCreateBridge"></app-create-bridge>
+    <app-list-floors-bridge *ngIf="showListFloorsBridge"></app-list-floors-bridge>
+    <app-edit-bridge *ngIf="showEditBridge"></app-edit-bridge>
+
+    <div class="content bottom-right">
+        <button id="BackToMenu" type="button" (click)="backToMenu()">Voltar ao Menu Principal</button>
+    </div>
+
+    <div id="info-display">
+
+    </div>
+</body>

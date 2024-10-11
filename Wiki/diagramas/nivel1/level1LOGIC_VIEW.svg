@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" height="244px" preserveAspectRatio="none" style="width:416px;height:244px;background:#FFFFFF;" version="1.1" viewBox="0 0 416 244" width="416px" zoomAndPan="magnify"><defs/><g><!--MD5=[6ff9a383cacdd1ac47b78bb93c9d0ba1]
+entity UIC--><g id="elem_UIC"><ellipse cx="370.5" cy="14" fill="#F1F1F1" rx="8" ry="8" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="68" x="336.5" y="45.5332">UI Campus</text></g><!--MD5=[910e2b556d8fc01e3138ac197668f3d8]
+entity APIC--><g id="elem_APIC"><ellipse cx="370.5" cy="109" fill="#F1F1F1" rx="8" ry="8" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="77" x="332" y="140.5332">API Campus</text></g><!--MD5=[7cecbd3979ea50e5051dce125265e6c9]
+entity UIF--><g id="elem_UIF"><ellipse cx="39.5" cy="14" fill="#F1F1F1" rx="8" ry="8" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="50" x="14.5" y="45.5332">UI Frota</text></g><!--MD5=[137d84b0d41a10eb2338ec2f8b15d2b3]
+entity APIF--><g id="elem_APIF"><ellipse cx="39.5" cy="109" fill="#F1F1F1" rx="8" ry="8" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="59" x="10" y="140.5332">API Frota</text></g><!--MD5=[970501521e8e65acfb7c0ba2fd716a0f]
+entity UIT--><g id="elem_UIT"><ellipse cx="370.5" cy="204" fill="#F1F1F1" rx="8" ry="8" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="58" x="341.5" y="235.5332">UI Tarefa</text></g><!--MD5=[ce2518a00dc857e5082485e07b9020b4]
+entity APIT--><g id="elem_APIT"><ellipse cx="39.5" cy="204" fill="#F1F1F1" rx="8" ry="8" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="67" x="6" y="235.5332">API Tarefa</text></g><!--MD5=[ca24f988b1d86dc1216cc0de859a70b9]
+entity UIU--><g id="elem_UIU"><ellipse cx="202.5" cy="186" fill="#F1F1F1" rx="8" ry="8" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="45" x="180" y="217.5332">UI User</text></g><!--MD5=[d138fac601a47fcb21b66a85493af63a]
+entity APIU--><g id="elem_APIU"><ellipse cx="202.5" cy="32" fill="#F1F1F1" rx="8" ry="8" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="54" x="175.5" y="63.5332">API User</text></g><!--MD5=[bd94d8033ef57c996e8cf8dfa9e4cc9b]
+entity RDG--><g id="elem_RDG"><rect fill="#F1F1F1" height="65.2188" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="124" x="140.5" y="76.5"/><rect fill="#F1F1F1" height="10" style="stroke:#181818;stroke-width:0.5;" width="15" x="244.5" y="81.5"/><rect fill="#F1F1F1" height="2" style="stroke:#181818;stroke-width:0.5;" width="4" x="242.5" y="83.5"/><rect fill="#F1F1F1" height="2" style="stroke:#181818;stroke-width:0.5;" width="4" x="242.5" y="87.5"/><text fill="#000000" font-family="sans-serif" font-size="14" font-style="italic" lengthAdjust="spacing" textLength="82" x="156.5" y="111.0332">«C4 system»</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="84" x="155.5" y="128.6426">RobDroneGo</text></g><!--MD5=[4cfab37d826ed0a513c9c97df7ebb5d4]
+link RDG to UIC--><g id="link_RDG_UIC"><path d="M260.63,76.31 C297.95,54.94 343.04,29.14 361.26,18.71 " fill="none" id="RDG-UIC" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[c403e0f7632ef887bd32297e0f35d11f]
+link RDG to APIC--><g id="link_RDG_APIC"><path d="M264.84,109 C301.41,109 344.02,109 361.45,109 " fill="none" id="RDG-APIC" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[b37a21abe2e1f152160f993158cd64d8]
+link UIF to RDG--><g id="link_UIF_RDG"><path d="M48.71,18.84 C66.52,29.35 110.03,55.03 146.09,76.3 " fill="none" id="UIF-RDG" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[f0ccee89ef6b7f4ee29c9c352782676f]
+link APIF to RDG--><g id="link_APIF_RDG"><path d="M48.71,109 C65.56,109 105.41,109 140.19,109 " fill="none" id="APIF-RDG" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[d1c12509bae59d7038c602c77976991a]
+link RDG to UIT--><g id="link_RDG_UIT"><path d="M260.63,141.69 C297.95,163.06 343.04,188.86 361.26,199.29 " fill="none" id="RDG-UIT" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[0bc1959624e384ef3c1a219d84a47538]
+link APIT to RDG--><g id="link_APIT_RDG"><path d="M48.71,199.16 C66.52,188.65 110.03,162.97 146.09,141.7 " fill="none" id="APIT-RDG" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[d4c79b447f46cf6d42a3c09004064606]
+link RDG to UIU--><g id="link_RDG_UIU"><path d="M202.5,141.66 C202.5,153.43 202.5,165.2 202.5,176.98 " fill="none" id="RDG-UIU" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[570783777ffb4636a4a20eba1e3a651b]
+link APIU to RDG--><g id="link_APIU_RDG"><path d="M202.5,41.33 C202.5,52.96 202.5,64.59 202.5,76.21 " fill="none" id="APIU-RDG" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[15d9fc581e6c9330fd83fc5ce42d5651]
+@startuml
+skinparam packageStyle rect
+skinparam componentStyle uml2
+
+' Define components with circle shape
+() "UI Campus" as UIC
+() "API Campus" as APIC
+() "UI Frota" as UIF
+() "API Frota" as APIF
+() "UI Tarefa" as UIT
+() "API Tarefa" as APIT
+() "UI User" as UIU
+() "API User" as APIU
+
+
+' Define system boundary as a component
+component "RobDroneGo" << C4 system >>as RDG
+
+' Define relationships
+UIC -up- RDG
+APIC -up- RDG
+UIF -down- RDG
+APIF -down- RDG
+UIT -up- RDG
+APIT -down- RDG
+UIU -left- RDG
+APIU -right- RDG
+' Layout direction
+left to right direction
+
+@enduml
+
+@startuml
+skinparam packageStyle rect
+skinparam componentStyle uml2
+
+() "UI Campus" as UIC
+() "API Campus" as APIC
+() "UI Frota" as UIF
+() "API Frota" as APIF
+() "UI Tarefa" as UIT
+() "API Tarefa" as APIT
+() "UI User" as UIU
+() "API User" as APIU
+
+
+component "RobDroneGo" << C4 system >>as RDG
+
+UIC -up- RDG
+APIC -up- RDG
+UIF -down- RDG
+APIF -down- RDG
+UIT -up- RDG
+APIT -down- RDG
+UIU -left- RDG
+APIU -right- RDG
+left to right direction
+
+@enduml
+
+PlantUML version 1.2022.7(Mon Aug 22 18:01:30 BST 2022)
+(GPL source distribution)
+Java Runtime: Java(TM) SE Runtime Environment
+JVM: Java HotSpot(TM) 64-Bit Server VM
+Default Encoding: Cp1252
+Language: en
+Country: US
+--></g></svg>

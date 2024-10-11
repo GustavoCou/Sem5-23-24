@@ -1,0 +1,43 @@
+@startuml
+skinparam componentStyle uml2
+
+' Define components as circles
+() "UI Campus" as UIC
+() "API Campus" as APIC
+() "UI Fleet" as UIF
+() "API Fleet" as APIF
+() "UI Visualization 3D" as UI3D
+
+
+
+' Define main system component
+component "RobDroneGo" <<component>><<C4_System>> {
+    ' Define nested components within the system
+    component "     <<component>>\n  <<C4 Container>>\n            U I" as UI 
+    component "      <<component>>\n    <<C4 Container>>\n   Planning(ALGAV)" as PL
+    component "            <<component>>\n        <<C4 Container>>\n Visualization 3D(SGRAI)" as VIS3D
+    component "      <<component>>\n    <<C4 Container>>\n       Master Data" as MD
+
+}
+
+' Define relationships with square ends
+UIC -up- UI 
+
+UI3D -up- UI
+UIF -right- UI
+
+APIF -down- MD
+APIC -down- MD
+UI -up- MD
+MD -down- PL
+
+
+
+' Additional relationships within the system
+VIS3D -down- UI 
+
+
+
+' Layout direction
+left to right direction
+@enduml

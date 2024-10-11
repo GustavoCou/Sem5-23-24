@@ -1,0 +1,29 @@
+<p-toast></p-toast>
+
+<body class="body">
+
+  <div class="form-container">
+    <h2>Informações do Novo Robot</h2>
+    <form [formGroup]="formRobot">
+      <label for="id">ID:</label>
+      <input type="text" formControlName="id">
+
+      <label for="nickName">Alcunha:</label>
+      <input type="text" formControlName="nickName">
+
+      <label for="description">Descrição:</label>
+      <textarea formControlName="description" rows="3"></textarea>
+
+      <label for="serialNumber">Número de Série :</label>
+      <input type="text" formControlName="serialNumber">
+
+      <label for="typeID">ID do Tipo:</label>
+      <input type="text" formControlName="robotTypeId">
+
+      <button type="submit" (click)=" onSubmitForm()">Criar Robot</button>
+
+      <button class="back-button" (click)="goBack()">Voltar</button>
+    </form>
+  </div>
+
+</body>

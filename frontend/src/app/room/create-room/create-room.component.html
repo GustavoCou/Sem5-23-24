@@ -1,0 +1,57 @@
+<p-toast></p-toast>
+<div class="my-2">
+
+    <div class="form-container">
+        <h2>Informações da Nova Sala</h2>
+        <form [formGroup]="roomForm">
+            <div>
+                <div class="d-flex gap-2">
+                    <input type="text" class="form-control" placeholder="Id da Sala" aria-describedby="basic-addon1" formControlName="roomId" type="text" />
+
+                    <select id="bId" class="form-control" formControlName="buildingId" (change)="onBuildingChange()">
+                        <option value="" disabled selected>Building ID</option>
+                        <option *ngFor="let building of buildingsList" [value]="building.id">{{ building.id }}</option>
+                    </select>
+
+                </div>
+            </div>
+            <div class="my-2">
+                <div class="d-flex gap-2">
+                    <input type="text" class="form-control" placeholder="Descrição" aria-describedby="basic-addon1" formControlName="description" type="text" />
+
+                    <input type="text" class="form-control" placeholder="Tipo de Sala" aria-describedby="basic-addon1" formControlName="roomType" type="text" />
+                </div>
+            </div>
+            <div class="my-2">
+                <div class="d-flex gap-2">
+                    <input type="number" class="form-control" placeholder="Posição X" aria-describedby="basic-addon1" formControlName="posX" />
+
+                    <input type="number" class="form-control" placeholder="Posição Y" aria-describedby="basic-addon1" formControlName="posY" />
+                </div>
+            </div>
+            <div class="my-2">
+                <div class="d-flex gap-2">
+                    <input type="number" class="form-control" placeholder="Largura" aria-describedby="basic-addon1" formControlName="width" />
+
+                    <input type="number" class="form-control" placeholder="Comprimento" aria-describedby="basic-addon1" formControlName="depth" />
+                </div>
+            </div>
+            <div class="my-2">
+                <div class="d-flex gap-2">
+                    <select class="form-control" formControlName="floor">
+                        <option value="" disabled selected>Select Floor ID</option>
+                        <option *ngFor="let floor of floorsList" [value]="floor.id">{{ floor.id }}</option>
+                    </select>
+                </div>
+            </div>
+
+
+            <span class="text-danger text-center d-flex justify-content-center" *ngIf="!isFormValid">Please fill all the fields</span>
+            <div class="d-flex justify-content-center my-3">
+                <button (click)="onSubmitForm()" class="w-25 btn btn-success">Criar Sala</button>
+                <button class="back-button" (click)="goBack()">Voltar</button>
+            </div>
+        </form>
+    </div>
+
+</div>

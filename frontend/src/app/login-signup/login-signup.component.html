@@ -1,0 +1,45 @@
+<!-- app.component.html -->
+
+<body class="body">
+<!-- Toolbar -->
+<div class="toolbar" role="banner">
+  <img width="185" alt="RobDroneGo Logo" src="/assets/Logo.png"/>
+
+  <span>Bem-vindo ao RobDroneGo </span>
+
+  <img class="logoIsep" alt="ISEP Logo" src="/assets/LogoIsep_SFundo.png">
+  <img class="logoDei" alt="DEI Logo" src="/assets/DeiLogo_SFundo.png">
+</div>
+
+<div class="menu-container" >
+  <div class="message-box">
+    <img class="logoIsep" alt="ISEP Logo" src="/assets/Logo_SFundo.png" width="350" height="auto">
+    <h1>Bem-vindo ao RobDroneGo!</h1>
+  </div>
+</div>
+
+  <div class="button-container">
+    <button class="option-button" [routerLink]="['/signup']" >Signup</button>
+    <button class="option-button" [routerLink]="['/login']">Login</button>
+  </div>
+
+  <div class="popup" *ngIf="showPopup">
+    <div class="popup-content">
+      <a [routerLink]="['/informacao']" class="align-right">
+        <h3>Política de privacidade</h3>
+      </a>
+      <p><strong>Política de Cookies</strong></p>
+      <p>Para proporcionar uma ótima experiência no nosso site a nivel de navegação e personalização de conteúdos, utilizamos alguns <i>cookies</i> e aconselhamos a ler a nossa Política de Privacidade de Dados.
+        Antes de avançar, por favor concorde com a nossa política e a nossa utilização de <i>cookies</i>.</p>
+      <div class="cookie-options">
+        <button (click)="acceptAll()">Aceitar</button>
+        <button (click)="deny()">Rejeitar</button>
+      </div>
+    </div>
+  </div>
+<div class="workspace-container">
+
+
+</div>
+
+</body>

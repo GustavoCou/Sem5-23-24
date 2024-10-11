@@ -1,0 +1,51 @@
+@startuml
+autonumber
+
+participant ":BuildingComponent" as BC
+participant ":ListBuildingComponent" as LB
+participant ":Building" as BLDG
+participant ":BuildingController" as CTRL
+participant ":BuildingService" as SERV
+participant ":building: Building" as BUILDING
+participant ":BuildingRepository" as REPO
+participant "list: List<TEntity>" as LIST
+participant "BuildingMap : List<BuildingDto>" as DTOMAP
+participant ":BuildingDTO" as DTO
+database Database
+
+activate BC
+BC -> BC : resetShow()
+
+BC -> LB : showListBuilding= true
+activate LB
+LB -> LB:  fetchBuildingList()
+LB -> BLDG : GET edificios
+activate BLDG
+BLDG -> CTRL : listBuilding(req,res,next)
+activate CTRL
+CTRL -> SERV :ListBuilding()
+activate SERV
+SERV -> REPO : findBuildingsByBuilding(buildingId)
+activate REPO
+REPO -> Database: Read(building)
+REPO --> LIST: create()
+activate LIST
+deactivate LIST
+REPO --> SERV : list
+deactivate REPO
+loop
+SERV --> DTOMAP : toDTO(building)
+activate DTOMAP
+DTOMAP-->DTO : BuildingDTO=Create()
+DTOMAP --> SERV : buildingDTO
+deactivate DTOMAP
+end loop
+
+
+SERV --> CTRL : list<BuildingDTO>
+deactivate SERV
+CTRL --> BLDG : list<BuildingDTO>
+BLDG --> LB : list<BuildingDTO>
+deactivate LB
+
+@enduml
